@@ -2,6 +2,10 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
+# or automated with ./filename.sh --mysqlpwd password --ocspwd password
+# OR
+# ./filename.sh -m password -o password
+
 
 # Version number of OCS Inventory and MariaDB to install
 OCSVERSION="2.5"
