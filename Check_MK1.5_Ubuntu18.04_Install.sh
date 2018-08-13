@@ -25,13 +25,18 @@ samba-common-bin samba-libs smbclient snmp ssl-cert traceroute unzip update-inet
 
 
 # If apt fails to run completely the rest of this isn't going to work...
-if [ $? -ne 0 ]; then   echo "apt-get failed to install all required dependencies"   exit
+if [ $? -ne 0 ]; then
+     echo "apt-get failed to install all required dependencies"
+     exit
 fi
 
-# Download OCS Inventory Server
+# Download Check_MK Raw Install
 wget -O check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
 
-if [ $? -ne 0 ]; then   echo "Failed to download check-mk-raw-${CHECK_MK_VERSION}.tar.gz"   echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.$CODENAME_amd64.deb"   exit
+if [ $? -ne 0 ]; then
+     echo "Failed to download check-mk-raw-${CHECK_MK_VERSION}.tar.gz"   
+     echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.$CODENAME_amd64.deb"
+     exit
 fi
 
 
