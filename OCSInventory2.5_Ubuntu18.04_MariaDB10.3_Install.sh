@@ -68,16 +68,21 @@ add-apt-repository "deb [arch=amd64] http://mirror.zol.co.zw/mariadb/repo/$MARIA
 apt-get update
 apt-get install -qq mariadb-server mariadb-client
 
-# grant ocs_dbuser permissions
-# SQL code
-SQLCODE="CREATE DATABASE ocsweb;
-CREATE USER 'ocs_dbuser'@'localhost' IDENTIFIED BY "$ocsdbuserpassword";
-GRANT ALL PRIVILEGES ON ocsweb.* TO 'ocs_dbuser'@'localhost' WITH GRANT OPTION;
-FLUSH PRIVILEGES;"
+# create database
+mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
+CREATE DATABASE ocsweb;
+MYSQL_SCRIPT
 
-# Execute SQL code
+# create ocs db user
+mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
+CREATE USER ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
+MYSQL_SCRIPT
 
-echo $SQLCODE | mysql -u root -p$mysqlrootpassword
+# grant database privileges
+mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
+GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+MYSQL_SCRIPT
 
 # Install more prereqs
 
@@ -148,6 +153,26 @@ then
 	ln -s /etc/apache2/conf-available/zz-ocsinventory-restapi.conf /etc/apache2/conf-enabled/zz-ocsinventory-restapi.conf
 	:
 fi
+
+# modify z-ocsinventory-server.conf with new database user and password replacing lines
+OCS_DB_USER_REPLACETEXT='PerlSetEnv OCS_DB_USER'
+OCS_DB_USER_NEW='\  PerlSetEnv OCS_DB_USER ocs_dbuser'
+sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+
+OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
+OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbuserpassword"
+sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+
+
+# modify zz-ocsinventory-restapi.conf with new database user password
+OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
+OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'ocs_dbuser';"
+sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+
+OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
+OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zzreplaceholder';"
+sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 
 
 # ensure proper permissions and restart Apache
