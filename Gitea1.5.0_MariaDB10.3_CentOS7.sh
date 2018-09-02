@@ -79,7 +79,7 @@ systemctl enable mariadb
 systemctl start mariadb
 
 # secure MariaDB and set root
-script -q -c mysql_secure_installation <<EOF /dev/null
+mysql_secure_installation <<EOF
 
 y
 $mysqlrootpassword
