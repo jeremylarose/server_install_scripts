@@ -82,8 +82,8 @@ systemctl start mariadb
 mysql_secure_installation <<EOF
 
 y
-$mysqlrootpassword
-$mysqlrootpassword
+"$mysqlrootpassword"
+"$mysqlrootpassword"
 y
 y
 y
