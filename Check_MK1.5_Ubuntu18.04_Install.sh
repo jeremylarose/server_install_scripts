@@ -2,7 +2,6 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-${CHECK_MK_VERSION}
 # Version number Check_MK to install
 CHECK_MK_VERSION="1.5.0p1"
 CODENAME="bionic"
