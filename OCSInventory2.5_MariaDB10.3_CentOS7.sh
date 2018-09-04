@@ -6,7 +6,6 @@
 # OR
 # ./filename.sh -m password -o password
 
-
 # Version number of OCS Inventory and MariaDB to install
 OCSVERSION="2.5"
 MARIADB_VERSION='10.3'
@@ -127,7 +126,6 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
-
 # Extract OCS Inventory files
 tar -xzf OCSNG_UNIX_SERVER_${OCSVERSION}.tar.gz
 
@@ -153,7 +151,6 @@ sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/httpd/conf.d/z-ocsinv
 OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
 OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbuserpassword"
 sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
-
 
 # modify zz-ocsinventory-restapi.conf with new database user password
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
