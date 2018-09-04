@@ -6,7 +6,6 @@
 # OR
 # ./filename.sh -m password -o password
 
-
 # Version number of OCS Inventory and MariaDB to install
 OCSVERSION="2.5"
 MARIADB_VERSION='10.3'
@@ -79,7 +78,6 @@ GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost IDENTIFIED BY '$ocsdbus
 MYSQL_SCRIPT
 
 # Install more prereqs
-
 apt-get -y install php-curl apache2-dev gcc perl-modules-5.26 make apache2 php perl libapache2-mod-perl2 libapache2-mod-php \
 libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php-mysql \
 php-gd php7.2-dev php-mbstring php-soap php-xml php-pclzip libarchive-zip-perl php7.2-zip cpanminus
@@ -111,7 +109,6 @@ if [ $? -ne 0 ]; then
     echo "https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${OCSVERSION}/OCSNG_UNIX_SERVER_${OCSVERSION}.tar.gz"
     exit
 fi
-
 
 # Extract OCS Inventory files
 tar -xzf OCSNG_UNIX_SERVER_${OCSVERSION}.tar.gz
@@ -157,7 +154,6 @@ OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
 OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbuserpassword"
 sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
 
-
 # modify zz-ocsinventory-restapi.conf with new database user password
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
 OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'ocs_dbuser';"
@@ -172,7 +168,6 @@ sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/apache2/conf-available/zz-oc
 # ensure proper permissions and restart Apache
 chown -R www-data:www-data /var/lib/ocsinventory-reports
 systemctl restart apache2
-
 
 
 echo -e "Installation complete, point your browser to http://server//ocsreports
