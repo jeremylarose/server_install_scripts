@@ -91,26 +91,13 @@ mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
 CREATE DATABASE gitea;
 MYSQL_SCRIPT
 
-# create ocs db user
+# create ocs db user and grant privileges
 mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-CREATE USER gitea@localhost IDENTIFIED BY '$giteapassword';
-MYSQL_SCRIPT
-
-# grant database privileges
-mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-GRANT ALL PRIVILEGES ON gitea.* TO gitea@localhost WITH GRANT OPTION;
-FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON gitea.* TO gitea@localhost IDENTIFIED BY '$giteapassword';
 MYSQL_SCRIPT
 
 # Install prereqs
-
 yum -y install make gcc pam-devel wget git
-
-# If apt fails to run completely the rest of this isn't going to work...
-if [ $? -ne 0 ]; then
-    echo "apt-get failed to install all required dependencies"
-    exit
-fi
 
 # Download GO to build gitea
 wget https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz
