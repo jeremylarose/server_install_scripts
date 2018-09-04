@@ -147,49 +147,31 @@ sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${OC
 cd OCSNG_UNIX_SERVER_${OCSVERSION}
 yes "" | sh setup.sh
 
-
-# enable Apache configuration with aliases
-if [ ! -e "/etc/apache2/conf-enabled/ocsinventory-reports.conf" ]
-then
-	ln -s /etc/apache2/conf-available/ocsinventory-reports.conf /etc/apache2/conf-enabled/ocsinventory-reports.conf
-	:
-fi
-if [ ! -e "/etc/apache2/conf-enabled/z-ocsinventory-server.conf" ]
-then
-	ln -s /etc/apache2/conf-available/z-ocsinventory-server.conf /etc/apache2/conf-enabled/z-ocsinventory-server.conf
-	:
-fi
-if [ ! -e "/etc/apache2/conf-enabled/zz-ocsinventory-restapi.conf" ]
-then
-	ln -s /etc/apache2/conf-available/zz-ocsinventory-restapi.conf /etc/apache2/conf-enabled/zz-ocsinventory-restapi.conf
-	:
-fi
-
 # modify z-ocsinventory-server.conf with new database user and password replacing lines
 OCS_DB_USER_REPLACETEXT='PerlSetEnv OCS_DB_USER'
 OCS_DB_USER_NEW='\  PerlSetEnv OCS_DB_USER ocs_dbuser'
-sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
 OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
 OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbuserpassword"
-sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
 
 # modify zz-ocsinventory-restapi.conf with new database user password
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
 OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'ocs_dbuser';"
-sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
 OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zzreplaceholder';"
-sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
-sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
+# restart service
+service httpd restart
 
-# ensure proper permissions and restart Apache
-chown -R www-data:www-data /var/lib/ocsinventory-reports
-systemctl restart apache2
-
+firewall-cmd --zone=public --add-port=3000/tcp --permanent
+firewall-cmd --reload
 
 echo -e "Installation complete, point your browser to http://server//ocsreports
 |        to configure database server and create/update schema."
