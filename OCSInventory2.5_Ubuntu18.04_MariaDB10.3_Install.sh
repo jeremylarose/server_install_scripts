@@ -73,15 +73,9 @@ mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
 CREATE DATABASE ocsweb;
 MYSQL_SCRIPT
 
-# create ocs db user
+# create ocs db user and grant privileges
 mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-CREATE USER ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
-MYSQL_SCRIPT
-
-# grant database privileges
-mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost WITH GRANT OPTION;
-FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
 MYSQL_SCRIPT
 
 # Install more prereqs
