@@ -57,7 +57,7 @@ else
     echo
 fi
 
-# add MariaDB repo for rhel7
+# add MariaDB repo for centos
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
@@ -91,7 +91,7 @@ mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
 CREATE DATABASE gitea;
 MYSQL_SCRIPT
 
-# create ocs db user and grant privileges
+# create db user and grant privileges
 mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
 GRANT ALL PRIVILEGES ON gitea.* TO gitea@localhost IDENTIFIED BY '$giteapassword';
 MYSQL_SCRIPT
