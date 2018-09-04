@@ -103,8 +103,6 @@ yum install -y php-curl httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl
 perl-DBD-MySQL perl-Net-IP perl-SOAP-Lite perl-Archive-Zip php-common php-gd php-mbstring php-soap php-mysql php-ldap \
 php-xml cpanminus
 
-cpanm Apache2::SOAP
-
 cpanm XML::Entities
 
 cpanm Net::IP
