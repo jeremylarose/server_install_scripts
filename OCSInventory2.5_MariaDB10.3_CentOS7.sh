@@ -168,7 +168,8 @@ sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/httpd/conf.d/zz-ocsinventory
 # restart service
 service httpd restart
 
-firewall-cmd --zone=public --add-port=3000/tcp --permanent
+# open firewall port (optional)
+firewall-cmd --zone=public --add-port=80/tcp --permanent
 firewall-cmd --reload
 
 echo -e "Installation complete, point your browser to http://server//ocsreports
