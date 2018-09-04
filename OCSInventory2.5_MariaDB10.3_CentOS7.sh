@@ -162,6 +162,10 @@ OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zzreplaceholder';"
 sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
+# set permissions
+chown -R apache:apache /usr/share/ocsinventory-reports/
+chown -R apache:apache /var/lib/ocsinventory-reports/
+
 # restart service
 service httpd restart
 
