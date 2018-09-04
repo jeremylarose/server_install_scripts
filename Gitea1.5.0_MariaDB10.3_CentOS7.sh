@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
 # or automated with ./filename.sh --mysqlpwd password --giteadbpwd password
@@ -68,12 +70,6 @@ EOF
 
 yum -y install MariaDB-server MariaDB-client
 
-# If apt fails to run completely the rest of this isn't going to work...
-if [ $? -ne 0 ]; then
-    echo "apt-get failed to install all required dependencies"
-    exit
-fi
-
 # enable and start service
 systemctl enable mariadb
 systemctl start mariadb
@@ -108,7 +104,7 @@ MYSQL_SCRIPT
 
 # Install prereqs
 
-yum -y install make gcc pam-devel wget git go
+yum -y install make gcc pam-devel wget git
 
 # If apt fails to run completely the rest of this isn't going to work...
 if [ $? -ne 0 ]; then
