@@ -75,6 +75,7 @@ systemctl start mariadb
 
 # secure MariaDB and set root
 mysql_secure_installation<<EOF
+
 y
 $mysqlrootpassword
 $mysqlrootpassword
@@ -94,11 +95,13 @@ mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
 GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
 MYSQL_SCRIPT
 
+# install epel repo
+yum --enablerepo=extras install epel-release
 
 # Install more prereqs
-yum install -y php-curl apache2-dev gcc perl-modules-5.26 make apache2 php perl libapache2-mod-perl2 libapache2-mod-php \
-libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php-mysql \
-php-gd php7.2-dev php-mbstring php-soap php-xml php-pclzip libarchive-zip-perl php7.2-zip cpanminus
+yum install -y php-curl httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
+perl-DBD-MySQL perl-Net-IP perl-SOAP-Lite perl-Archive-Zip php-common php-gd php-mbstring php-soap php-mysql php-ldap \
+php-xml cpanminus
 
 cpanm Apache2::SOAP
 
@@ -114,11 +117,9 @@ cpanm Switch
 
 cpanm Plack::Handler
 
-# If apt fails to run completely the rest of this isn't going to work...
-if [ $? -ne 0 ]; then
-    echo "apt-get failed to install all required dependencies"
-    exit
-fi
+# enable and start httpd
+systemctl enable httpd
+systemctl start httpd
 
 # Download OCS Inventory Server
 wget -O OCSNG_UNIX_SERVER_${OCSVERSION}.tar.gz https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${OCSVERSION}/OCSNG_UNIX_SERVER_${OCSVERSION}.tar.gz
