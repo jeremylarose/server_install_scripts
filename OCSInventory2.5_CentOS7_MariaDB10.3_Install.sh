@@ -56,47 +56,46 @@ else
     echo
 fi
 
-# add MariaDB repo for rhel7
+# add MariaDB repo for centos
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/$MARIADB_VERSION/rhel7-amd64
+baseurl = http://yum.mariadb.org/$MARIADB_VERSION/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
 
 # Insall MariaDB
 
-yum install -y MariaDB-server MariaDB-client
+yum -y install MariaDB-server MariaDB-client
+
+# enable and start service
+systemctl enable mariadb
+systemctl start mariadb
 
 # secure MariaDB and set root
-mysql --user=root <<_EOF_
-  UPDATE mysql.user SET Password=PASSWORD('${$mysqlrootpassword}') WHERE User='root';
-  DELETE FROM mysql.user WHERE User='';
-  DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-  DROP DATABASE IF EXISTS test;
-  DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-  FLUSH PRIVILEGES;
-_EOF_
+mysql_secure_installation<<EOF
+y
+$mysqlrootpassword
+$mysqlrootpassword
+y
+y
+y
+y
+EOF
 
 # create database
 mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
 CREATE DATABASE ocsweb;
 MYSQL_SCRIPT
 
-# create ocs db user
+# create db user and grant privileges
 mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-CREATE USER ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
+GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
 MYSQL_SCRIPT
 
-# grant database privileges
-mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-MYSQL_SCRIPT
 
 # Install more prereqs
-
 yum install -y php-curl apache2-dev gcc perl-modules-5.26 make apache2 php perl libapache2-mod-perl2 libapache2-mod-php \
 libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php-mysql \
 php-gd php7.2-dev php-mbstring php-soap php-xml php-pclzip libarchive-zip-perl php7.2-zip cpanminus
