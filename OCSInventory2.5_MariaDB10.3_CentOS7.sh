@@ -96,7 +96,7 @@ GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost IDENTIFIED BY '$ocsdbus
 MYSQL_SCRIPT
 
 # install epel repo
-yum --enablerepo=extras install epel-release
+yum --enablerepo=extras -y install epel-release
 
 # Install more prereqs
 yum install -y php-curl httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
