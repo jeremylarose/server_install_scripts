@@ -121,7 +121,14 @@ TAGS="pam bindata" make generate build
 cp -f $GOPATH/src/code.gitea.io/gitea/gitea /usr/local/bin
 
 # create git user to run gitea
-adduser git -s /sbin/nologin
+adduser \
+   --system \
+   --shell /bin/bash \
+   --gecos 'Git Version Control' \
+   --group \
+   --disabled-password \
+   --home /home/git \
+   git
 
 # allow git user to authenticate pam by adding to shadow group
 usermod -a -G shadow git
