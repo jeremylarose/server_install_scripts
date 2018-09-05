@@ -5,9 +5,9 @@
 # Version number Check_MK to install
 CHECK_MK_VERSION="1.5.0p1"
 CODENAME="bionic"
+SITENAME="monitoring"
 
 # Install prereqs
-
 apt-get -y install apache2 apache2-bin apache2-data apache2-utils binutils binutils-common binutils-x86-64-linux-gnu \
 debugedit dialog fontconfig fontconfig-config fonts-dejavu-core fonts-liberation fping freeradius-common freeradius-config \
 freeradius-utils graphviz lcab libann0 libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libarchive13 libavahi-client3 \
@@ -30,20 +30,19 @@ if [ $? -ne 0 ]; then
 fi
 
 # Download Check_MK Raw Install
-wget -O check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
+wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
 
 if [ $? -ne 0 ]; then
-     echo "Failed to download check-mk-raw-${CHECK_MK_VERSION}.tar.gz"   
+     echo "Failed to download check-mk-raw-${CHECK_MK_VERSION}.deb"   
      echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.$CODENAME_amd64.deb"
      exit
 fi
-
 
 # Install Check_MK Raw Edition
 dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
 
 # create and start "monitoring" site
-omd create monitoring
-omd start monitoring
+omd create $SITENAME
+omd start $SITENAME
 
 echo -e "Installation complete"
