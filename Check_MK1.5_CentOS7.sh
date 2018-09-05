@@ -8,7 +8,7 @@ CODENAME="el7"
 SITENAME="monitoring"
 
 # Install prereqs
-yum -y install time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
+yum -y install epel-release time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
 rpcbind net-snmp net-snmp-utils pango patch perl-Net-SNMP perl-IO-Zlib uuid xinetd freeradius-utils \
 libpcap bind-utils poppler-utils libgsf rpm-build
 
@@ -33,5 +33,13 @@ rpm -i check-mk-raw-${CHECK_MK_VERSION}-$CODENAME-38.x86_64.rpm
 # create and start "monitoring" site
 omd create $SITENAME
 omd start $SITENAME
+
+# open firewall ports
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=6556/tcp --permanent
+firewall-cmd --reload
+
+# set selinux rule
+setsebool -P httpd_can_network_connect 1
 
 echo -e "Installation complete"
