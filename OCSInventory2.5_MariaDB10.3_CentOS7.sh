@@ -139,6 +139,11 @@ DB_SERVER_PWD_REPLACETEXT="DB_SERVER_PWD="
 DB_SERVER_PWD_NEW=DB_SERVER_USER="$ocsdbuserpassword"
 sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${OCSVERSION}/setup.sh
 
+# disable SELINUX if enabled
+SELINUX_REPLACETEXT="SELINUX=enforcing"
+SELINUX_NEW='SELINUX=disabled'
+sed -i "/$SELINUX_REPLACETEXT/c $SELINUX_NEW" /etc/selinux/config
+
 # run unattended setup script
 cd OCSNG_UNIX_SERVER_${OCSVERSION}
 yes "" | sh setup.sh
