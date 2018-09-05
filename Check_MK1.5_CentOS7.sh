@@ -5,6 +5,7 @@
 # Version number Check_MK to install
 CHECK_MK_VERSION="1.5.0p3"
 CODENAME="el7"
+SITENAME="monitoring"
 
 # Install prereqs
 yum -y install time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
@@ -30,7 +31,7 @@ fi
 rpm -i check-mk-raw-${CHECK_MK_VERSION}-$CODENAME-38.x86_64.rpm
 
 # create and start "monitoring" site
-omd create monitoring
-omd start monitoring
+omd create $SITENAME
+omd start $SITENAME
 
 echo -e "Installation complete"
