@@ -27,7 +27,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Install Check_MK Raw Edition
-yum -i check-mk-raw-${CHECK_MK_VERSION}-$CODENAME-38.x86_64.rpm
+rpm -i check-mk-raw-${CHECK_MK_VERSION}-$CODENAME-38.x86_64.rpm
 
 # create and start "monitoring" site
 omd create monitoring
