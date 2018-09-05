@@ -8,7 +8,7 @@
 
 # default variables unless specified from command line
 CHECK_MK_VERSION="1.5.0p3"
-CODENAME="bionic"
+CODENAME="el7"
 SITENAME="monitoring"
 
 # Get script arguments for non-interactive mode
