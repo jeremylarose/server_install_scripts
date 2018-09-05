@@ -2,10 +2,33 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# Version number Check_MK to install
-CHECK_MK_VERSION="1.5.0p1"
+# or automated with ./filename.sh --version check_mk_version --codename os_codename --sitename check_mk_site
+# OR
+# ./filename.sh -v version -c codename -s sitename
+
+# default variables unless specified from command line
+CHECK_MK_VERSION="1.5.0p3"
 CODENAME="bionic"
 SITENAME="monitoring"
+
+# Get script arguments for non-interactive mode
+while [ "$1" != "" ]; do
+    case $1 in
+        -v | --version )
+            shift
+            CHECK_MK_VERSION="$1"
+            ;;
+        -c | --codename )
+            shift
+            CODENAME="$1"
+            ;;
+        -s | --sitename )
+            shift
+            SITENAME="$1"
+            ;;
+    esac
+    shift
+done
 
 # Install prereqs
 apt-get -y install apache2 apache2-bin apache2-data apache2-utils binutils binutils-common binutils-x86-64-linux-gnu \
