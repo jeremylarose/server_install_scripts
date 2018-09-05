@@ -168,6 +168,8 @@ chown -R apache:apache /var/lib/ocsinventory-reports/
 find /usr/share/ocsinventory-reports/ocsreports/ -type f -exec chmod 0644 {} \;
 find /usr/share/ocsinventory-reports/ocsreports/ -type d -exec chmod 0755 {} \;
 chcon -t httpd_sys_rw_content_t /usr/share/ocsinventory-reports/ocsreports
+chcon -t httpd_sys_rw_content_t /usr/share/ocsinventory-reports/ocsreports/upload
+chcon -t httpd_sys_rw_content_t /usr/share/ocsinventory-reports/ocsreports/dbconfig.inc.php
 
 # restart service
 service httpd restart
