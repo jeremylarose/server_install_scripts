@@ -35,8 +35,8 @@ omd create $SITENAME
 omd start $SITENAME
 
 # open firewall ports
-firewall-cmd --zone=public --add-port=80/tcp --permanent
-firewall-cmd --zone=public --add-port=6556/tcp --permanent
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=6556/tcp
 firewall-cmd --reload
 
 # set selinux rule
