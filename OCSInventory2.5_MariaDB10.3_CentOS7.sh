@@ -139,11 +139,6 @@ DB_SERVER_PWD_REPLACETEXT="DB_SERVER_PWD="
 DB_SERVER_PWD_NEW=DB_SERVER_USER="$ocsdbuserpassword"
 sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${OCSVERSION}/setup.sh
 
-# disable SELINUX if enabled
-SELINUX_REPLACETEXT="SELINUX=enforcing"
-SELINUX_NEW='SELINUX=disabled'
-sed -i "/$SELINUX_REPLACETEXT/c $SELINUX_NEW" /etc/selinux/config
-
 # run unattended setup script
 cd OCSNG_UNIX_SERVER_${OCSVERSION}
 yes "" | sh setup.sh
@@ -170,6 +165,9 @@ sed -i "s/zzreplaceholder/$ocsdbuserpassword/" /etc/httpd/conf.d/zz-ocsinventory
 # set permissions
 chown -R apache:apache /usr/share/ocsinventory-reports/
 chown -R apache:apache /var/lib/ocsinventory-reports/
+find /usr/share/ocsinventory-reports/ocsreports/ -type f -exec chmod 0644 {} \;
+find /usr/share/ocsinventory-reports/ocsreports/ -type d -exec chmod 0755 {} \;
+chcon -t httpd_sys_rw_content_t /usr/share/ocsinventory-reports/ocsreports
 
 # restart service
 service httpd restart
