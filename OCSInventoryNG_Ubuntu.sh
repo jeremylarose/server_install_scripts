@@ -163,22 +163,22 @@ sed -i "/$OCS_DB_PORT_REPLACETEXT/c $OCS_DB_PORT_NEW" /etc/apache2/conf-availabl
 # modify zz-ocsinventory-restapi.conf with new database user password and host
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
 OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'zreplaceholder';"
-sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbuser/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 
 OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
 OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zreplaceholder';"
-sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbpwd/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 
 OCS_DB_HOST_RESTAPI_REPLACETEXT='{OCS_DB_HOST} ='
 OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zreplaceholder';"
-sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbhost/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 
 OCS_DB_PORT_RESTAPI_REPLACETEXT='{OCS_DB_PORT} ='
 OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zreplaceholder';"
-sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbhostport/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
 
 # set permissions
