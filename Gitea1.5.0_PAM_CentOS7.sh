@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n gitea - u gitea -p dbpassword)
+# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -d gitea - u gitea -p dbpassword)
 
 # Version numbers
 GOVERSION="1.10.3"
