@@ -12,7 +12,9 @@ version: 10.3
 
 version: 1.5.0
 * builds with PAM authentication capability (not available with developer binaries)
-* wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea_PAM_Ubuntu.sh && chmod +x Gitea_PAM_Ubuntu.sh && ./Gitea_PAM_Ubuntu.sh && rm -f Gitea_PAM_Ubuntu.sh
+* usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB_Ubuntu.sh && chmod +x MariaDB_Ubuntu.sh && ./MariaDB_Ubuntu.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB_Ubuntu.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea_PAM_Ubuntu.sh && chmod +x Gitea_PAM_Ubuntu.sh && ./Gitea_PAM_Ubuntu.sh && rm -f Gitea_PAM_Ubuntu.sh
 
 ## OCS Inventory NG
 
