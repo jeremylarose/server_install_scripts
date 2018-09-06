@@ -5,6 +5,7 @@
 # or automated with ./filename.sh --ocsuser username --ocspwd password
 # OR
 # ./filename.sh -u username -p password
+# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n ocsweb - u ocs_dbuser -p dbpassword)
 
 # Version number of OCS Inventory
 OCSVERSION="2.5"
