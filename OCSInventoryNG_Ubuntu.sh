@@ -4,7 +4,7 @@
 # then run with ./filename.sh
 # or automated with ./filename.sh --dbuser username --dbpwd password --dbhost hostname --dbhostportnumber portnumber --version version
 # OR
-# ./filename.sh -u username -p password -h hostname -n hostport -v version
+# ./filename.sh -u username -p password -h hostname -n hostportnumber -v version
 
 # install mysql or mariadb seperately (ex: ./MariaDB_Ubuntu.sh -r rootpassword -d ocsweb -u ocs_dbuser -p dbpassword)
 
