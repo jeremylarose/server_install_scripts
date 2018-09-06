@@ -6,6 +6,8 @@ version: 1.5.0p3
 
 version: 10.3
 
+* wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB_Ubuntu.sh && chmod +x MariaDB_Ubuntu.sh && ./MariaDB_Ubuntu.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB_Ubuntu.sh
+
 ## Gitea
 
 version: 1.5.0
