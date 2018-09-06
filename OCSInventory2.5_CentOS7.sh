@@ -2,11 +2,11 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --dbuser username --dbpwd password --dbhost hostname --dbhostport portnumber --version version
+# or automated with ./filename.sh --dbuser username --dbpwd password --dbhost hostname --dbhostportnumber portnumber --version version
 # OR
-# ./filename.sh -u username -p password -h hostname -hp hostport -v version
+# ./filename.sh -u username -p password -h hostname -n hostport -v version
 
-# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n ocsweb -u ocsdbuser -p dbpassword)
+# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -d ocsweb -u ocs_dbuser -p dbpassword)
 
 # OCS Inventory defaults unless specified with command line argument
 ocsversion="2.5"
@@ -28,7 +28,7 @@ while [ "$1" != "" ]; do
             shift
             ocsdbhost="$1"
             ;;
-        -hp | --dbhostport )
+        -n | --dbhostportnumber )
             shift
             ocsdbhostport="$1"
             ;;
