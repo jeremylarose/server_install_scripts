@@ -108,11 +108,11 @@ y
 y
 EOF
 else
-  echo
-  echo mysql arleady installed
-  echo
-  mysql --version
-  echo
+echo
+echo mysql arleady installed
+echo
+mysql --version
+echo
 fi
 
 # create database
