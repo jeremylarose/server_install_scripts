@@ -8,6 +8,7 @@
 
 # defaults
 mariadb_version='10.3'
+os='centos7'
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
@@ -84,7 +85,7 @@ if [ $RESULT -ne 0 ]; then
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/$mariadb_version/centos7-amd64
+baseurl = http://yum.mariadb.org/$mariadb_version/$os-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
