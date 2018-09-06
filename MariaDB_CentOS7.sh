@@ -53,12 +53,10 @@ fi
 if [ -z "$dbname" ]; then
     echo
     read -p "Enter a Database to create: " dbname
-    echo
 fi
 if [ -z "$dbuser" ]; then
     echo
     read -p "Enter a username to give permissions to $dbname: " dbuser
-    echo
 fi
 if [ -z "$dbpwd" ]; then
     echo
