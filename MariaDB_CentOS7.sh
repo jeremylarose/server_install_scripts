@@ -57,16 +57,16 @@ if [ -z "$dbname" ]; then
 fi
 if [ -z "$dbuser" ]; then
     echo
-    read -p "Enter a Database User: " dbuser
+    read -p "Enter a username to give permissions to $dbname: " dbuser
     echo
 fi
 if [ -z "$dbpwd" ]; then
     echo
     while true
     do
-        read -s -p "Enter a Database User Password: " dbpasswd
+        read -s -p "Enter a password for $dbuser: " dbpasswd
         echo
-        read -s -p "Confirm Database User Password: " password2
+        read -s -p "Confirm pasword for $dbuser: " password2
         echo
         [ "$dbpasswd" = "$password2" ] && break
         echo "Passwords don't match. Please try again."
