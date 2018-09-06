@@ -75,7 +75,7 @@ if [ -z "$dbpwd" ]; then
     echo
 fi
 
-# don't install if mysql already installed
+# install only if mysql not already installed
 mysql --version
 RESULT=$?
 
