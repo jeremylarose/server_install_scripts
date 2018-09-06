@@ -2,6 +2,11 @@
 
 version: 1.5.0p3
 
+
+* usage example (Install MariaDB and create database in Ubuntu):
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_CentOS-RHEL.sh && chmod +x Check_MK_CentOS-RHEL.sh && ./Check_MK_CentOS-RHEL.sh -v '1.5.0p3' -c el7 -s monitoring && rm -f Check_MK_CentOS-RHEL.sh
+
+
 ## MariaDB
 
 version: 10.3
@@ -26,4 +31,3 @@ version: 2.5
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB_Ubuntu.sh && chmod +x MariaDB_Ubuntu.sh && ./MariaDB_Ubuntu.sh -r 'rootpassword' -d ocsweb -u ocs_dbuser -p 'dbpassword' && rm -f MariaDB_Ubuntu.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG_Ubuntu.sh && chmod +x OCSInventoryNG_Ubuntu.sh && ./OCSInventoryNG_Ubuntu.sh -u ocs_dbuser -p 'dpbassword' -v 2.5 -h localhost -p 3306 && rm -f OCSInventoryNG_Ubuntu.sh
-
