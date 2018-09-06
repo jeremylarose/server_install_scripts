@@ -52,12 +52,12 @@ if [ -z "$rootpwd" ]; then
 fi
 if [ -z "$dbname" ]; then
     echo
-    read -s -p "Enter a Database to create: " dbname
+    read -p "Enter a Database to create: " dbname
     echo
 fi
 if [ -z "$dbuser" ]; then
     echo
-    read -s -p "Enter a Database User: " dbuser
+    read -p "Enter a Database User: " dbuser
     echo
 fi
 if [ -z "$dbpwd" ]; then
