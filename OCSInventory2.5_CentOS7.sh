@@ -124,8 +124,8 @@ OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
 OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbpwd"
 sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
-OCS_DB_HOST_REPLACETEXT='PerlSetVar OCS_DB_HOST'
-OCS_DB_HOST_NEW="\  PerlSetVar OCS_DB_HOST $ocsdbhost"
+OCS_DB_HOST_REPLACETEXT='PerlSetEnv OCS_DB_HOST'
+OCS_DB_HOST_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhost"
 sed -i "/$OCS_DB_HOST_REPLACETEXT/c $OCS_DB_HOST_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
 # modify zz-ocsinventory-restapi.conf with new database user password and host
