@@ -4,7 +4,7 @@
 # then run with ./filename.sh
 # or automated with ./filename.sh --rootpwd password --dbname databasename --dbuser username --dbpwd password --mariadb_version version
 # OR
-# ./filename.sh -r password -n databasename -u username -d password -v version
+# ./filename.sh -r password -n databasename -u username -p password -v version
 
 # defaults
 mariadb_version='10.3'
@@ -24,7 +24,7 @@ while [ "$1" != "" ]; do
             shift
             dbuser="$1"
             ;;            
-        -d | --dbpwd )
+        -p | --dbpwd )
             shift
             dbpwd="$1"
             ;;            
