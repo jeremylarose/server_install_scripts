@@ -2,22 +2,21 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --mysqlpwd password --ocspwd password
+# or automated with ./filename.sh --ocsuser username --ocspwd password
 # OR
 # ./filename.sh -m password -o password
 
-# Version number of OCS Inventory and MariaDB to install
+# Version number of OCS Inventory
 OCSVERSION="2.5"
-MARIADB_VERSION='10.3'
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
-        -m | --mysqlpwd )
+        -u | --ocsuser )
             shift
-            mysqlpwd="$1"
+            ocsuser="$1"
             ;;
-        -o | --ocspwd )
+        -p | --ocspwd )
             shift
             ocspwd="$1"
             ;;
@@ -26,27 +25,22 @@ while [ "$1" != "" ]; do
 done
 
 # Get MariaDB root password and Ocs Inventory Database User password
-if [ -n "$mysqlpwd" ] && [ -n "$ocspwd" ]; then
-        mysqlrootpassword=$mysqlpwd
+if [ -n "$ocsuser" ] && [ -n "$ocspwd" ]; then
+        ocsdbusername=$ocsuser
         ocsdbuserpassword=$ocspwd
 else
     echo 
     while true
     do
-        read -s -p "Enter a MariaDB ROOT Password: " mysqlrootpassword
-        echo
-        read -s -p "Confirm MariaDB ROOT Password: " password2
-        echo
-        [ "$mysqlrootpassword" = "$password2" ] && break
-        echo "Passwords don't match. Please try again."
+        read -p "Enter the OCS Inventory database username with access: " ocsdbusername
         echo
     done
     echo
     while true
     do
-        read -s -p "Enter an OCS Inventory User Database Password: " ocsdbuserpassword
+        read -s -p "Enter the OCS Inventory User Database Password: " ocsdbuserpassword
         echo
-        read -s -p "Confirm OCS Inventory User Database Password: " password2
+        read -s -p "Confirm the OCS Inventory User Database Password: " password2
         echo
         [ "$ocsdbuserpassword" = "$password2" ] && break
         echo "Passwords don't match. Please try again."
@@ -54,45 +48,6 @@ else
     done
     echo
 fi
-
-# add MariaDB repo for centos
-cat <<EOF >/etc/yum.repos.d/mariadb.repo
-[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/$MARIADB_VERSION/centos7-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-EOF
-
-# Insall MariaDB
-
-yum -y install MariaDB-server MariaDB-client
-
-# enable and start service
-systemctl enable mariadb
-systemctl start mariadb
-
-# secure MariaDB and set root
-mysql_secure_installation<<EOF
-
-y
-$mysqlrootpassword
-$mysqlrootpassword
-y
-y
-y
-y
-EOF
-
-# create database
-mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-CREATE DATABASE ocsweb;
-MYSQL_SCRIPT
-
-# create db user and grant privileges
-mysql -uroot -p$mysqlrootpassword <<MYSQL_SCRIPT
-GRANT ALL PRIVILEGES ON ocsweb.* TO ocs_dbuser@localhost IDENTIFIED BY '$ocsdbuserpassword';
-MYSQL_SCRIPT
 
 # install epel repo
 yum --enablerepo=extras -y install epel-release
@@ -131,7 +86,7 @@ tar -xzf OCSNG_UNIX_SERVER_${OCSVERSION}.tar.gz
 
 # modify setup.sh with new database user
 DB_SERVER_USER_REPLACETEXT="DB_SERVER_USER="
-DB_SERVER_USER_NEW='DB_SERVER_USER="ocs_dbuser"'
+DB_SERVER_USER_NEW=DB_SERVER_USER="$ocsdbusername"
 sed -i "/$DB_SERVER_USER_REPLACETEXT/c $DB_SERVER_USER_NEW" OCSNG_UNIX_SERVER_${OCSVERSION}/setup.sh
 
 # modify setup.sh with new database user password
@@ -145,7 +100,7 @@ yes "" | sh setup.sh
 
 # modify z-ocsinventory-server.conf with new database user and password replacing lines
 OCS_DB_USER_REPLACETEXT='PerlSetEnv OCS_DB_USER'
-OCS_DB_USER_NEW='\  PerlSetEnv OCS_DB_USER ocs_dbuser'
+OCS_DB_USER_NEW="\  PerlSetEnv OCS_DB_USER $ocsdbusername"
 sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
 OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
@@ -154,8 +109,9 @@ sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/httpd/conf.d/z-ocsinven
 
 # modify zz-ocsinventory-restapi.conf with new database user password
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
-OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'ocs_dbuser';"
+OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'zreplaceholder';"
 sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbusername/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
 OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zzreplaceholder';"
