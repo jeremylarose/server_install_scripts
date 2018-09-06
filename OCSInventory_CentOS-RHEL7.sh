@@ -6,7 +6,7 @@
 # OR
 # ./filename.sh -u username -p password -h hostname -n hostport -v version
 
-# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -d ocsweb -u ocs_dbuser -p dbpassword)
+# install mysql or mariadb seperately (ex: ./MariaDB_CentOS-RHEL.sh -r rootpassword -d ocsweb -u ocs_dbuser -p dbpassword)
 
 # OCS Inventory defaults unless specified with command line argument
 ocsversion="2.5"
