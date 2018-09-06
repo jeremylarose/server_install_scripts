@@ -119,7 +119,7 @@ sed -i "/$DB_SERVER_PORT_REPLACETEXT/c $DB_SERVER_PORT_NEW" OCSNG_UNIX_SERVER_${
 # modifify setup.sh continuing on error
 FORCECONTINUE_REPLACETEXT='exit 1'
 FORCECONTINUE='echo "error but continuing"'
-sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
+sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE/" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
 
 # run unattended setup script
 cd OCSNG_UNIX_SERVER_${ocsversion}
