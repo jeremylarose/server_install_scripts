@@ -126,47 +126,6 @@ sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE/" OCSNG_UNIX_SERVER_${ocsver
 cd OCSNG_UNIX_SERVER_${ocsversion}
 yes "" | sh setup.sh
 
-# modify z-ocsinventory-server.conf with new database user and password replacing lines
-OCS_DB_USER_REPLACETEXT='PerlSetEnv OCS_DB_USER'
-OCS_DB_USER_NEW="\  PerlSetEnv OCS_DB_USER $ocsdbuser"
-sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
-
-OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
-OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbpwd"
-sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
-
-OCS_DB_HOST_REPLACETEXT='PerlSetEnv OCS_DB_HOST'
-OCS_DB_HOST_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhost"
-sed -i "/$OCS_DB_HOST_REPLACETEXT/c $OCS_DB_HOST_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
-
-OCS_DB_PORT_REPLACETEXT='PerlSetEnv OCS_DB_PORT'
-OCS_DB_PORT_NEW="\  PerlSetEnv OCS_DB_PORT $ocsdbhostport"
-sed -i "/$OCS_DB_PORT_REPLACETEXT/c $OCS_DB_PORT_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
-
-# modify zz-ocsinventory-restapi.conf with new database user password and host
-OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
-OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'zreplaceholder';"
-sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/zreplaceholder/$ocsdbuser/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-
-OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
-OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zreplaceholder';"
-sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/zreplaceholder/$ocsdbpwd/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-
-OCS_DB_HOST_RESTAPI_REPLACETEXT='{OCS_DB_HOST} ='
-OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zreplaceholder';"
-sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/zreplaceholder/$ocsdbhost/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-
-OCS_DB_PORT_RESTAPI_REPLACETEXT='{OCS_DB_PORT} ='
-OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zreplaceholder';"
-sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/zreplaceholder/$ocsdbhostport/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-
-# set permissions
-chown -R www-data:www-data /var/lib/ocsinventory-reports
-
 # enable Apache configuration with aliases
 if [ ! -e "/etc/apache2/conf-enabled/ocsinventory-reports.conf" ]
 then
@@ -183,6 +142,47 @@ then
 	ln -s /etc/apache2/conf-available/zz-ocsinventory-restapi.conf /etc/apache2/conf-enabled/zz-ocsinventory-restapi.conf
 	:
 fi
+
+# modify z-ocsinventory-server.conf with new database user and password replacing lines
+OCS_DB_USER_REPLACETEXT='PerlSetEnv OCS_DB_USER'
+OCS_DB_USER_NEW="\  PerlSetEnv OCS_DB_USER $ocsdbuser"
+sed -i "/$OCS_DB_USER_REPLACETEXT/c $OCS_DB_USER_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+
+OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
+OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbpwd"
+sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+
+OCS_DB_HOST_REPLACETEXT='PerlSetEnv OCS_DB_HOST'
+OCS_DB_HOST_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhost"
+sed -i "/$OCS_DB_HOST_REPLACETEXT/c $OCS_DB_HOST_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+
+OCS_DB_PORT_REPLACETEXT='PerlSetEnv OCS_DB_PORT'
+OCS_DB_PORT_NEW="\  PerlSetEnv OCS_DB_PORT $ocsdbhostport"
+sed -i "/$OCS_DB_PORT_REPLACETEXT/c $OCS_DB_PORT_NEW" /etc/apache2/conf-available/z-ocsinventory-server.conf
+
+# modify zz-ocsinventory-restapi.conf with new database user password and host
+OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
+OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'zreplaceholder';"
+sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbuser/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+
+OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
+OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zreplaceholder';"
+sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbpwd/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+
+OCS_DB_HOST_RESTAPI_REPLACETEXT='{OCS_DB_HOST} ='
+OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zreplaceholder';"
+sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbhost/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+
+OCS_DB_PORT_RESTAPI_REPLACETEXT='{OCS_DB_PORT} ='
+OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zreplaceholder';"
+sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbhostport/" /etc/apache2/conf-available/zz-ocsinventory-restapi.conf
+
+# set permissions
+chown -R www-data:www-data /var/lib/ocsinventory-reports
 
 # restart service
 service apache2 restart
