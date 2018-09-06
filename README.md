@@ -3,7 +3,7 @@
 version: 1.5.0p3
 
 
-* usage example (Install MariaDB and create database in Ubuntu):
+* usage example (Install Check_MK for CentOS or RHEL with one line command):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_CentOS-RHEL.sh && chmod +x Check_MK_CentOS-RHEL.sh && ./Check_MK_CentOS-RHEL.sh -v '1.5.0p3' -c el7 -s monitoring && rm -f Check_MK_CentOS-RHEL.sh
 
 
