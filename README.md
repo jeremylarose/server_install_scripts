@@ -9,7 +9,7 @@ version: 10.3
 ## Gitea
 
 version: 1.5.0
-* build with PAM authentication capability (not available with developer binaries)
+* builds with PAM authentication capability (not available with developer binaries)
 
 ## OCS Inventory NG
 
