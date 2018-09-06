@@ -91,6 +91,11 @@ DB_SERVER_PWD_REPLACETEXT="DB_SERVER_PWD="
 DB_SERVER_PWD_NEW=DB_SERVER_USER="$ocsdbuserpassword"
 sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${OCSVERSION}/setup.sh
 
+# modifify setup.sh continuing on error
+FORCECONTINUE_REPLACETEXT='exit 1'
+FORCECONTINUE='echo "error but continuing"'
+sed -i "s/$AUTODEFAULT_REPLACETEXT/$AUTODEFAULT/" OCSNG_UNIX_SERVER_${OCSVERSION}/setup.sh
+
 # run unattended setup script
 cd OCSNG_UNIX_SERVER_${OCSVERSION}
 yes "" | sh setup.sh
