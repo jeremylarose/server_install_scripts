@@ -2,14 +2,14 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --ocsdbuser username --ocsdbpwd password --dbhost hostname --ocs_version version
+# or automated with ./filename.sh --ocsdbuser username --ocsdbpwd password --ocsdbhost hostname --ocsversion version
 # OR
 # ./filename.sh -u username -p password -h hostname -v version
 
-# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n ocsweb - u ocsdbuser -p dbpassword)
+# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n ocsweb -u ocsdbuser -p dbpassword)
 
 # OCS Inventory defaults unless specified
-ocs_version="2.5"
+ocsversion="2.5"
 ocsdbhost="localhost"
 
 # Get script arguments for non-interactive mode
@@ -23,13 +23,13 @@ while [ "$1" != "" ]; do
             shift
             ocsdbpwd="$1"
             ;;
-        -h | --dbhost )
+        -h | --ocsdbhost )
             shift
-            ocsdbost="$1"
+            ocsdbhost="$1"
             ;;
-        -v | --ocs_version )
+        -v | --ocsversion )
             shift
-            ocs_version="$1"
+            ocsversion="$1"
             ;;
     esac
     shift
@@ -81,33 +81,38 @@ systemctl enable httpd
 systemctl start httpd
 
 # Download OCS Inventory Server
-wget -O OCSNG_UNIX_SERVER_${ocs_version}.tar.gz https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocs_version}/OCSNG_UNIX_SERVER_${ocs_version}.tar.gz
+wget -O OCSNG_UNIX_SERVER_${ocsversion}.tar.gz https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocsversion}/OCSNG_UNIX_SERVER_${ocsversion}.tar.gz
 if [ $? -ne 0 ]; then
-    echo "Failed to download OCSNG_UNIX_SERVER_${ocs_version}.tar.gz"
-    echo "https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocs_version}/OCSNG_UNIX_SERVER_${ocs_version}.tar.gz"
+    echo "Failed to download OCSNG_UNIX_SERVER_${ocsversion}.tar.gz"
+    echo "https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocsversion}/OCSNG_UNIX_SERVER_${ocsversion}.tar.gz"
     exit
 fi
 
 # Extract OCS Inventory files
-tar -xzf OCSNG_UNIX_SERVER_${ocs_version}.tar.gz
+tar -xzf OCSNG_UNIX_SERVER_${ocsversion}.tar.gz
 
 # modify setup.sh with new database user
 DB_SERVER_USER_REPLACETEXT="DB_SERVER_USER="
 DB_SERVER_USER_NEW=DB_SERVER_USER="$ocsdbuser"
-sed -i "/$DB_SERVER_USER_REPLACETEXT/c $DB_SERVER_USER_NEW" OCSNG_UNIX_SERVER_${ocs_version}/setup.sh
+sed -i "/$DB_SERVER_USER_REPLACETEXT/c $DB_SERVER_USER_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
 
 # modify setup.sh with new database user password
 DB_SERVER_PWD_REPLACETEXT="DB_SERVER_PWD="
 DB_SERVER_PWD_NEW=DB_SERVER_USER="$ocsdbpwd"
-sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${ocs_version}/setup.sh
+sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
+
+# modify setup.sh with new database host
+DB_SERVER_HOST_REPLACETEXT="DB_SERVER_HOST="
+DB_SERVER_HOST_NEW=DB_SERVER_HOST="$ocsdbhost"
+sed -i "/$DB_SERVER_HOST_REPLACETEXT/c $DB_SERVER_HOST_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
 
 # modifify setup.sh continuing on error
 FORCECONTINUE_REPLACETEXT='exit 1'
 FORCECONTINUE='echo "error but continuing"'
-sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE" OCSNG_UNIX_SERVER_${ocs_version}/setup.sh
+sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
 
 # run unattended setup script
-cd OCSNG_UNIX_SERVER_${ocs_version}
+cd OCSNG_UNIX_SERVER_${ocsversion}
 yes "" | sh setup.sh
 
 # modify z-ocsinventory-server.conf with new database user and password replacing lines
@@ -119,7 +124,11 @@ OCS_DB_PWD_REPLACETEXT='PerlSetVar OCS_DB_PWD'
 OCS_DB_PWD_NEW="\  PerlSetVar OCS_DB_PWD $ocsdbpwd"
 sed -i "/$OCS_DB_PWD_REPLACETEXT/c $OCS_DB_PWD_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
-# modify zz-ocsinventory-restapi.conf with new database user password
+OCS_DB_HOST_REPLACETEXT='PerlSetVar OCS_DB_HOST'
+OCS_DB_HOST_NEW="\  PerlSetVar OCS_DB_HOST $ocsdbhost"
+sed -i "/$OCS_DB_HOST_REPLACETEXT/c $OCS_DB_HOST_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
+
+# modify zz-ocsinventory-restapi.conf with new database user password and host
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
 OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'zreplaceholder';"
 sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
@@ -129,6 +138,12 @@ OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
 OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zzreplaceholder';"
 sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 sed -i "s/zzreplaceholder/$ocsdbpwd/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+
+OCS_DB_HOST_RESTAPI_REPLACETEXT='{OCS_DB_HOST} ='
+OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zreplaceholder';"
+sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbhost/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+
 
 # set permissions
 chown -R apache:apache /usr/share/ocsinventory-reports/
