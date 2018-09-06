@@ -78,34 +78,35 @@ fi
 # don't install if mysql already installed
 mysql --version
 RESULT=$?
+
 if [ $RESULT -ne 0 ]; then
-  # add MariaDB repo for centos
-  cat <<EOF >/etc/yum.repos.d/mariadb.repo
-  [mariadb]
-  name = MariaDB
-  baseurl = http://yum.mariadb.org/$mariadb_version/centos7-amd64
-  gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-  gpgcheck=1
-  EOF
-  
-  # Insall MariaDB
-  yum -y install MariaDB-server MariaDB-client
-  
-  # enable and start service
-  systemctl enable mariadb
-  systemctl start mariadb
-  
-  # secure MariaDB and set root
-  mysql_secure_installation<<EOF
-  
-  y
-  $rootpwd
-  $rootpwd
-  y
-  y
-  y
-  y
-  EOF
+# add MariaDB repo for centos
+cat <<EOF >/etc/yum.repos.d/mariadb.repo
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/$mariadb_version/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF
+
+# Insall MariaDB
+yum -y install MariaDB-server MariaDB-client
+
+# enable and start service
+systemctl enable mariadb
+systemctl start mariadb
+
+# secure MariaDB and set root
+mysql_secure_installation<<EOF
+
+y
+$rootpwd
+$rootpwd
+y
+y
+y
+y
+EOF
 else
   echo
   echo mysql arleady installed
