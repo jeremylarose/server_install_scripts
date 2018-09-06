@@ -139,7 +139,7 @@ OCS_DB_HOST_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhost"
 sed -i "/$OCS_DB_HOST_REPLACETEXT/c $OCS_DB_HOST_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
 OCS_DB_PORT_REPLACETEXT='PerlSetEnv OCS_DB_PORT'
-OCS_DB_PORT_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhostport"
+OCS_DB_PORT_NEW="\  PerlSetEnv OCS_DB_PORT $ocsdbhostport"
 sed -i "/$OCS_DB_PORT_REPLACETEXT/c $OCS_DB_PORT_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
 # modify zz-ocsinventory-restapi.conf with new database user password and host
