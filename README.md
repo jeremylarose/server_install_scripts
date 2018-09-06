@@ -1,4 +1,4 @@
-# OCS Inventory
+## MariaDB
 Current Version: 2.5
 
 
@@ -15,6 +15,10 @@ Wazuh provides an updated log analysis ruleset, and a RESTful API that allows yo
 
 Wazuh also includes a rich web application (fully integrated as a Kibana app), for mining log analysis alerts and for monitoring and managing your Wazuh infrastructure.
 
-## Wazuh Open Source components and contributions
+## Gitea
+
+* [Wazuh](https://documentation.wazuh.com/current/index.html) was born as a fork of [OSSEC HIDS]
+
+## OCS Inventory NG
 
 * [Wazuh](https://documentation.wazuh.com/current/index.html) was born as a fork of [OSSEC HIDS]
