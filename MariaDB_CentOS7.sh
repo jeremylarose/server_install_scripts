@@ -18,7 +18,7 @@ while [ "$1" != "" ]; do
             ;;
         -n | --dbname )
             shift
-            dbpwd="$1"
+            dbname="$1"
             ;;
         -u | --dbuser )
             shift
