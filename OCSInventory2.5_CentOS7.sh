@@ -4,7 +4,7 @@
 # then run with ./filename.sh
 # or automated with ./filename.sh --ocsuser username --ocspwd password
 # OR
-# ./filename.sh -m password -o password
+# ./filename.sh -u username -p password
 
 # Version number of OCS Inventory
 OCSVERSION="2.5"
