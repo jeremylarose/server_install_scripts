@@ -149,19 +149,19 @@ sed -i "/$OCS_DB_USER_RESTAPI_REPLACETEXT/c $OCS_DB_USER_RESTAPI_NEW" /etc/httpd
 sed -i "s/zreplaceholder/$ocsdbuser/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 OCS_DB_PWD_RESTAPI_REPLACETEXT='{OCS_DB_PWD} ='
-OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zzreplaceholder';"
+OCS_DB_PWD_RESTAPI_NEW="\  \$ENV{OCS_DB_PWD} = 'zreplaceholder';"
 sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/zzreplaceholder/$ocsdbpwd/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbpwd/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 OCS_DB_HOST_RESTAPI_REPLACETEXT='{OCS_DB_HOST} ='
-OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zzzreplaceholder';"
+OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zreplaceholder';"
 sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/zzzreplaceholder/$ocsdbhost/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbhost/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 OCS_DB_PORT_RESTAPI_REPLACETEXT='{OCS_DB_PORT} ='
-OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'xreplaceholder';"
+OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zreplaceholder';"
 sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
-sed -i "s/xreplaceholder/$ocsdbhostport/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbhostport/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 # set permissions
 chown -R apache:apache /usr/share/ocsinventory-reports/
