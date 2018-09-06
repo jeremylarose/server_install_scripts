@@ -41,11 +41,11 @@ if [ -z "$rootpwd" ]; then
     echo 
     while true
     do
-        read -s -p "Enter a MariaDB ROOT Password: " rootpasswd
+        read -s -p "Enter a MariaDB ROOT Password: " rootpwd
         echo
         read -s -p "Confirm MariaDB ROOT Password: " password2
         echo
-        [ "$rootpasswd" = "$password2" ] && break
+        [ "$rootpwd" = "$password2" ] && break
         echo "Passwords don't match. Please try again."
         echo
     done
@@ -64,11 +64,11 @@ if [ -z "$dbpwd" ]; then
     echo
     while true
     do
-        read -s -p "Enter a password for $dbuser: " dbpasswd
+        read -s -p "Enter a password for $dbuser: " dbpwd
         echo
         read -s -p "Confirm pasword for $dbuser: " password2
         echo
-        [ "$dbpasswd" = "$password2" ] && break
+        [ "$dbpwd" = "$password2" ] && break
         echo "Passwords don't match. Please try again."
         echo
     done
@@ -110,5 +110,5 @@ MYSQL_SCRIPT
 
 # create db user and grant privileges
 mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
-GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpasswd';
+GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpwd';
 MYSQL_SCRIPT
