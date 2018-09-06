@@ -29,12 +29,8 @@ if [ -n "$ocsuser" ] && [ -n "$ocspwd" ]; then
         ocsdbusername=$ocsuser
         ocsdbuserpassword=$ocspwd
 else
-    echo 
-    while true
-    do
-        read -p "Enter the OCS Inventory database username with access: " ocsdbusername
-        echo
-    done
+    echo
+    read -p "Enter the OCS Inventory database username with access: " ocsdbusername
     echo
     while true
     do
