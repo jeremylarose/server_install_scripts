@@ -2,9 +2,9 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --ocsdbuser username --ocsdbpwd password --ocsdbhost hostname --ocsversion version
+# or automated with ./filename.sh --dbuser username --dbpwd password --dbhost hostname --dbhostport portnumber --version version
 # OR
-# ./filename.sh -u username -p password -h hostname -v version
+# ./filename.sh -u username -p password -h hostname -hp hostport -v version
 
 # install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n ocsweb -u ocsdbuser -p dbpassword)
 
@@ -15,19 +15,23 @@ ocsdbhost="localhost"
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
-        -u | --ocsdbuser )
+        -u | --dbuser )
             shift
             ocsdbuser="$1"
             ;;
-        -p | --ocsdbpwd )
+        -p | --dbpwd )
             shift
             ocsdbpwd="$1"
             ;;
-        -h | --ocsdbhost )
+        -h | --dbhost )
             shift
             ocsdbhost="$1"
             ;;
-        -v | --ocsversion )
+        -hp | --dbhostport )
+            shift
+            ocsdbhostport="$1"
+            ;;
+        -v | --version )
             shift
             ocsversion="$1"
             ;;
@@ -106,6 +110,11 @@ DB_SERVER_HOST_REPLACETEXT="DB_SERVER_HOST="
 DB_SERVER_HOST_NEW=DB_SERVER_HOST="$ocsdbhost"
 sed -i "/$DB_SERVER_HOST_REPLACETEXT/c $DB_SERVER_HOST_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
 
+# modify setup.sh with new database port
+DB_SERVER_PORT_REPLACETEXT="DB_SERVER_PORT="
+DB_SERVER_PORT_NEW=DB_SERVER_HOST="$ocsdbhostport"
+sed -i "/$DB_SERVER_PORT_REPLACETEXT/c $DB_SERVER_PORT_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
+
 # modifify setup.sh continuing on error
 FORCECONTINUE_REPLACETEXT='exit 1'
 FORCECONTINUE='echo "error but continuing"'
@@ -128,6 +137,10 @@ OCS_DB_HOST_REPLACETEXT='PerlSetEnv OCS_DB_HOST'
 OCS_DB_HOST_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhost"
 sed -i "/$OCS_DB_HOST_REPLACETEXT/c $OCS_DB_HOST_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
 
+OCS_DB_PORT_REPLACETEXT='PerlSetEnv OCS_DB_PORT'
+OCS_DB_PORT_NEW="\  PerlSetEnv OCS_DB_HOST $ocsdbhostport"
+sed -i "/$OCS_DB_PORT_REPLACETEXT/c $OCS_DB_PORT_NEW" /etc/httpd/conf.d/z-ocsinventory-server.conf
+
 # modify zz-ocsinventory-restapi.conf with new database user password and host
 OCS_DB_USER_RESTAPI_REPLACETEXT='{OCS_DB_USER} ='
 OCS_DB_USER_RESTAPI_NEW="\  \$ENV{OCS_DB_USER} = 'zreplaceholder';"
@@ -140,10 +153,14 @@ sed -i "/$OCS_DB_PWD_RESTAPI_REPLACETEXT/c $OCS_DB_PWD_RESTAPI_NEW" /etc/httpd/c
 sed -i "s/zzreplaceholder/$ocsdbpwd/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 OCS_DB_HOST_RESTAPI_REPLACETEXT='{OCS_DB_HOST} ='
-OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zreplaceholder';"
+OCS_DB_HOST_RESTAPI_NEW="\  \$ENV{OCS_DB_HOST} = 'zzzreplaceholder';"
 sed -i "/$OCS_DB_HOST_RESTAPI_REPLACETEXT/c $OCS_DB_HOST_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbhost/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
+OCS_DB_PORT_RESTAPI_REPLACETEXT='{OCS_DB_PORT} ='
+OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zzzreplaceholder';"
+sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
+sed -i "s/zreplaceholder/$ocsdbhostport/" /etc/httpd/conf.d/zz-ocsinventory-restapi.conf
 
 # set permissions
 chown -R apache:apache /usr/share/ocsinventory-reports/
