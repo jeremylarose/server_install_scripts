@@ -8,9 +8,10 @@
 
 # install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -n ocsweb -u ocsdbuser -p dbpassword)
 
-# OCS Inventory defaults unless specified
+# OCS Inventory defaults unless specified with command line argument
 ocsversion="2.5"
 ocsdbhost="localhost"
+ocsdbhostport="3306"
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
