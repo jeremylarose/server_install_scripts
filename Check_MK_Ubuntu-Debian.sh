@@ -4,7 +4,7 @@
 # then run with ./filename.sh
 # or automated with ./filename.sh --version check_mk_version --sitename check_mk_site
 # OR
-# ./filename.sh -v version -c codename -s sitename
+# ./filename.sh -v version -s sitename
 
 # default variables unless specified from command line
 CHECK_MK_VERSION="1.5.0p3"
