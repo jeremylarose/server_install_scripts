@@ -7,11 +7,9 @@ version: 1.5.0p3
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_CentOS-RHEL.sh && chmod +x Check_MK_CentOS-RHEL.sh && ./Check_MK_CentOS-RHEL.sh -v '1.5.0p3' -c el7 -s monitoring & rm -f Check_MK_CentOS-RHEL.sh
 
 
-## MariaDB
+## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 10.3
-
-* currently supported operating systems: Debian, Ubuntu, CentOS, RHEL, Fedora
 
 * install example (Install MariaDB and create database in Ubuntu):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword & rm -f MariaDB.sh
