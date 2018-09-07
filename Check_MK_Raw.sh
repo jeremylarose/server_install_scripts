@@ -79,7 +79,8 @@ elif [ $os_family = fedora ]; then
   # set selinux rule
   setsebool -P httpd_can_network_connect 1 
   # Install prereqs
-  yum -y install epel-release time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
+  yum -y install epel-release 
+  yum -y install time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
   rpcbind net-snmp net-snmp-utils pango patch perl-Net-SNMP perl-IO-Zlib uuid xinetd freeradius-utils \
   libpcap bind-utils poppler-utils libgsf rpm-build
   # install rpm
