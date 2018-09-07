@@ -13,7 +13,7 @@ mariadb_version='10.3'
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
 # get os version id from system
-version_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g'`
+osversion_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g'`
 
 # get os family from system
 if [ $os = debian ] || [ $os = fedora ]; then
@@ -123,7 +123,7 @@ elif [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/$mariadb_version/$os-amd64
+baseurl = http://yum.mariadb.org/$mariadb_version/$os$osversion_id-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
