@@ -13,6 +13,13 @@ SITENAME="monitoring"
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
+# get os family from system
+if [ $os = debian ] || [ $os = fedora ]; then
+  os_family=$os
+else
+  os_family=`cat /etc/*release | grep ^ID_LIKE= | cut -d= -f2 | sed 's/\"//g' | cut -d' ' -f2`
+fi
+
 # get os_codename from system
 if [ $os = debian ] || [ $os = centos ] || [ $os = rhel ]; then
   os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1 | awk '{print tolower($0)}'`
@@ -20,6 +27,16 @@ elif [ $os = ubuntu ]; then
   os_codename=`cat /etc/*release | grep ^DISTRIB_CODENAME= | cut -d= -f2`
 else
   echo "unknown os codename"
+  exit 1
+fi
+
+# define installer file
+if [ $os_family = debian ]; then
+  installer=check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
+elif [ $os_family = fedora ]; then
+  installer=check-mk-raw-${CHECK_MK_VERSION}-el7-38.x86_64.rpm
+else
+  echo "unknown operating system family"
   exit 1
 fi
 
@@ -39,19 +56,19 @@ while [ "$1" != "" ]; do
 done
 
 # Download Check_MK Raw Install
-wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
+wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer
 
 if [ $? -ne 0 ]; then
-     echo "Failed to download check-mk-raw-${CHECK_MK_VERSION}.deb"   
-     echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb"
+     echo "Failed to download $installer"   
+     echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer"
      exit
 fi
 
 # Install Check_MK Raw Edition (2 attempts)
-dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
+dpkg -i $installer
 if [ $? -ne 0 ]; then
      apt -f -y install
-     dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
+     dpkg -i $installer
 fi
 
 # If apt fails to run completely the rest of this isn't going to work...
