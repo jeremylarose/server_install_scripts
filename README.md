@@ -1,10 +1,10 @@
-## Check_MK
+## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
 version: 1.5.0p3
 
-
-* install example (Install Check_MK for CentOS or RHEL with one line command):
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Ubuntu-Debian.sh && chmod +x Check_MK_Ubuntu-Debian.sh && ./Check_MK_Ubuntu-Debian.sh -v '1.5.0p3' -s monitoring && rm -f Check_MK_Ubuntu-Debian.sh
+* installs Check_MK raw, creates and starts a site if doesn't exist
+* install example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p3' -s monitoring && rm -f Check_MK_Raw.sh
 
 
 ## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
