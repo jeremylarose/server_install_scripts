@@ -157,19 +157,22 @@ else
 echo
 echo "unsupported OS Family to install MariaDB"
 echo
-echo
+exit 1
 fi
 
 # create database
 mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
 CREATE DATABASE $dbname;
 MYSQL_SCRIPT
+if [ $? -eq 0 ]; then
+  echo "database $dbname created"
+fi
+
 
 # create db user and grant privileges
 mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
 GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpwd';
 MYSQL_SCRIPT
-
 if [ $? -eq 0 ]; then
-  echo "database $dbname created for $dbuser"
+  echo "$dbuser granted privileges on $dbname"
 fi
