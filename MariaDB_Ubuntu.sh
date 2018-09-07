@@ -8,8 +8,8 @@
 
 # defaults
 mariadb_version='10.3'
-os="cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }' | awk '{print tolower($0)}'"
-os_codename="cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'"
+os=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }' | awk '{print tolower($0)}'`
+os_codename=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'`
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
