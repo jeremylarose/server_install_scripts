@@ -3,7 +3,7 @@
 version: 1.5.0p3
 
 * installs Check_MK Raw, creates and starts a site if doesn't exist
-* install example:
+* usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p3' -s monitoring && rm -f Check_MK_Raw.sh
 
 
@@ -19,8 +19,8 @@ version: 10.3
 
 version: 1.5.0
 
-* builds with PAM authentication capability (not available with developer binaries)
-* install example (install Gitea and MariaDB with two commands filling in your command line arguments):
+* builds with PAM authentication capability (not available with developer binaries) and Installs with service (mysql) enabled
+* usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea.sh && chmod +x Gitea.sh && ./Gitea.sh && rm -f Gitea.sh
 
