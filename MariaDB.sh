@@ -170,4 +170,6 @@ mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
 GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpwd';
 MYSQL_SCRIPT
 
-echo "$dbname created for $dbuser"
+if [ $? -eq 0 ]; then
+  echo "database $dbname created for $dbuser"
+fi
