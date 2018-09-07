@@ -11,7 +11,8 @@ version: 1.5.0p3
 
 version: 10.3
 
-* install example (Installs MariaDB and/or just creates a database if mysql already installed):
+* Installs MariaDB and/or just creates a database if mysql already installed
+* usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword & rm -f MariaDB.sh
 
 ## Gitea
