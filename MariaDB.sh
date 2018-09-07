@@ -102,7 +102,7 @@ mysql --version
 RESULT=$?
 if [ $RESULT -eq 0 ]; then
   echo
-  echo mysql arleady installed
+  echo mysql already installed
   echo
   mysql --version
   echo
