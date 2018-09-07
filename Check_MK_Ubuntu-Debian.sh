@@ -2,14 +2,25 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --version check_mk_version --codename os_codename --sitename check_mk_site
+# or automated with ./filename.sh --version check_mk_version --sitename check_mk_site
 # OR
 # ./filename.sh -v version -c codename -s sitename
 
 # default variables unless specified from command line
 CHECK_MK_VERSION="1.5.0p3"
-CODENAME="bionic"
 SITENAME="monitoring"
+
+# get os from system
+os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
+
+# get os_codename from system
+if [ $os = debian ] || [ $os = centos ] || [ $os = rhel ]; then
+  os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1 | awk '{print tolower($0)}'`
+elif [ $os = ubuntu ]; then
+  os_codename=`cat /etc/*release | grep ^DISTRIB_CODENAME= | cut -d= -f2`
+else
+  os_codename='unknown'
+fi
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
@@ -17,10 +28,6 @@ while [ "$1" != "" ]; do
         -v | --version )
             shift
             CHECK_MK_VERSION="$1"
-            ;;
-        -c | --codename )
-            shift
-            CODENAME="$1"
             ;;
         -s | --sitename )
             shift
@@ -48,7 +55,6 @@ pyro python python-crypto python-ldb python-minimal python-samba python-talloc p
 rpm rpm-common rpm2cpio samba-common samba-common-bin samba-libs smbclient snmp ssl-cert traceroute unzip update-inetd \
 x11-common xinetd
 
-
 # If apt fails to run completely the rest of this isn't going to work...
 if [ $? -ne 0 ]; then
      echo "apt-get failed to install all required dependencies"
@@ -56,11 +62,11 @@ if [ $? -ne 0 ]; then
 fi
 
 # Download Check_MK Raw Install
-wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
+wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
 
 if [ $? -ne 0 ]; then
      echo "Failed to download check-mk-raw-${CHECK_MK_VERSION}.deb"   
-     echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.$CODENAME_amd64.deb"
+     echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb"
      exit
 fi
 
