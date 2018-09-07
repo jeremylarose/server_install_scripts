@@ -64,16 +64,35 @@ if [ $? -ne 0 ]; then
      exit
 fi
 
-# Install Check_MK Raw Edition (2 attempts)
-dpkg -i $installer
-if [ $? -ne 0 ]; then
-     apt -f -y install
-     dpkg -i $installer
+# Install Check_MK Raw Edition
+if [ $os_family = debian ]; then
+  dpkg -i $installer
+  if [ $? -ne 0 ]; then
+       apt -f -y install
+       dpkg -i $installer
+  fi
+elif [ $os_family = fedora ]; then
+  # open firewall ports
+  firewall-cmd --permanent --add-port=80/tcp
+  firewall-cmd --permanent --add-port=6556/tcp
+  firewall-cmd --reload
+  # set selinux rule
+  setsebool -P httpd_can_network_connect 1 
+  # Install prereqs
+  yum -y install epel-release time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
+  rpcbind net-snmp net-snmp-utils pango patch perl-Net-SNMP perl-IO-Zlib uuid xinetd freeradius-utils \
+  libpcap bind-utils poppler-utils libgsf rpm-build
+  # install rpm
+  rpm -i $installer
+else
+  echo "unknown operating system family"
+  exit
 fi
 
-# If apt fails to run completely the rest of this isn't going to work...
+
+# If apt fails to exit
 if [ $? -ne 0 ]; then
-     echo "apt-get failed to install all required dependencies"
+     echo "failed to install all required dependencies"
      exit
 fi
 
