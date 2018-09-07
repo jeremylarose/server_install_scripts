@@ -19,7 +19,8 @@ if [ $os = debian ] || [ $os = centos ] || [ $os = rhel ]; then
 elif [ $os = ubuntu ]; then
   os_codename=`cat /etc/*release | grep ^DISTRIB_CODENAME= | cut -d= -f2`
 else
-  os_codename='unknown'
+  echo "unknown os codename"
+  exit 1
 fi
 
 # Get script arguments for non-interactive mode
