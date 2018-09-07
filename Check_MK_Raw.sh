@@ -91,7 +91,6 @@ else
   exit
 fi
 
-
 # If apt fails to exit
 if [ $? -ne 0 ]; then
      echo "failed to install all required dependencies"
