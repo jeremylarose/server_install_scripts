@@ -6,10 +6,16 @@
 # OR
 # ./filename.sh -r password -d databasename -u username -p password -v version
 
-# defaults
+# set variables
 mariadb_version='10.3'
-os=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }' | awk '{print tolower($0)}'`
-os_codename=`cat /etc/lsb-release | grep '^DISTRIB_CODENAME' | awk -F=  '{ print $2 }'`
+
+# get OS and codename from system
+os=`cat /etc/*release | grep ^ID= | cut -d= -f2`
+if [ $os = debian ]; then
+  os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1`
+else
+  os_codename=`cat /etc/*release | grep ^DISTRIB_CODENAME= | cut -d= -f2`
+fi
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
