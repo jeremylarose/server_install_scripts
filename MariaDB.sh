@@ -6,7 +6,7 @@
 # OR
 # ./filename.sh -r password -d databasename -u username -p password -v version
 
-# set variables
+# set default variables
 mariadb_version='10.3'
 
 # get os from system
@@ -15,8 +15,14 @@ os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 # get os version id from system
 version_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g'`
 
+# get os family from system
+if [ $os = debian ] || [ $os = fedora ]; then
+  os_family=$os
+else
+  os_family=`cat /etc/*release | grep ^ID_LIKE= | cut -d= -f2 | sed 's/\"//g' | cut -d' ' -f2`
+fi
 
-# get codename from system
+# get os_codename from system
 if [ $os = debian ] || [ $os = centos ] || [ $os = rhel ]; then
   os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1 | awk '{print tolower($0)}'`
 elif [ $os = ubuntu ]; then
@@ -91,11 +97,16 @@ if [ -z "$dbpwd" ]; then
     echo
 fi
 
-# install only if mysql not already installed AND os version matches
+# install only if mysql not already installed AND os family matches
 mysql --version
 RESULT=$?
-
-if [ $RESULT -ne 0 ] && [ [ $os = debian ] || [ $os = centos ] ]; then
+if [ $RESULT -eq 0 ]; then
+  echo
+  echo mysql arleady installed
+  echo
+  mysql --version
+  echo
+elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   # install MariaDB bypassing password prompt
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password password $rootpwd"
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password_again password $rootpwd"
@@ -107,12 +118,39 @@ if [ $RESULT -ne 0 ] && [ [ $os = debian ] || [ $os = centos ] ]; then
   add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main"
   apt-get update
   apt-get install -qq mariadb-server mariadb-client
+elif [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
+# add MariaDB repo for centos
+cat <<EOF >/etc/yum.repos.d/mariadb.repo
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/$mariadb_version/$os-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF
+
+# Insall MariaDB
+yum -y install MariaDB-server MariaDB-client
+
+# enable and start service
+systemctl enable mariadb
+systemctl start mariadb
+
+# secure MariaDB and set root
+mysql_secure_installation<<EOF
+
+y
+$rootpwd
+$rootpwd
+y
+y
+y
+y
+EOF
 else
-  echo
-  echo mysql arleady installed
-  echo
-  mysql --version
-  echo
+echo
+echo "unsupported OS Family to install MariaDB"
+echo
+echo
 fi
 
 # create database
