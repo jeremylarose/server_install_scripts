@@ -11,7 +11,7 @@ version: 1.5.0p3
 
 version: 10.3
 
-* install example (Install MariaDB and create database in Ubuntu):
+* install example (Installs MariaDB and/or creates a database):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword & rm -f MariaDB.sh
 
 ## Gitea
