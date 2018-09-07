@@ -15,14 +15,14 @@ version: 10.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
 
-## Gitea
+## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 1.5.0
 
 * builds with PAM authentication capability (not available with developer binaries)
 * install example (install Gitea and MariaDB with two commands filling in your command line arguments):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea_PAM_Ubuntu.sh && chmod +x Gitea_PAM_Ubuntu.sh && ./Gitea_PAM_Ubuntu.sh && rm -f Gitea_PAM_Ubuntu.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea.sh && chmod +x Gitea.sh && ./Gitea.sh && rm -f Gitea.sh
 
 ## OCS Inventory NG
 
