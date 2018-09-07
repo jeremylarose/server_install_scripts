@@ -9,12 +9,20 @@
 # set variables
 mariadb_version='10.3'
 
-# get OS and codename from system
-os=`cat /etc/*release | grep ^ID= | cut -d= -f2`
-if [ $os = debian ]; then
-  os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1`
-else
+# get os from system
+os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
+
+# get os version id from system
+version_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g'`
+
+
+# get codename from system
+if [ $os = debian ] || [ $os = centos ] || [ $os = rhel ]; then
+  os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1 | awk '{print tolower($0)}'`
+elif [ $os = ubuntu ]; then
   os_codename=`cat /etc/*release | grep ^DISTRIB_CODENAME= | cut -d= -f2`
+else
+  os_codename='unknown'
 fi
 
 # Get script arguments for non-interactive mode
@@ -83,11 +91,11 @@ if [ -z "$dbpwd" ]; then
     echo
 fi
 
-# install only if mysql not already installed
+# install only if mysql not already installed AND os version matches
 mysql --version
 RESULT=$?
 
-if [ $RESULT -ne 0 ]; then
+if [ $RESULT -ne 0 ] && [ [ $os = debian ] || [ $os = centos ] ]; then
   # install MariaDB bypassing password prompt
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password password $rootpwd"
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password_again password $rootpwd"
