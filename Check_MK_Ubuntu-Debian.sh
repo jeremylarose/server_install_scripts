@@ -47,10 +47,10 @@ if [ $? -ne 0 ]; then
 fi
 
 # Install Check_MK Raw Edition (2 attempts)
-dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
+dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
 if [ $? -ne 0 ]; then
      apt -f -y install
-     dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${CODENAME}_amd64.deb
+     dpkg -i check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
 fi
 
 # If apt fails to run completely the rest of this isn't going to work...
