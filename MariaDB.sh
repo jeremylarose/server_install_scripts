@@ -175,5 +175,3 @@ MYSQL_SCRIPT
 if [ $? -eq 0 ]; then
   echo "$dbuser granted privileges on $dbname"
 fi
-
-exit 0
