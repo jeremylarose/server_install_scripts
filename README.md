@@ -7,7 +7,6 @@ version: 1.5.0p3
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p3' -s monitoring && rm -f Check_MK_Raw.sh
 
 
-
 ## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 10.3
