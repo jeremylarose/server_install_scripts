@@ -113,7 +113,7 @@ elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   
   # install MariaDB
   # -qq implies -y --force-yes
-  apt-get -y install software-properties-common
+  apt-get -y install software-properties-common dirmngr
   apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
   add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main"
   apt-get update
