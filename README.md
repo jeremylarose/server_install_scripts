@@ -11,8 +11,10 @@ version: 1.5.0p3
 
 version: 10.3
 
+* currently supported operating systems: Debian, Ubuntu, CentOS, RHEL, Fedora
+
 * install example (Install MariaDB and create database in Ubuntu):
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB_Ubuntu.sh && chmod +x MariaDB_Ubuntu.sh && ./MariaDB_Ubuntu.sh -r password -d databasename -u dbusername -p dbpassword & rm -f MariaDB_Ubuntu.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword & rm -f MariaDB.sh
 
 ## Gitea
 
