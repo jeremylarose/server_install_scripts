@@ -118,6 +118,10 @@ elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main"
   apt-get update
   apt-get install -qq mariadb-server mariadb-client
+  if [ $? -eq 0 ]; then
+    echo "MariaDB $mariadb_version installed successfully"
+  fi
+
 elif [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
 # add MariaDB repo for centos
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
@@ -146,6 +150,9 @@ y
 y
 y
 EOF
+if [ $? -eq 0 ]; then
+  echo "MariaDB $mariadb_version installed successfully"
+fi
 else
 echo
 echo "unsupported OS Family to install MariaDB"
@@ -162,3 +169,5 @@ MYSQL_SCRIPT
 mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
 GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpwd';
 MYSQL_SCRIPT
+
+echo "$dbname created for $dbuser"
