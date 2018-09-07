@@ -1,15 +1,42 @@
 #!/bin/bash
 
-# install mysql or mariadb seperately (ex: ./MariaDB_CentOS.sh -r rootpassword -d gitea - u gitea -p dbpassword)
+# install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d gitea - u gitea -p dbpassword)
 
 # Version numbers
 GOVERSION="1.10.3"
 GITEA_VERSION="1.5.0"
 
-# Install prereqs
-apt-get -y install make gcc libpam-dev build-essential git
+# get os from system
+os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
-# If apt fails to run completely the rest of this isn't going to work...
+# get os family from system
+if [ $os = debian ] || [ $os = fedora ]; then
+  os_family=$os
+else
+  os_family=`cat /etc/*release | grep ^ID_LIKE= | cut -d= -f2 | sed 's/\"//g' | cut -d' ' -f2`
+fi
+
+if [ $os_family = debian ]; then
+  # create git user to run gitea
+  adduser --system --shell /bin/bash --gecos 'Git Version Control' --group --disabled-password --home /home/git git
+  # allow git user to authenticate pam by adding to shadow group
+  usermod -a -G shadow git
+  # install prereqs
+  apt-get -y install make gcc libpam-dev build-essential git
+elif [ $os_family = fedora ]; then  
+  # create git user to run gitea
+  adduser git -s /sbin/nologin
+  # temporarily open firewall (don't forget to restrict)
+  firewall-cmd --permanent --add-port=3000/tcp
+  firewall-cmd --reload
+  # install prereqs
+  yum -y install make gcc pam-devel wget git
+else
+  echo "unknown operating system family"
+  exit 1
+fi
+
+# If prereqs fail, exit
 if [ $? -ne 0 ]; then
     echo "apt-get failed to install all required dependencies"
     exit
@@ -40,19 +67,6 @@ git checkout v${GITEA_VERSION}
 TAGS="pam bindata" make generate build
 
 cp -f $GOPATH/src/code.gitea.io/gitea/gitea /usr/local/bin
-
-# create git user to run gitea
-adduser \
-   --system \
-   --shell /bin/bash \
-   --gecos 'Git Version Control' \
-   --group \
-   --disabled-password \
-   --home /home/git \
-   git
-
-# allow git user to authenticate pam by adding to shadow group
-usermod -a -G shadow git
 
 # create required directory structure
 mkdir -p /var/lib/gitea/{custom,data,indexers,public,log}
