@@ -82,7 +82,7 @@ elif [ $os_family = fedora ]; then
   yum -y install epel-release 
   yum -y install time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
   rpcbind net-snmp net-snmp-utils pango patch perl-Net-SNMP perl-IO-Zlib uuid xinetd freeradius-utils \
-  libpcap bind-utils poppler-utils libgsf rpm-build
+  libpcap bind-utils poppler-utils libgsf rpm-build httpd
   # install rpm
   rpm -i $installer
 else
