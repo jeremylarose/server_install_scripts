@@ -104,8 +104,6 @@ if [ $RESULT -eq 0 ]; then
   echo
   echo mysql already installed
   echo
-  mysql --version
-  echo
 elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   # install MariaDB bypassing password prompt
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password password $rootpwd"
