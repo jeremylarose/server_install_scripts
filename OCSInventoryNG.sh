@@ -134,11 +134,6 @@ sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE/" OCSNG_UNIX_SERVER_${ocsver
 cd OCSNG_UNIX_SERVER_${ocsversion}
 yes "" | sh setup.sh
 
-# enable Apache configuration files
-a2enconf ocsinventory-reports
-a2enconf z-ocsinventory-server
-a2enconf zz-ocsinventory-restapi
-
 # temporarily open firewall for fedora
 if [ $os_family = fedora ]; then
   firewall-cmd --permanent --add-port=80/tcp
@@ -183,8 +178,12 @@ OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zreplaceholder';"
 sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" $httpconfiglocation/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbhostport/" $httpconfiglocation/zz-ocsinventory-restapi.conf
 
-# set permissions and restart service
+# set permissions and restart service (enable config for debian)
 if [ $os_family = debian ]; then
+  # enable Apache configuration files
+  a2enconf ocsinventory-reports
+  a2enconf z-ocsinventory-server
+  a2enconf zz-ocsinventory-restapi
   chown -R www-data:www-data /var/lib/ocsinventory-reports
   service apache2 restart
 elif [ $os_family = fedora ]; then
