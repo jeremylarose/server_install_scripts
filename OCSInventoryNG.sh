@@ -114,12 +114,6 @@ cpanm Switch
 
 cpanm Plack::Handler
 
-# If any installs fail, exit
-if [ $? -ne 0 ]; then
-    echo "failed to install all required dependencies"
-    exit
-fi
-
 # Download OCS Inventory Server
 wget -O OCSNG_UNIX_SERVER_${ocsversion}.tar.gz https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocsversion}/OCSNG_UNIX_SERVER_${ocsversion}.tar.gz
 if [ $? -ne 0 ]; then
@@ -202,7 +196,6 @@ OCS_DB_PORT_RESTAPI_REPLACETEXT='{OCS_DB_PORT} ='
 OCS_DB_PORT_RESTAPI_NEW="\  \$ENV{OCS_DB_PORT} = 'zreplaceholder';"
 sed -i "/$OCS_DB_PORT_RESTAPI_REPLACETEXT/c $OCS_DB_PORT_RESTAPI_NEW" $httpconfiglocation/zz-ocsinventory-restapi.conf
 sed -i "s/zreplaceholder/$ocsdbhostport/" $httpconfiglocation/zz-ocsinventory-restapi.conf
-
 
 # set permissions and restart service
 if [ $os_family = debian ]; then
