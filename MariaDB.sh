@@ -97,8 +97,16 @@ if [ -z "$dbpwd" ]; then
     echo
 fi
 
-# install MariaDB
-if [ $os_family = debian ]; then
+# install only if mysql not already installed AND os family matches
+mysql --version
+RESULT=$?
+if [ $RESULT -eq 0 ]; then
+  echo
+  echo mysql already installed
+  echo
+  mysql --version
+  echo
+elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   # install MariaDB bypassing password prompt
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password password $rootpwd"
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password_again password $rootpwd"
@@ -113,7 +121,8 @@ if [ $os_family = debian ]; then
   if [ $? -eq 0 ]; then
     echo "MariaDB $mariadb_version installed successfully"
   fi
-elif [ $os_family = fedora ]; then
+
+elif [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
 # add MariaDB repo for centos
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
 [mariadb]
