@@ -161,7 +161,7 @@ fi
 
 # temporarily open firewall for fedora
 if [ $os_family = fedora ]; then
-  firewall-cmd --permanent --add-port=3000/tcp
+  firewall-cmd --permanent --add-port=80/tcp
   firewall-cmd --reload
 fi
 
