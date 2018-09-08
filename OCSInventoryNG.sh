@@ -134,24 +134,10 @@ sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE/" OCSNG_UNIX_SERVER_${ocsver
 cd OCSNG_UNIX_SERVER_${ocsversion}
 yes "" | sh setup.sh
 
-# enable Apache configuration with aliases
-if [ $os_family = debian ]; then
-  if [ ! -e "$httpconfiglocation/ocsinventory-reports.conf" ]
-  then
-	  ln -s $httpconfiglocation/ocsinventory-reports.conf /etc/apache2/conf-enabled/ocsinventory-reports.conf
-	  :
-  fi
-  if [ ! -e "$httpconfiglocation/z-ocsinventory-server.conf" ]
-  then
-      ln -s $httpconfiglocation/z-ocsinventory-server.conf /etc/apache2/conf-enabled/ocsinventory-reports.conf
-	  :
-  fi
-  if [ ! -e "$httpconfiglocation/zz-ocsinventory-restapi.conf" ]
-  then
-	  ln -s $httpconfiglocation/zz-ocsinventory-restapi.conf /etc/apache2/conf-enabled/ocsinventory-reports.conf
-	  :
-  fi
-fi
+# enable Apache configuration files
+a2enconf ocsinventory-reports
+a2enconf z-ocsinventory-server
+a2enconf zz-ocsinventory-restapi
 
 # temporarily open firewall for fedora
 if [ $os_family = fedora ]; then
