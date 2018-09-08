@@ -13,7 +13,7 @@ mariadb_version='10.3'
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
 # get os version id from system
-osversion_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g'` | cut -d. -f1`
+osversion_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g' | cut -d. -f1`
 
 # get os family from system
 if [ $os = debian ] || [ $os = fedora ]; then
