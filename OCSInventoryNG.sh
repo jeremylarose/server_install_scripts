@@ -141,16 +141,6 @@ DB_SERVER_PWD_REPLACETEXT="DB_SERVER_PWD="
 DB_SERVER_PWD_NEW=DB_SERVER_USER="$ocsdbpwd"
 sed -i "/$DB_SERVER_PWD_REPLACETEXT/c $DB_SERVER_PWD_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
 
-# modify setup.sh with new database host
-DB_SERVER_HOST_REPLACETEXT="DB_SERVER_HOST="
-DB_SERVER_HOST_NEW=DB_SERVER_HOST="$ocsdbhost"
-sed -i "/$DB_SERVER_HOST_REPLACETEXT/c $DB_SERVER_HOST_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
-
-# modify setup.sh with new database port
-DB_SERVER_PORT_REPLACETEXT="DB_SERVER_PORT="
-DB_SERVER_PORT_NEW=DB_SERVER_HOST="$ocsdbhostport"
-sed -i "/$DB_SERVER_PORT_REPLACETEXT/c $DB_SERVER_PORT_NEW" OCSNG_UNIX_SERVER_${ocsversion}/setup.sh
-
 # modifify setup.sh continuing on error
 FORCECONTINUE_REPLACETEXT='exit 1'
 FORCECONTINUE='echo "error but continuing"'
