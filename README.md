@@ -7,13 +7,15 @@ version: 1.5.0p3
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p3' -s monitoring && rm -f Check_MK_Raw.sh
 
 
-## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
+## MariaDB (*Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 10.3
 
 * Installs MariaDB and/or just creates a database if mariadb/mysql already installed
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
+
+* * currently MariaDB's authentication key is having issues with Debian
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
@@ -24,7 +26,7 @@ version: 1.5.0
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea.sh && chmod +x Gitea.sh && ./Gitea.sh && rm -f Gitea.sh
 
-## OCS Inventory NG
+## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
 version: 2.5
 
