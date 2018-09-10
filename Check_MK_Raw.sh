@@ -101,4 +101,4 @@ fi
 omd create $SITENAME
 omd start $SITENAME
 
-echo -e "Installation complete"
+echo -e "Installation complete, if updating, refer to https://mathias-kettner.com/cms_update.html for extra steps"
