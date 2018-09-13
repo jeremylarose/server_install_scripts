@@ -26,11 +26,12 @@ if [ $os_family = debian ]; then
 elif [ $os_family = fedora ]; then  
   # create git user to run gitea
   adduser git -s /sbin/nologin
-  # temporarily open firewall (don't forget to restrict)
-  firewall-cmd --permanent --add-port=3000/tcp
-  firewall-cmd --reload
   # install prereqs
   yum -y install make gcc pam-devel wget git
+  echo "be sure to open firewall ports, example:"
+  # temporarily open firewall (don't forget to restrict)
+  echo "firewall-cmd --permanent --add-port=3000/tcp"
+  echo "firewall-cmd --reload"
 else
   echo "unknown operating system family"
   exit 1
@@ -38,7 +39,7 @@ fi
 
 # If prereqs fail, exit
 if [ $? -ne 0 ]; then
-    echo "apt-get failed to install all required dependencies"
+    echo "failed to install all required dependencies"
     exit
 fi
 
