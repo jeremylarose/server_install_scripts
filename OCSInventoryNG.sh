@@ -138,7 +138,7 @@ yes "" | sh setup.sh
 
 # temporarily open firewall for fedora
 if [ $os_family = fedora ]; then
-  firewall-cmd --permanent --add-port=80/tcp
+  firewall-cmd --add-port=80/tcp
   firewall-cmd --reload
 fi
 
