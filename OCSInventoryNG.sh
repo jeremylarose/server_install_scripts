@@ -136,12 +136,6 @@ sed -i "s/$FORCECONTINUE_REPLACETEXT/$FORCECONTINUE/" OCSNG_UNIX_SERVER_${ocsver
 cd OCSNG_UNIX_SERVER_${ocsversion}
 yes "" | sh setup.sh
 
-# temporarily open firewall for fedora
-if [ $os_family = fedora ]; then
-  firewall-cmd --add-port=80/tcp
-  firewall-cmd --reload
-fi
-
 # modify z-ocsinventory-server.conf with new database user and password replacing lines
 OCS_DB_USER_REPLACETEXT='PerlSetEnv OCS_DB_USER'
 OCS_DB_USER_NEW="\  PerlSetEnv OCS_DB_USER $ocsdbuser"
@@ -204,3 +198,11 @@ fi
 
 echo -e "Installation complete, point your browser to http://server//ocsreports
 |        to configure database server and create/update schema."
+
+# temporarily open firewall for fedora
+if [ $os_family = fedora ]; then
+  echo "be sure to open firewall ports and allow through selinux, ex:"
+  # open firewall ports
+  echo "firewall-cmd --permanent --add-port=80/tcp"
+  echo "firewall-cmd --reload"
+fi
