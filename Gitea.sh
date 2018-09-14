@@ -28,10 +28,6 @@ elif [ $os_family = fedora ]; then
   adduser git -s /sbin/nologin
   # install prereqs
   yum -y install make gcc pam-devel wget git
-  echo "be sure to open firewall ports, example:"
-  # temporarily open firewall (don't forget to restrict)
-  echo "firewall-cmd --permanent --add-port=3000/tcp"
-  echo "firewall-cmd --reload"
 else
   echo "unknown operating system family"
   exit 1
@@ -89,3 +85,10 @@ systemctl start gitea
 
 echo -e "Installation complete, point your browser to http://server:3000
 |        to configure your new Gitea installation."
+# temporarily open firewall for fedora
+if [ $os_family = fedora ]; then
+  echo "be sure to open firewall ports, example:"
+  # temporarily open firewall (don't forget to restrict)
+  echo "firewall-cmd --permanent --add-port=3000/tcp"
+  echo "firewall-cmd --reload"
+fi
