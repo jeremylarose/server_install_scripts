@@ -100,6 +100,8 @@ else
 fi
 
 # install cpan modules
+cpanm Apache::DBI
+
 cpanm Apache2::SOAP
 
 cpanm XML::Entities
