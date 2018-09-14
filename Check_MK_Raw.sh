@@ -80,13 +80,6 @@ elif [ $os_family = fedora ]; then
   php-mbstring php-pdo php-gd rsync
   # install rpm
   rpm -i $installer
-  echo "be sure to open firewall ports and allow through selinux, ex:"
-  # open firewall ports
-  echo "firewall-cmd --permanent --add-port=80/tcp"
-  echo "firewall-cmd --permanent --add-port=6556/tcp"
-  echo "firewall-cmd --reload"
-  # set selinux rule
-  echo "setsebool -P httpd_can_network_connect 1"
 else
   echo "unknown operating system family"
   exit
@@ -103,3 +96,14 @@ omd create $SITENAME
 omd start $SITENAME
 
 echo -e "Installation complete, if updating, refer to https://mathias-kettner.com/cms_update.html for extra steps"
+
+# temporarily open firewall for fedora
+if [ $os_family = fedora ]; then
+  echo "be sure to open firewall ports and allow through selinux, ex:"
+  # open firewall ports
+  echo "firewall-cmd --permanent --add-port=80/tcp"
+  echo "firewall-cmd --permanent --add-port=6556/tcp"
+  echo "firewall-cmd --reload"
+  # set selinux rule
+  echo "setsebool -P httpd_can_network_connect 1"
+fi
