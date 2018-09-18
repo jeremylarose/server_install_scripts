@@ -76,6 +76,9 @@ chmod 770 /etc/gitea
 # copy gitea systemd service
 cp $GOPATH/src/code.gitea.io/gitea/contrib/systemd/gitea.service /etc/systemd/system/gitea.service
 
+# remove go files
+rm -rf $GOPATH
+
 # uncomment mysqld.service in gitea systemd service
 sed -i '/mysqld.service/s/^#//g' /etc/systemd/system/gitea.service
 
