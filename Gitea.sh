@@ -25,7 +25,7 @@ if [ $os_family = debian ]; then
   apt-get -y install make gcc libpam-dev build-essential git
 elif [ $os_family = fedora ]; then  
   # create git user to run gitea
-  adduser git -s /sbin/nologin
+  adduser git -s /bin/bash
   # install prereqs
   yum -y install make gcc pam-devel wget git
 else
