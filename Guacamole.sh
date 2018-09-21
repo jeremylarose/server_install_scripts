@@ -139,7 +139,7 @@ fi
 
 # create required directory structure
 mkdir -p /etc/guacamole/{extensions,lib}
-ln -s /etc/guacamole ${TOMCAT_LOCATION}/.guacamole
+# ln -s /etc/guacamole ${TOMCAT_LOCATION}/.guacamole
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
 |        to access guacamole."
