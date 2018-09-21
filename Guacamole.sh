@@ -5,9 +5,6 @@
 # Version numbers
 GUAC_VERSION="0.9.14"
 
-# set default blank prefix
-GCC_CONFIG_PREFIX=''
-
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
@@ -64,7 +61,7 @@ if [ $os_family = debian ]; then
   fi
   # install dependencies
   apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat8 freerdp-x11 libjpeg-dev gcc-6
-  GCC_CONFIG_PREFIX='CC="gcc-6" '
+  export CC="gcc-6"
 elif [ $os_family = fedora ]; then  
   # install dependencies
   yum -y install make gcc pam-devel wget cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel
@@ -123,8 +120,8 @@ fi
 # Extract guac code and build
 tar -xzf guacamole-server-${GUAC_VERSION}.tar.gz
 cd guacamole-server-${GUAC_VERSION}
-${GCC_CONFIG_PREFIX}./configure --with-init-dir=/etc/init.d
-${GCC_CONFIG_PREFIX}make
+./configure --with-init-dir=/etc/init.d
+make
 make install
 ldconfig
 
