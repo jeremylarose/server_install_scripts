@@ -182,7 +182,6 @@ echo
 if [ $os_family = fedora ]; then
   echo
   echo "    Be sure to open firewall ports, example:"
-  # temporarily open firewall (don't forget to restrict)
   echo "    firewall-cmd --add-port=8080/tcp --permanent"
   echo "    firewall-cmd --reload"
   echo
