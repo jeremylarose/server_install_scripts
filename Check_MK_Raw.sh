@@ -13,6 +13,9 @@ SITENAME="monitoring"
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
+# get os version id from system
+osversion_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g' | cut -d. -f1`
+
 # get os family from system
 if [ $os = debian ] || [ $os = fedora ]; then
   os_family=$os
@@ -34,7 +37,7 @@ fi
 if [ $os_family = debian ]; then
   installer=check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
 elif [ $os_family = fedora ]; then
-  installer=check-mk-raw-${CHECK_MK_VERSION}-el7-38.x86_64.rpm
+  installer=check-mk-raw-${CHECK_MK_VERSION}-el$osversion_id-38.x86_64.rpm
 else
   echo "unknown operating system family"
   exit 1
