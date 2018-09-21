@@ -69,8 +69,8 @@ elif [ $os_family = fedora ]; then
   # ffmpeg-devel (prereq)
   yum -y install epel-release
   rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
-  rpm -Uvh http://li.nux.ro/download/nux/dextop/el$osversion_id/x86_64/nux-dextop-release-0-5.el$osversion_id.nux.noarch.rpm
-  rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el$osversion_id.nux.noarch.rpm
+  rpm -Uvh http://li.nux.ro/download/nux/dextop/el${osversion_id}/x86_64/nux-dextop-release-0-5.el$osversion_id.nux.noarch.rpm
+  rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro rpm -Uvh http://li.nux.ro/download/nux/dextop/el${osversion_id}/x86_64/nux-dextop-release-0-5.el${osversion_id}_id.nux.noarch.rpm
   yum -y install ffmpeg-devel
   # more dependencies
   yum -y install freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel tomcat
