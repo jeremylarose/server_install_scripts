@@ -26,7 +26,7 @@ version: 1.5.1
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea.sh && chmod +x Gitea.sh && ./Gitea.sh && rm -f Gitea.sh
 
-## Guacamole (Debian, Ubuntu, CentOS, RHEL, Fedora)
+## Guacamole Apache (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 0.9.14
 
