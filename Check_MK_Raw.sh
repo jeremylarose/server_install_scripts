@@ -33,16 +33,6 @@ else
   exit 1
 fi
 
-# define installer file
-if [ $os_family = debian ]; then
-  installer=check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
-elif [ $os_family = fedora ]; then
-  installer=check-mk-raw-${CHECK_MK_VERSION}-el$osversion_id-38.x86_64.rpm
-else
-  echo "unknown operating system family"
-  exit 1
-fi
-
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
@@ -57,6 +47,16 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
+
+# define installer file
+if [ $os_family = debian ]; then
+  installer=check-mk-raw-${CHECK_MK_VERSION}_0.${os_codename}_amd64.deb
+elif [ $os_family = fedora ]; then
+  installer=check-mk-raw-${CHECK_MK_VERSION}-el$osversion_id-38.x86_64.rpm
+else
+  echo "unknown operating system family"
+  exit 1
+fi
 
 # Download Check_MK Raw Install
 wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer
