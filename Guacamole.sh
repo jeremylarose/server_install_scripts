@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d gitea - u gitea -p dbpassword)
+# first make executable with chmod +x filename.sh
+# then run with ./filename.sh
+# or also add extensions with ./filename.sh -e extension1 -e extension2
 
 # Version numbers
 GUAC_VERSION="0.9.14"
@@ -28,6 +30,17 @@ else
   exit 1
 fi
 
+# get guacamole extensions to install from script argument: -e ext1 -e ext2 ... etc....
+while getopts "e:" opt; do
+    case $opt in
+        e) multi+=("$OPTARG");;
+        #...
+    esac
+done
+shift $((OPTIND -1))
+
+
+# begin installs
 if [ $os_family = debian ]; then
   # Ubuntu and Debian have different package names for libjpeg
   # Ubuntu and Debian versions have differnet package names for libpng-dev
@@ -137,15 +150,40 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
-# create required directory structure
+# create guacamole config directory structure
 mkdir -p /etc/guacamole/{extensions,lib}
-# ln -s /etc/guacamole ${TOMCAT_LOCATION}/.guacamole
+
+# Download and install guacamole extensions according to command line arguments
+for GUAC_EXTENSION in "${multi[@]}"; do
+    # download extension
+    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    if [ $? -ne 0 ]; then
+        echo "Failed to download guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+        exit
+    fi
+    # Extract and copy jar to extensions folder
+    tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    # cleanup
+    rm -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}
+done
+
+# cleanup
+rm -f guacamole-server-${GUAC_VERSION}.tar.gz
+rm -rf guacamole-server-${GUAC_VERSION}
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
-|        to access guacamole."
+|        to access guacamole.
+|        also don't forget to configure /etc/guacamole/guacamole.properties ( https://guacamole.apache.org/doc/gug/configuring-guacamole.html )
+|        and any authentication method used ( https://guacamole.apache.org/doc/gug/jdbc-auth.html )"
+echo
 if [ $os_family = fedora ]; then
-  echo "    be sure to open firewall ports, example:"
+  echo
+  echo "    Be sure to open firewall ports, example:"
   # temporarily open firewall (don't forget to restrict)
   echo "    firewall-cmd --add-port=8080/tcp --permanent"
   echo "    firewall-cmd --reload"
+  echo
 fi
