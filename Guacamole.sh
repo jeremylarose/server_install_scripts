@@ -172,7 +172,8 @@ if [ "$GUAC_AUTH" = "mysql" ]; then
     rm -f /etc/guacamole/lib/mysql-connector-java*
     cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
     rm -rf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}*
-elif [ "$GUAC_AUTH" = "postgresql" ]; then
+fi
+if [ "$GUAC_AUTH" = "postgresql" ]; then
     wget -O postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
     if [ $? -ne 0 ]; then
         echo "Failed to download https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar"
