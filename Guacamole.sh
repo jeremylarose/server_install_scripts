@@ -32,7 +32,7 @@ else
 fi
 
 # Get script arguments for non-interactive mode
-wwhile getopts ":v:a:e:" opt; do
+while getopts ":v:a:e:" opt; do
   case "$opt" in
     v) GUAC_VERSION=$OPTARG ;;
     a) GUAC_AUTH=$OPTARG ;;
