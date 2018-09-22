@@ -31,29 +31,15 @@ else
   exit 1
 fi
 
-# get guacamole extensions to install from script argument: -e ext1 -e ext2 ... etc....
-while getopts "e:" opt; do
-    case $opt in
-        e) multi+=("$OPTARG");;
-        #...
-    esac
+# Get script arguments for non-interactive mode
+wwhile getopts ":v:a:e:" opt; do
+  case "$opt" in
+    v) GUAC_VERSION=$OPTARG ;;
+    a) GUAC_AUTH=$OPTARG ;;
+    e) GUAC_EXTENSIONS+=("$OPTARG") ;;
+  esac
 done
 shift $((OPTIND -1))
-
-# Get script arguments for non-interactive mode
-while [ "$1" != "" ]; do
-    case $1 in
-        -v | --version )
-            shift
-            GUAC_VERSION="$1"
-            ;;
-        -a | --authentication )
-            shift
-            GUAC_AUTH="$1"
-            ;;
-    esac
-    shift
-done
 
 # begin installs
 if [ $os_family = debian ]; then
@@ -173,7 +159,7 @@ fi
 mkdir -p /etc/guacamole/{extensions,lib}
 
 # Download and install guacamole extensions according to command line arguments
-for GUAC_EXTENSION in "${multi[@]}"; do
+for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
     # download extension
     wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
     if [ $? -ne 0 ]; then
@@ -189,6 +175,7 @@ for GUAC_EXTENSION in "${multi[@]}"; do
       echo "auth-jdbc requires an authentication method specifed as well, ex: -a mysql"
       echo " failed to install auth-jdbc, please run again with authentication specified"
       echo
+      exit 1
     elif [ "$GUAC_EXTENSION" = "auth-jdbc" ]; then
       cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${GUAC_EXTENSION}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     else
