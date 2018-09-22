@@ -5,9 +5,10 @@
 # or also with options:  
 # ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
-# Default version number
+# Default versions
 GUAC_VERSION="0.9.14"
 MYSQL_JDBC_DRIVER_VERSION="8.0.12"
+POSTGRESQL_JDBC_DRIVER_VERSION="42.2.5"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -168,9 +169,17 @@ if [ "$GUAC_AUTH" = "mysql" ]; then
         exit
     fi
     tar -xzf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
-    cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib
+    cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/mysql-connector-java.jar
     rm -rf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}*
-fi    
+elif [ "$GUAC_AUTH" = "postgresql" ]; then
+    wget -O /etc/guacamole/lib/postgresql.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
+    if [ $? -ne 0 ]; then
+        echo "Failed to download https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar"
+        echo "https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar"
+        exit
+    fi
+fi 
+
 
 # Download and install guacamole extensions according to command line arguments
 for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
