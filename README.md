@@ -30,7 +30,11 @@ version: 1.5.1
 
 version: 0.9.14
 
-* TESTING
+* Installs or upgrades Apache Guacamole, installs any extensions specified in command line, and also adds JDBC Drivers for mysql and postgresql if needed... afterward, would just need to modify guacamole.properties and install database schema
+usage example (install Guacamole and MariaDB with two commands filling in your command line arguments):
+wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
+wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Guacamole.sh && chmod +x Guacamole.sh && ./Guacamole.sh && rm -f Guacamole.sh
+
 
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
