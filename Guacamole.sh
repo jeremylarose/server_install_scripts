@@ -175,10 +175,10 @@ mkdir -p /etc/guacamole/{extensions,lib}
 # Download and install guacamole extensions according to command line arguments
 for GUAC_EXTENSION in "${multi[@]}"; do
     # download extension
-    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
     if [ $? -ne 0 ]; then
         echo "Failed to download guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
-        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
         exit
     fi
     # Extract and copy jar to extensions folder
