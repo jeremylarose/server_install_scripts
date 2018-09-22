@@ -154,8 +154,7 @@ make install
 ldconfig
 
 # cleanup guac server install
-rm -f guacamole-server-${GUAC_VERSION}.tar.gz
-rm -rf guacamole-server-${GUAC_VERSION}
+rm -rf guacamole-server-${GUAC_VERSION}*
 
 #start guacd service
 systemctl enable guacd
@@ -195,8 +194,7 @@ for GUAC_EXTENSION in "${multi[@]}"; do
       cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     fi
     # cleanup
-    rm -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
-    rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}
+    rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}*
 done
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
