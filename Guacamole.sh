@@ -207,6 +207,8 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
       exit 1
     elif [ "$GUAC_EXTENSION" = "auth-jdbc" ]; then
       cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${GUAC_EXTENSION}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      # also copy schema folder to /etc/guacamole for easier access on server
+      cp -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/schema /etc/guacamole/schema-${GUAC_AUTH}-${GUAC_VERSION}
     else
       cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     fi
