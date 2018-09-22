@@ -7,6 +7,7 @@
 
 # Default version number
 GUAC_VERSION="0.9.14"
+MYSQL_JDBC_DRIVER_VERSION="8.0.12"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -157,6 +158,19 @@ fi
 
 # create guacamole config directory structure
 mkdir -p /etc/guacamole/{extensions,lib}
+
+# install jdbc connectors if specified with -a in command line
+if [ "$GUAC_AUTH" = "mysql" ]; then
+    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
+    if [ $? -ne 0 ]; then
+        echo "Failed to download mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz"
+        echo "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz"
+        exit
+    fi
+    tar -xzf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
+    cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib
+    rm -rf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}*
+fi    
 
 # Download and install guacamole extensions according to command line arguments
 for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
