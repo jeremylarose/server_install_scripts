@@ -169,7 +169,7 @@ if [ "$GUAC_AUTH" = "mysql" ]; then
         exit
     fi
     tar -xzf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
-    rm -f /etc/guacamole/lib/mysql-connector-java*
+    rm -rf /etc/guacamole/lib/mysql-connector-java*
     cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
     rm -rf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}*
 fi
