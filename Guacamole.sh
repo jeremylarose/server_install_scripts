@@ -214,6 +214,8 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
     rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}*
 done
 
+service ${TOMCAT_SERVICE} restart
+
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
 |        to access guacamole.
 |        also don't forget to configure /etc/guacamole/guacamole.properties ( https://guacamole.apache.org/doc/gug/configuring-guacamole.html )
