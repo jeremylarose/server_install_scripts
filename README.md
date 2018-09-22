@@ -26,7 +26,7 @@ version: 1.5.1
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea.sh && chmod +x Gitea.sh && ./Gitea.sh && rm -f Gitea.sh
 
-## Guacamole Apache (Debian, Ubuntu, CentOS, RHEL, Fedora)
+## Guacamole, Apache (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 0.9.14
 
@@ -35,6 +35,9 @@ version: 0.9.14
 1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
 2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Guacamole.sh && chmod +x Guacamole.sh && ./Guacamole.sh -v 0.9.14 -e auth-cas -e auth-jdbc -a mysql && rm -f Guacamole.sh
 3. modify /etc/guacamole/guacamole.properties and update schema if needed
+
+  - current extension options (-e): auth-cas, auth-duo, auth-header, auth-jdbc, auth-ldap, auth-noauth, auth-openid
+  - current db authentication options (-a): mysql, postgresql
 
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
