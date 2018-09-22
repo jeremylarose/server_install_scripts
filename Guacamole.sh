@@ -184,7 +184,7 @@ for GUAC_EXTENSION in "${multi[@]}"; do
     # Extract and copy jar to extensions folder
     tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
     # auth-jdbc requires authentication argument as well, so exit if auth-jdbc specified but no authentiation
-    if [ "$var" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
+    if [ "$GUAC_EXTENSION" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
       echo
       echo "auth-jdbc requires an authentication method specifed as well, ex: -a mysql"
       echo " failed to install auth-jdbc, please run again with authentication specified"
