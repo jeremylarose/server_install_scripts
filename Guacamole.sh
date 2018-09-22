@@ -5,7 +5,7 @@
 # or also with options:  
 # ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
-# Version numbers
+# Default version number
 GUAC_VERSION="0.9.14"
 
 # get os from system
@@ -154,7 +154,8 @@ make install
 ldconfig
 
 # cleanup guac server install
-rm -rf guacamole-server-${GUAC_VERSION}*
+rm -f guacamole-server-${GUAC_VERSION}.tar.gz
+rm -rf guacamole-server-${GUAC_VERSION}
 
 #start guacd service
 systemctl enable guacd
@@ -172,29 +173,30 @@ fi
 mkdir -p /etc/guacamole/{extensions,lib}
 
 # Download and install guacamole extensions according to command line arguments
-for GUAC_EXTENSION in "${multi[@]}"; do
+for var in "${multi[@]}"; do
     # download extension
-    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${var}-${GUAC_VERSION}.tar.gz
     if [ $? -ne 0 ]; then
-        echo "Failed to download guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
-        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+        echo "Failed to download guacamole-${var}-${GUAC_VERSION}.tar.gz"
+        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${var}-${GUAC_VERSION}.tar.gz"
         exit
     fi
     # Extract and copy jar to extensions folder
-    tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    tar -xzf guacamole-${var}-${GUAC_VERSION}.tar.gz
     # auth-jdbc requires authentication argument as well, so exit if auth-jdbc specified but no authentiation
-    if [ "$GUAC_EXTENSION" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
+    if [ "$var" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
       echo
       echo "auth-jdbc requires an authentication method specifed as well, ex: -a mysql"
       echo " failed to install auth-jdbc, please run again with authentication specified"
       echo
-    elif [ "$GUAC_EXTENSION" = "auth-jdbc" ]; then
-      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${GUAC_EXTENSION}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    elif [ "$var" = "auth-jdbc" ]; then
+      cp -f guacamole-${var}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${var}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     else
-      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f guacamole-${var}-${GUAC_VERSION}/guacamole-${var}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     fi
     # cleanup
-    rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}*
+    rm -f guacamole-${var}-${GUAC_VERSION}.tar.gz
+    rm -rf guacamole-${var}-${GUAC_VERSION}
 done
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
