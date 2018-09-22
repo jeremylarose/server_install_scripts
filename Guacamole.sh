@@ -169,17 +169,21 @@ if [ "$GUAC_AUTH" = "mysql" ]; then
         exit
     fi
     tar -xzf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
-    cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/mysql-connector-java.jar
+    rm -f /etc/guacamole/lib/mysql-connector-java*
+    cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
     rm -rf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}*
+    if [ "$GUAC_AUTH" = "mysql" ]; then
 elif [ "$GUAC_AUTH" = "postgresql" ]; then
-    wget -O /etc/guacamole/lib/postgresql.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
+    wget -O postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
     if [ $? -ne 0 ]; then
         echo "Failed to download https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar"
         echo "https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar"
         exit
     fi
+    rm -f /etc/guacamole/lib/postgresql*
+    cp -f postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
+    rm -f postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
 fi 
-
 
 # Download and install guacamole extensions according to command line arguments
 for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
@@ -192,6 +196,8 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
     fi
     # Extract and copy jar to extensions folder
     tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    # remove any old versions of extension
+    rm -f /etc/guacamole/extensions/guacamole-${GUAC_EXTENSION}*
     # auth-jdbc requires authentication argument as well, so exit if auth-jdbc specified but no authentiation
     if [ "$GUAC_EXTENSION" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
       echo
