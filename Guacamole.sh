@@ -31,6 +31,15 @@ else
   exit 1
 fi
 
+# get guacamole extensions to install from script argument: -e ext1 -e ext2 ... etc....
+while getopts "e:" opt; do
+    case $opt in
+        e) multi+=("$OPTARG");;
+        #...
+    esac
+done
+shift $((OPTIND -1))
+
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
@@ -45,15 +54,6 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
-
-# get guacamole extensions to install from script argument: -e ext1 -e ext2 ... etc....
-while getopts "e:" opt; do
-    case $opt in
-        e) multi+=("$OPTARG");;
-        #...
-    esac
-done
-shift $((OPTIND -1))
 
 # begin installs
 if [ $os_family = debian ]; then
@@ -173,30 +173,30 @@ fi
 mkdir -p /etc/guacamole/{extensions,lib}
 
 # Download and install guacamole extensions according to command line arguments
-for var in "${multi[@]}"; do
+for GUAC_EXTENSION in "${multi[@]}"; do
     # download extension
-    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${var}-${GUAC_VERSION}.tar.gz
+    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
     if [ $? -ne 0 ]; then
-        echo "Failed to download guacamole-${var}-${GUAC_VERSION}.tar.gz"
-        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${var}-${GUAC_VERSION}.tar.gz"
+        echo "Failed to download guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/source/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
         exit
     fi
     # Extract and copy jar to extensions folder
-    tar -xzf guacamole-${var}-${GUAC_VERSION}.tar.gz
+    tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
     # auth-jdbc requires authentication argument as well, so exit if auth-jdbc specified but no authentiation
     if [ "$var" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
       echo
       echo "auth-jdbc requires an authentication method specifed as well, ex: -a mysql"
       echo " failed to install auth-jdbc, please run again with authentication specified"
       echo
-    elif [ "$var" = "auth-jdbc" ]; then
-      cp -f guacamole-${var}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${var}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    elif [ "$GUAC_EXTENSION" = "auth-jdbc" ]; then
+      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${GUAC_EXTENSION}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     else
-      cp -f guacamole-${var}-${GUAC_VERSION}/guacamole-${var}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     fi
     # cleanup
-    rm -f guacamole-${var}-${GUAC_VERSION}.tar.gz
-    rm -rf guacamole-${var}-${GUAC_VERSION}
+    rm -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}
 done
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
