@@ -2,7 +2,8 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or also add extensions with ./filename.sh -e extension1 -e extension2
+# or also with options:  
+# ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
 # Version numbers
 GUAC_VERSION="0.9.14"
@@ -30,6 +31,21 @@ else
   exit 1
 fi
 
+# Get script arguments for non-interactive mode
+while [ "$1" != "" ]; do
+    case $1 in
+        -v | --version )
+            shift
+            GUAC_VERSION="$1"
+            ;;
+        -a | --authentication )
+            shift
+            GUAC_AUTH="$1"
+            ;;
+    esac
+    shift
+done
+
 # get guacamole extensions to install from script argument: -e ext1 -e ext2 ... etc....
 while getopts "e:" opt; do
     case $opt in
@@ -38,7 +54,6 @@ while getopts "e:" opt; do
     esac
 done
 shift $((OPTIND -1))
-
 
 # begin installs
 if [ $os_family = debian ]; then
@@ -130,13 +145,17 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
-# Extract guac code and build
+# Extract guac source code and build
 tar -xzf guacamole-server-${GUAC_VERSION}.tar.gz
 cd guacamole-server-${GUAC_VERSION}
 ./configure --with-init-dir=/etc/init.d
 make
 make install
 ldconfig
+
+# cleanup guac server install
+rm -f guacamole-server-${GUAC_VERSION}.tar.gz
+rm -rf guacamole-server-${GUAC_VERSION}
 
 #start guacd service
 systemctl enable guacd
@@ -164,15 +183,21 @@ for GUAC_EXTENSION in "${multi[@]}"; do
     fi
     # Extract and copy jar to extensions folder
     tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
-    cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    # auth-jdbc requires authentication argument as well, so exit if auth-jdbc specified but no authentiation
+    if [ "$GUAC_EXTENSION" = "auth-jdbc" ] && [ -z "$GUAC_AUTH" ]; then
+      echo
+      echo "auth-jdbc requires an authentication method specifed as well, ex: -a mysql"
+      echo " failed to install auth-jdbc, please run again with authentication specified"
+      echo
+    elif [ "$GUAC_EXTENSION" = "auth-jdbc" ]; then
+      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${GUAC_EXTENSION}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    else
+      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    fi
     # cleanup
     rm -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
     rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}
 done
-
-# cleanup
-rm -f guacamole-server-${GUAC_VERSION}.tar.gz
-rm -rf guacamole-server-${GUAC_VERSION}
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
 |        to access guacamole.
@@ -182,6 +207,7 @@ echo
 if [ $os_family = fedora ]; then
   echo
   echo "    Be sure to open firewall ports, example:"
+  # temporarily open firewall (don't forget to restrict)
   echo "    firewall-cmd --add-port=8080/tcp --permanent"
   echo "    firewall-cmd --reload"
   echo
