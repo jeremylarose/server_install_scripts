@@ -111,11 +111,19 @@ elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   
   # install MariaDB
   # -qq implies -y --force-yes
-  apt-get -y install software-properties-common dirmngr
+  # dirmngr needs to be 2.2+ so backports need to be added for debian os:
+  if [ $os = debian ]; then
+    echo "deb http://ftp.debian.org/debian $os_codename-backports main" > /etc/apt/sources.list.d/$os_codename-backports.list
+    apt update
+    apt -y -t $os_codename-backports install dirmngr
+  else
+    apt -y install dirmngr
+  fi
+  apt -y install software-properties-common
   apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
   add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main"
-  apt-get update
-  apt-get install -qq mariadb-server mariadb-client
+  apt update
+  apt install -qq mariadb-server mariadb-client
   if [ $? -eq 0 ]; then
     echo "MariaDB $mariadb_version installed successfully"
   fi
