@@ -44,10 +44,10 @@ if [ $os_family = debian ]; then
 		echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list
 		echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 		apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886	
-    elif [ $os = ubuntu ]; then
-    	add-apt-repository -y ppa:webupd8team/java
-	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-    fi
+        elif [ $os = ubuntu ]; then
+    		add-apt-repository -y ppa:webupd8team/java
+		echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+  	fi
     apt update
     apt -y install oracle-java8-installer
     # install elasticsearch, logstash, and kibana
@@ -57,8 +57,8 @@ elif [ $os_family = fedora ]; then
 
 	# install JRE8
 	curl -Lo jre-8-linux-x64.rpm --header "Cookie: oraclelicense=accept-securebackup-cookie" "https://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jre-8u181-linux-x64.rpm"
-    yum -y install jre-8-linux-x64.rpm
-    rm -f jre-8-linux-x64.rpm
+        yum -y install jre-8-linux-x64.rpm
+        rm -f jre-8-linux-x64.rpm
     
 	# add elk repository and GPG key
 	rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
