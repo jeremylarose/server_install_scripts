@@ -45,7 +45,8 @@ if [ $os_family = debian ]; then
 		echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 		apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886	
     elif [ $os = ubuntu ]; then
-    	add-apt-repository ppa:webupd8team/java
+    	add-apt-repository -y ppa:webupd8team/java
+	echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
     fi
     apt update
     apt -y install oracle-java8-installer
