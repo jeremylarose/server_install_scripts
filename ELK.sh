@@ -48,10 +48,13 @@ if [ $os_family = debian ]; then
     		add-apt-repository -y ppa:webupd8team/java
 		echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
   	fi
+    # add elastic repository
+    curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+    echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-6.x.list
+   
+    # install oracle java8, elasticsearch, logstash, and kibana
     apt update
-    apt -y install oracle-java8-installer
-    # install elasticsearch, logstash, and kibana
-    apt -y install elasticsearch=${elkversion} logstash=1:${elkversion}-1 kibana=${elkversion}
+    apt -y install oracle-java8-installer elasticsearch=${elkversion} logstash=1:${elkversion}-1 kibana=${elkversion}
 
 elif [ $os_family = fedora ]; then
 
