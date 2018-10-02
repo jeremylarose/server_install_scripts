@@ -50,7 +50,7 @@ if [ $os_family = debian ]; then
   	fi
     # add elastic repository
     curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
-    echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-6.x.list
+    echo "deb https://artifacts.elastic.co/packages/${elkversion_majormajor}.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-${elkversion_majormajor}.x.list
    
     # install oracle java8, elasticsearch, logstash, and kibana
     apt update
