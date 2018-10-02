@@ -50,10 +50,9 @@ if [ $os_family = debian ]; then
     fi
     apt update
     apt -y install oracle-java8-installer
+    # install elasticsearch, logstash, and kibana
+    apt -y install elasticsearch=${elkversion} logstash=1:${elkversion}-1 kibana=${elkversion}
 
-	# install elasticsearch, logstash, and kibana
-	apt -y install elasticsearch=${elkversion} logstash=1:${elkversion}-1 kibana=${elkversion}
-	
 elif [ $os_family = fedora ]; then
 
 	# install JRE8
