@@ -6,13 +6,13 @@ version: 1.5.0p4
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p4' -s monitoring && rm -f Check_MK_Raw.sh
 
-## ELK / Elastic Stack (Debian, Ubuntu, CentOS, RHEL, Fedora)
+## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 6.4.1
 
 * Installs Oracle Java JRE, Elasticsearch, Logstash, and Kibana
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ELK.sh && chmod +x ELK.sh && ./ELK.sh -v "6.4.1" && rm -f ELK.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v "6.4.1" && rm -f ElasticStack.sh
 
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
@@ -56,9 +56,9 @@ version: 2.5
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: Wazuh 3.6.1, ELK 6.4.1
+version: Wazuh 3.6.1, ElasticStack 6.4.1
 
 * install example (Wazuh and Elastic Stack (ELK) with two commands filling in your command line arguments):
 
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ELK.sh && chmod +x ELK.sh && ./ELK.sh && rm -f ELK.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v 6.4.1 && rm -f ElasticStack.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.6.1 -e 6.4.1 -v 2.5 -l local && rm -f Wazuh.sh
