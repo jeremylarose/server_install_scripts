@@ -6,14 +6,13 @@ version: 1.5.0p4
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p4' -s monitoring && rm -f Check_MK_Raw.sh
 
+## ELK / Elastic Stack (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
+version: 6.4.1
 
-version: 10.3
-
-* Installs MariaDB and/or just creates a database if mariadb/mysql already installed
+* Installs Oracle Java JRE, Elasticsearch, Logstash, and Kibana
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ELK.sh && chmod +x ELK.sh && ./ELK.sh -v "6.4.1" && rm -f ELK.sh
 
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
@@ -38,6 +37,14 @@ version: 0.9.14
   - current extension options (-e): auth-cas, auth-duo, auth-header, auth-jdbc, auth-ldap, auth-noauth, auth-openid
   - current db authentication options (-a): mysql, postgresql
 
+## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
+
+version: 10.3
+
+* Installs MariaDB and/or just creates a database if mariadb/mysql already installed
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
+
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
 version: 2.5
@@ -46,3 +53,12 @@ version: 2.5
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d ocsweb -u ocs_dbuser -p 'dbpassword' && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dpbassword' -v 2.5 -h localhost -p 3306 && rm -f OCSInventoryNG.sh
+
+## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
+
+version: Wazuh 3.6.1, ELK 6.4.1
+
+* install example (Wazuh and Elastic Stack (ELK) with two commands filling in your command line arguments):
+
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ELK.sh && chmod +x ELK.sh && ./ELK.sh && rm -f ELK.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.6.1 -e 6.4.1 -v 2.5 -l local && rm -f Wazuh.sh
