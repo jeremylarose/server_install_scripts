@@ -11,6 +11,7 @@ version: 1.5.0p4
 version: 6.4.1
 
 * Installs Oracle Java JRE, Elasticsearch, Logstash, and Kibana and tunes Elasticsearch as recommended with heap size
+* use no more than half of your system memory for heap size and max of 32gb
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v "6.4.1" -h 4g && rm -f ElasticStack.sh
 
