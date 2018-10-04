@@ -125,4 +125,5 @@ fi
 sed -i "s/^-Xms.*$/-Xms${heap_size}/" /etc/elasticsearch/jvm.options
 sed -i "s/^-Xmx.*$/-Xmx${heap_size}/" /etc/elasticsearch/jvm.options
 
+systemctl daemon-reload
 service elasticsearch restart
