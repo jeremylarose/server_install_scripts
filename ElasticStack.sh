@@ -2,11 +2,12 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --version "version#"
-# ./filename.sh -v elkversion
+# or automated with ./filename.sh --version "version#" --heapsize "size of jvm heap"
+# ./filename.sh -v elkversion -h "size of heap"
 
 # set default variables
 elkversion="6.4.1"
+heap_size="1g"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -24,6 +25,10 @@ while [ "$1" != "" ]; do
         -v | --elkversion )
             shift
             elkversion="$1"
+            ;;
+        -h | --heapsize )
+            shift
+            heap_size="$1"
             ;;
 esac
     shift
@@ -96,3 +101,28 @@ KIBANA_NEW='server.host: "0.0.0.0"'
 sed -i "/$KIBANA_REPLACETEXT/c $KIBANA_NEW" /etc/kibana/kibana.yml
 
 service kibana restart
+
+## Elasticsearch tuning ##
+
+# lock memory on startup prevent system memory swap with Elasticsearch by uncommenting it
+sed -i '/bootstrap.memory_lock/s/^#//g' /etc/elasticsearch/elasticsearch.yml
+
+# Edit system resources limit in elasticsearch
+if [[ -e /etc/systemd/system/ ]]; then
+	mkdir -p /etc/systemd/system/elasticsearch.service.d/
+	cat <<-EOF >/etc/systemd/system/elasticsearch.service.d/elasticsearch.conf
+	[Service]
+	LimitMEMLOCK=infinity
+	EOF
+fi
+if [[ -e /etc/sysconfig/elasticsearch ]]; then
+	sed -i '/MAX_LOCKED_MEMORY/s/^#//g' /etc/sysconfig/elasticsearch
+elif [[ -e /etc/default/elasticsearch ]]; then
+	sed -i '/MAX_LOCKED_MEMORY/s/^#//g' /etc/default/elasticsearch
+fi
+
+# Limit memory by setting Elasticsearch heap size (use no more than half of your available memory and 32gb max)
+sed -i 's/-Xms.*g/-Xms${heap_size}g/g' /etc/elasticsearch/jvm.options
+sed -i 's/-Xmx.*g/-Xms${heap_size}g/g' /etc/elasticsearch/jvm.options
+
+service elasticsearch restart
