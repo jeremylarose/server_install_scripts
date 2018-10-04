@@ -92,7 +92,7 @@ fi
 
 # load wazuh template for elasticsearch after waiting 60 seconds
 sleep 60
-curl https://raw.githubusercontent.com/wazuh/wazuh/${elkversion_major}/extensions/elasticsearch/wazuh-elastic${elkversion_majormajor}-template-alerts.json | curl -XPUT 'http://localhost:9200/_template/wazuh' -H 'Content-Type: application/json' -d @-
+curl https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensions/elasticsearch/wazuh-elastic${elkversion_majormajor}-template-alerts.json | curl -XPUT 'http://localhost:9200/_template/wazuh' -H 'Content-Type: application/json' -d @-
 
 if [ $logstash_server = local ]; then
 
