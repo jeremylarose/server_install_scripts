@@ -100,12 +100,12 @@ if [ $logstash_server = local ]; then
 	usermod -a -G ossec logstash
 
 	# download wazuh configuration for logstash (local, single host)
-	curl -so /etc/logstash/conf.d/01-wazuh.conf https://raw.githubusercontent.com/wazuh/wazuh/${elkversion_major}/extensions/logstash/01-wazuh-local.conf
+	curl -so /etc/logstash/conf.d/01-wazuh.conf https://raw.githubusercontent.com/wazuh/wazuh/${wazuhersion_major}/extensions/logstash/01-wazuh-local.conf
 
 else
 
 	# download wazuh configuration for logstash (remote logstash)
-	curl -so /etc/logstash/conf.d/01-wazuh.conf https://raw.githubusercontent.com/wazuh/wazuh/${elkversion_major}/extensions/logstash/01-wazuh-remote.conf
+	curl -so /etc/logstash/conf.d/01-wazuh.conf https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensions/logstash/01-wazuh-remote.conf
 
 	# install filebeat
 	if [ $os_family = debian ]; then
