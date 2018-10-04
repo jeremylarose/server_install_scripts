@@ -89,3 +89,10 @@ systemctl enable logstash.service
 systemctl start logstash.service
 systemctl enable kibana.service
 systemctl start kibana.service
+
+# allow kibana to be open to other machines from port 5601 (be sure to lock down with firewall / https proxy)
+KIBANA_REPLACETEXT='server.host'
+KIBANA_NEW='server.host: "0.0.0.0"'
+sed -i "/$KIBANA_REPLACETEXT/c $KIBANA_NEW" /etc/kibana/kibana.yml
+
+service kibana restart
