@@ -122,7 +122,7 @@ elif [[ -e /etc/default/elasticsearch ]]; then
 fi
 
 # Limit memory by setting Elasticsearch heap size (use no more than half of your available memory and 32gb max)
-sed -i 's/-Xms.*g/-Xms${heap_size}g/g' /etc/elasticsearch/jvm.options
-sed -i 's/-Xmx.*g/-Xms${heap_size}g/g' /etc/elasticsearch/jvm.options
+sed -i 's/^-Xms.*$/-Xms${heap_size}/' /etc/elasticsearch/jvm.options
+sed -i 's/^-Xmx.*$/-Xmx${heap_size}/' /etc/elasticsearch/jvm.options
 
 service elasticsearch restart
