@@ -79,6 +79,25 @@ external_auth:
       - '@runner'
       - '@wheel'
       - '@jobs'
+    saltgui_keymaster%:
+      - grains.items
+      - sys.doc
+      - state.apply
+      - '@wheel':
+        - 'key.*'
+    saltgui_installer%:
+      - grains.items
+      - sys.doc
+      - state.apply
+      - pkg.*
+      - '@wheel':
+        - 'key.list'
+    saltgui_minimal%:
+      - grains.items
+      - sys.doc
+      - state.apply
+      - '@wheel':
+        - 'key.list'
 
 rest_cherrypy:
   port: 3333
@@ -89,8 +108,11 @@ rest_cherrypy:
   static_path: /static
 EOF
 
-# create saltgui_admin pam group if doesn't exist
+# create saltgui pam groups if don't exist
 getent group saltgui_admin || groupadd saltgui_admin
+getent group saltgui_keymaster || groupadd saltgui_keymaster
+getent group saltgui_installer || groupadd saltgui_installer
+getent group saltgui_minimal || groupadd saltgui_minimal
 
 # create local pam user if doesn't exist
 id -u $saltguiusername &>/dev/null || useradd $saltguiusername && 
