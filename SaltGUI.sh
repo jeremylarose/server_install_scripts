@@ -2,34 +2,11 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --saltgui_user username --saltgui_pwd password --salt_version saltversionnumber --saltgui_version saltguiversionnumber
+# or automated with ./filename.sh --saltgui_user username --saltgui_pwd password --version saltguiversionnumber
 # OR
-# ./filename.sh -u username -p password -v saltversionnumber --g saltguiversionnumber
+# ./filename.sh -u username -p password -v saltguiversionnumber
 
 saltgui_version="1.3.0"
-salt_version="2018.3"
-
-# get os from system
-os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
-
-# get os version from system
-osversion=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g'`
-
-# get os family from system
-if [ $os = debian ] || [ $os = fedora ]; then
-  os_family=$os
-else
-  os_family=`cat /etc/*release | grep ^ID_LIKE= | cut -d= -f2 | sed 's/\"//g' | cut -d' ' -f2`
-fi
-
-# get os_codename from system
-if [ $os = debian ] || [ $os = centos ] || [ $os = rhel ]; then
-  os_codename=`cat /etc/*release | grep ^VERSION= | cut -d'(' -f2 | cut -d')' -f1 | awk '{print tolower($0)}'`
-elif [ $os = ubuntu ]; then
-  os_codename=`cat /etc/*release | grep ^DISTRIB_CODENAME= | cut -d= -f2`
-else
-  os_codename='unknown'
-fi
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
@@ -42,11 +19,7 @@ while [ "$1" != "" ]; do
             shift
             saltgui_pwd="$1"
             ;;
-        -v | --salt_version )
-            shift
-            salt_version="$1"
-            ;;
-        -g | --saltgui_version )
+        -v | --version )
             shift
             saltgui_version="$1"
             ;;
@@ -80,24 +53,7 @@ else
     echo
 fi
 
-# install latest salt items from http://repo.saltstack.com
-if [ $os_family = debian ]; then
-	wget -O - https://repo.saltstack.com/apt/${os}/${osversion}/amd64/${salt_version}/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
-	echo "deb http://repo.saltstack.com/apt/${os}/${osversion}/amd64/${salt_version} ${os_codename} main" > /etc/apt/sources.list.d/saltstack.list
-	apt update
-	apt -y install salt-master salt-api
-elif [ $os_family = fedora ]; then  
-	yum -y install https://repo.saltstack.com/yum/redhat/salt-repo-${salt_version}-1.el${osversion}.noarch.rpm
-	yum -y clean expire-cache
-	yum -y install salt-master salt-api
-else
-  echo "unknown operating system family"
-  exit 1
-fi
-
-
 # install saltgui from https://github.com/erwindon/SaltGUI
-
 # download SaltGUI
 wget -O SaltGUI-${saltgui_version}.tar.gz https://github.com/erwindon/SaltGUI/archive/${saltgui_version}.tar.gz
 if [ $? -ne 0 ]; then
