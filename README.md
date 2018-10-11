@@ -73,7 +73,7 @@ version: 2018.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v '2018.3' -c salt-api -c salt-minion && rm -f SaltMaster.sh
 
-  - current component options (-c): salt-minion, salt-ssh, salt-syndic, salt-cloud, salt-api
+- current component options (-c): salt-minion, salt-ssh, salt-syndic, salt-cloud, salt-api
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
