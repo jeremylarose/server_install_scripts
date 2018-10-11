@@ -69,7 +69,7 @@ version: SaltGUI 1.3.0
 
 version: 2018.3
 
-* installs or updates salt-master and any other specified componenets
+* installs or updates salt-master and any other specified components
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v '2018.3' -c salt-api -c salt-minion && rm -f SaltMaster.sh
 
