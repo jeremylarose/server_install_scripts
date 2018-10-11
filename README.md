@@ -56,6 +56,25 @@ version: 2.5
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d ocsweb -u ocs_dbuser -p 'dbpassword' && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dpbassword' -v 2.5 -h localhost -p 3306 && rm -f OCSInventoryNG.sh
 
+## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
+
+version: SaltGUI 1.3.0
+
+* install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
+
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v 2018.3 -c salt-api -c salt-minion && rm -f SaltMaster.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.3.0 && rm -f SaltGUI.sh
+
+## Salt Master, SaltStack (Debian, Ubuntu, CentOS, RHEL)
+
+version: 2018.3
+
+* installs or updates salt-master and any other specified componenets
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v '2018.3' -c salt-api -c salt-minion && rm -f SaltMaster.sh
+
+  - current component options (-c): salt-minion, salt-ssh, salt-syndic, salt-cloud, salt-api
+
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: Wazuh 3.6.1, ElasticStack 6.4.1
