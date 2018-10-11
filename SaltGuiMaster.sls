@@ -112,7 +112,7 @@ tar -xzf SaltGUI-${saltgui_version}.tar.gz
 # copy saltgui folder to proper location
 mkdir -p /srv
 cp -rf SaltGUI-${saltgui_version}/saltgui /srv
-rm rf SaltGUI-${saltgui_version}*
+rm -rf SaltGUI-${saltgui_version}*
 
 # add salt master config for cherrypy authentication with pam
 cat > /etc/salt/master.d/saltgui.conf << EOF
