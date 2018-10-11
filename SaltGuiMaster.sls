@@ -96,23 +96,23 @@ else
 fi
 
 
-# install saltgui from https://github.com/maerteijn/SaltGUI
+# install saltgui from https://github.com/erwindon/SaltGUI
 
 # download SaltGUI
-wget -O SaltGUI-${SALTGUIVERSION}.tar.gz https://github.com/maerteijn/SaltGUI/archive/${SALTGUIVERSION}.tar.gz
+wget -O SaltGUI-${saltgui_version}.tar.gz https://github.com/erwindon/SaltGUI/archive/${saltgui_version}.tar.gz
 if [ $? -ne 0 ]; then
-    echo "Failed to download SaltGUI_${SALTGUIVERSION}.tar.gz"
-    echo "https://github.com/maerteijn/SaltGUI/archive/${SALTGUIVERSION}.tar.gz"
+    echo "Failed to download SaltGUI_${saltgui_version}.tar.gz"
+    echo "https://github.com/erwindon/SaltGUI/archive/${saltgui_version}.tar.gz"
     exit
 fi
 
 # Extract SaltGUI files
-tar -xzf SaltGUI-${SALTGUIVERSION}.tar.gz
+tar -xzf SaltGUI-${saltgui_version}.tar.gz
 
 # copy saltgui folder to proper location
 mkdir -p /srv
-cp -rf SaltGUI-${SALTGUIVERSION}/saltgui /srv
-rm rf SaltGUI-${SALTGUIVERSION}*
+cp -rf SaltGUI-${saltgui_version}/saltgui /srv
+rm rf SaltGUI-${saltgui_version}*
 
 # add salt master config for cherrypy authentication with pam
 cat > /etc/salt/master.d/saltgui.conf << EOF
