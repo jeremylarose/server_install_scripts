@@ -1,6 +1,6 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 1.5.0p5
+version: 1.5.0p6
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
@@ -19,7 +19,7 @@ version: 6.4.1
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.5.1
+version: 1.5.2
 
 * builds with PAM authentication capability (not available with developer binaries) and Installs with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
