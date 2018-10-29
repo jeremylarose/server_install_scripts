@@ -8,7 +8,7 @@ version: 1.5.0p6
 
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 6.4.1
+version: 6.4.2
 
 * Installs Oracle Java JRE, Elasticsearch, Logstash, and Kibana and tunes Elasticsearch as recommended with heap size
 * use no more than half of your system memory for heap size and max of 32gb
