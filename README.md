@@ -82,4 +82,4 @@ version: Wazuh 3.6.1, ElasticStack 6.4.2
 * install example (Wazuh and Elastic Stack (ELK) with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v 6.4.2 -h 4g && rm -f ElasticStack.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.6.1 -e 6.4.1 -l local && rm -f Wazuh.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.6.1 -e 6.4.2 -l local && rm -f Wazuh.sh
