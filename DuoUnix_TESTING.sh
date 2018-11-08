@@ -150,6 +150,9 @@ fi
 #" /etc/pam.d/system-auth
 #fi
 
+# add autopush
+#grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf || echo hi
+
 echo -e "Installation complete, see https://duo.com/docs/duounix
 |        for documentation."
 # temporarily open firewall for fedora
