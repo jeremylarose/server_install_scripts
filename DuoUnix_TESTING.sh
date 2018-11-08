@@ -2,9 +2,9 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --ikey INTEGRATION_KEY --skey SECRET_KEY --host API_HOSTNAME --auth "ssh, system-wide, or none" --version VERSION
+# or automated with ./filename.sh --ikey INTEGRATION_KEY --skey SECRET_KEY --host API_HOSTNAME --auth "ssh or none" --version VERSION
 # OR
-# ./filename.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a "ssh, system-wide, or none"-v VERSION
+# ./filename.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a "ssh or none"-v VERSION
 
 
 # Version numbers
@@ -118,35 +118,37 @@ test -e /lib64/security/pam_duo.so && pam_duo_so_location=/lib64/security/pam_du
 
 # update authentications for duo if specified
 if [ $os_family = debian ] && [ "$duo_auth" = ssh ]; then
-sed -i '/^@include common-auth/c\
-#@include common-auth\
-auth  [success=1 default=ignore] $pam_duo_so_location\
-auth  requisite pam_deny.so\
-auth  required pam_permit.so\
-' /etc/pam.d/sshd
+sed -i "/^@include common-auth/c\\
+#@include common-auth\\
+auth  [success=1 default=ignore] $pam_duo_so_location\\
+auth  requisite pam_deny.so\\
+auth  required pam_permit.so\\
+" /etc/pam.d/sshd
 fi
 if [ $os_family = fedora ] && [ "$duo_auth" = ssh ]; then  
-sed -i '/^auth  substack password-auth/c\
-#auth  substack password-auth\
-auth  required pam_env.so\
-auth  sufficient $pam_duo_so_location\
-auth  required pam_deny.so\
-' /etc/pam.d/sshd
+sed -i "/^auth  substack password-auth/c\\
+#auth  substack password-auth\\
+auth  required pam_env.so\\
+auth  sufficient $pam_duo_so_location\\
+auth  required pam_deny.so\\
+" /etc/pam.d/sshd
 fi
-if [ $os_family = debian ] && [ "$duo_auth" = "system-wide" ]; then
-sed -i '/^auth  [success=1 default=ignore] pam_unix.so nullok_secure/c\
-# auth  [success=1 default=ignore] pam_unix.so nullok_secure\
-auth  requisite pam_unix.so nullok_secure\
-auth  [success=1 default=ignore] $pam_duo_so_location\
-' /etc/pam.d/common-auth
-fi
-if [ $os_family = fedora ] && [ "$duo_auth" = "system-wide" ]; then
-sed -i '/^auth  sufficient pam_unix.so nullok try_first_pass/c\
-# auth  sufficient pam_unix.so nullok try_first_pass\
-auth  requisite pam_unix.so nullok try_first_pass\
-auth  sufficient $pam_duo_so_location\
-' /etc/pam.d/system-auth
-fi
+
+#### system-wide not currently working####
+#if [ $os_family = debian ] && [ "$duo_auth" = "system-wide" ]; then
+#sed -i "/^auth  [success=1 default=ignore] pam_unix.so nullok_secure/c\\
+# auth  [success=1 default=ignore] pam_unix.so nullok_secure\\
+#auth  requisite pam_unix.so nullok_secure\\
+#auth  [success=1 default=ignore] $pam_duo_so_location\\
+#" /etc/pam.d/common-auth
+#fi
+#if [ $os_family = fedora ] && [ "$duo_auth" = "system-wide" ]; then
+#sed -i "/^auth  sufficient pam_unix.so nullok try_first_pass/c\\
+# auth  sufficient pam_unix.so nullok try_first_pass\\
+#auth  requisite pam_unix.so nullok try_first_pass\\
+#auth  sufficient $pam_duo_so_location\\
+#" /etc/pam.d/system-auth
+#fi
 
 echo -e "Installation complete, see https://duo.com/docs/duounix
 |        for documentation."
