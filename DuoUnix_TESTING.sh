@@ -33,7 +33,7 @@ while [ "$1" != "" ]; do
             ;;
         -h | --host )
             shift
-            duo_apihost="$1"
+            duo_host="$1"
             ;;
         -a | --auth )
             shift
