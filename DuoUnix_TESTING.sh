@@ -2,10 +2,9 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --ikey INTEGRATION_KEY --skey SECRET_KEY --host API_HOSTNAME --auth "ssh or none" --version VERSION
+# or automated with ./filename.sh --ikey INTEGRATION_KEY --skey SECRET_KEY --host API_HOSTNAME --auth "ssh, system-wide, or none" --version VERSION
 # OR
-# ./filename.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a "ssh or none"-v VERSION
-
+# ./filename.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a "ssh, system-wide, or none"-v VERSION
 
 # Version numbers
 duo_version="1.11.0"
@@ -99,7 +98,9 @@ tar -xzf duo_unix-${duo_version}.tar.gz
 cd duo_unix-${duo_version}
 ./configure --with-pam --prefix=/usr && make && sudo make install
 
-# modify /etc/duo/pam_duo.conf with duo skey, ikey, and host... replacing lines
+# modifying the pam_duo.conf file
+
+# modify pam_duo.conf with duo skey, ikey, and host... replacing lines
 DUO_IKEY_REPLACETEXT='ikey ='
 DUO_IKEY_NEW="ikey = $duo_ikey"
 sed -i "/$DUO_IKEY_REPLACETEXT/c $DUO_IKEY_NEW" /etc/duo/pam_duo.conf
@@ -111,6 +112,22 @@ sed -i "/$DUO_SKEY_REPLACETEXT/c $DUO_SKEY_NEW" /etc/duo/pam_duo.conf
 DUO_HOST_REPLACETEXT='host ='
 DUO_HOST_NEW="host = $duo_host"
 sed -i "/$DUO_HOST_REPLACETEXT/c $DUO_HOST_NEW" /etc/duo/pam_duo.conf
+
+# add autopush to file
+# run commands until line matches exactly as intended in file
+until grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf
+do
+	sed -i '/autopush/d' /etc/duo/pam_duo.conf
+	echo 'autopush = yes' >> /etc/duo/pam_duo.conf
+done
+
+# set failemode to secure
+# run commands until line matches exactly as intended in file
+until grep -qxF 'failmode = secure' /etc/duo/pam_duo.conf
+do
+	sed -i '/failmode/d' /etc/duo/pam_duo.conf
+	echo 'failmode = secure' >> /etc/duo/pam_duo.conf
+done
 
 # get and set pam_duo.so location for authentications
 pam_duo_so_location=pam_duo.so
@@ -133,38 +150,19 @@ auth  sufficient $pam_duo_so_location\\
 auth  required pam_deny.so\\
 " /etc/pam.d/sshd
 fi
-
-#### system-wide not currently working####
-#if [ $os_family = debian ] && [ "$duo_auth" = "system-wide" ]; then
-#sed -i "/^auth  [success=1 default=ignore] pam_unix.so nullok_secure/c\\
-# auth  [success=1 default=ignore] pam_unix.so nullok_secure\\
-#auth  requisite pam_unix.so nullok_secure\\
-#auth  [success=1 default=ignore] $pam_duo_so_location\\
-#" /etc/pam.d/common-auth
+if [ $os_family = debian ] && [ "$duo_auth" = system-wide ]; then
+	until grep -qxF "auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/duo/pam_duo.conf
+	do
+		sed -i "/pam_deny.so/a auth   [success=1 default=ignore]      $pam_duo_so_location"
+	done
+fi
+if [ $os_family = fedora ] && [ "$duo_auth" = system-wide ]; then
+sed -i "/^auth  sufficient pam_unix.so nullok try_first_pass/c\\
+auth  sufficient pam_unix.so nullok try_first_pass\\
+auth  requisite pam_unix.so nullok try_first_pass\\
+auth  sufficient $pam_duo_so_location\\
+" /etc/pam.d/system-auth
 #fi
-#if [ $os_family = fedora ] && [ "$duo_auth" = "system-wide" ]; then
-#sed -i "/^auth  sufficient pam_unix.so nullok try_first_pass/c\\
-# auth  sufficient pam_unix.so nullok try_first_pass\\
-#auth  requisite pam_unix.so nullok try_first_pass\\
-#auth  sufficient $pam_duo_so_location\\
-#" /etc/pam.d/system-auth
-#fi
-
-# add autopush to file
-# run commands until line matches exactly as intended in file
-until grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf
-do
-	sed -i '/autopush/d' /etc/duo/pam_duo.conf
-	echo 'autopush = yes' >> /etc/duo/pam_duo.conf
-done
-
-# set failemode to secure
-# run commands until line matches exactly as intended in file
-until grep -qxF 'failmode = secure' /etc/duo/pam_duo.conf
-do
-	sed -i '/failmode/d' /etc/duo/pam_duo.conf
-	echo 'failmode = secure' >> /etc/duo/pam_duo.conf
-done
 
 echo -e "Installation complete, see https://duo.com/docs/duounix
 |        for documentation."
