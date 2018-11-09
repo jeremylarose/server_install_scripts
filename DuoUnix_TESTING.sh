@@ -151,9 +151,9 @@ auth  required pam_deny.so\\
 " /etc/pam.d/sshd
 fi
 if [ $os_family = debian ] && [ "$duo_auth" = system-wide ]; then
-	until grep -qxF "auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/duo/pam_duo.conf
+	until grep -qxF "auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/pam.d/common-auth
 	do
-		sed -i "/pam_deny.so/a auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/duo/pam_duo.conf
+		sed -i "/pam_deny.so/a auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/pam.d/common-auth
 	done
 fi
 if [ $os_family = fedora ] && [ "$duo_auth" = system-wide ]; then
