@@ -154,10 +154,16 @@ fi
 # run commands until line matches exactly as intended in file
 until grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf
 do
-    #remove any lines containing autopush
 	sed -i '/autopush/d' /etc/duo/pam_duo.conf
-    #add required line to file
 	echo 'autopush = yes' >> /etc/duo/pam_duo.conf
+done
+
+# set failemode to secure
+# run commands until line matches exactly as intended in file
+until grep -qxF 'failmode = secure' /etc/duo/pam_duo.conf
+do
+	sed -i '/failmode/d' /etc/duo/pam_duo.conf
+	echo 'failmode = secure' >> /etc/duo/pam_duo.conf
 done
 
 echo -e "Installation complete, see https://duo.com/docs/duounix
