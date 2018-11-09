@@ -152,7 +152,8 @@ fi
 
 # add autopush to file
 # run commands until line matches exactly as intended in file
-until [[ grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf ]] ; do
+until grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf
+do
     #remove any lines containing autopush
 	sed -i '/autopush/d' /etc/duo/pam_duo.conf
     #add required line to file
