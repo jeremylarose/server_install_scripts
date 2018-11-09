@@ -71,7 +71,7 @@ fi
 if [ $os_family = debian ]; then
   apt-get -y install wget make gcc libpam-dev libssl-dev build-essential
 elif [ $os_family = fedora ]; then  
-  yum -y install make gcc pam-devel openssl-devel wget
+  yum -y install make gcc pam-devel openssl-devel wget policycoreutils-python bzip2
 else
   echo "unknown operating system family"
   exit 1
@@ -97,6 +97,9 @@ tar -xzf duo_unix-${duo_version}.tar.gz
 # Build and install Duo with PAM
 cd duo_unix-${duo_version}
 ./configure --with-pam --prefix=/usr && make && sudo make install
+
+# if semodule available, update policies to include authlogin_duo
+semodule -l && make -C pam_duo semodule && make -C pam_duo semodule-install
 
 # modifying the pam_duo.conf file
 
