@@ -153,7 +153,7 @@ fi
 if [ $os_family = debian ] && [ "$duo_auth" = system-wide ]; then
 	until grep -qxF "auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/duo/pam_duo.conf
 	do
-		sed -i "/pam_deny.so/a auth   [success=1 default=ignore]      $pam_duo_so_location"
+		sed -i "/pam_deny.so/a auth   [success=1 default=ignore]      $pam_duo_so_location" /etc/duo/pam_duo.conf
 	done
 fi
 if [ $os_family = fedora ] && [ "$duo_auth" = system-wide ]; then
