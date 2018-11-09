@@ -162,7 +162,7 @@ auth  sufficient pam_unix.so nullok try_first_pass\\
 auth  requisite pam_unix.so nullok try_first_pass\\
 auth  sufficient $pam_duo_so_location\\
 " /etc/pam.d/system-auth
-#fi
+fi
 
 echo -e "Installation complete, see https://duo.com/docs/duounix
 |        for documentation."
