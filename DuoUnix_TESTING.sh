@@ -143,8 +143,8 @@ auth  required pam_permit.so\\
 " /etc/pam.d/sshd
 fi
 if [ $os_family = fedora ] && [ "$duo_auth" = ssh ]; then  
-sed -i "/^auth  substack password-auth/c\\
-#auth  substack password-auth\\
+sed -i "/^auth	   substack     password-auth/c\\
+#auth	   substack     password-auth\\
 auth  required pam_env.so\\
 auth  sufficient $pam_duo_so_location\\
 auth  required pam_deny.so\\
