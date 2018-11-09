@@ -150,8 +150,14 @@ fi
 #" /etc/pam.d/system-auth
 #fi
 
-# add autopush
-#grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf || echo hi
+# add autopush to file
+# run commands until line matches exactly as intended in file
+until [[ grep -qxF 'autopush = yes' /etc/duo/pam_duo.conf ]] ; do
+    #remove any lines containing autopush
+	sed -i '/autopush/d' /etc/duo/pam_duo.conf
+    #add required line to file
+	echo 'autopush = yes' >> /etc/duo/pam_duo.conf
+done
 
 echo -e "Installation complete, see https://duo.com/docs/duounix
 |        for documentation."
