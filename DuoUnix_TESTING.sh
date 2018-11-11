@@ -146,11 +146,11 @@ auth  required pam_permit.so\\
 " /etc/pam.d/sshd
 fi
 if [ $os_family = fedora ] && [ "$duo_auth" = ssh ]; then  
-sed -i "/^auth	   substack     password-auth/c\\
-#auth	   substack     password-auth\\
-auth  required pam_env.so\\
-auth  sufficient $pam_duo_so_location\\
-auth  required pam_deny.so\\
+sed -i "/^auth       substack     password-auth/c\\
+#auth       substack     password-auth\\
+auth	   required     pam_env.so\\
+auth	   sufficient   $pam_duo_so_location\\
+auth	   required     pam_deny.so\\
 " /etc/pam.d/sshd
 fi
 if [ $os_family = debian ] && [ "$duo_auth" = system-wide ]; then
@@ -160,19 +160,12 @@ if [ $os_family = debian ] && [ "$duo_auth" = system-wide ]; then
 	done
 fi
 if [ $os_family = fedora ] && [ "$duo_auth" = system-wide ]; then
-sed -i "/^auth  sufficient pam_unix.so nullok try_first_pass/c\\
-auth  sufficient pam_unix.so nullok try_first_pass\\
-auth  requisite pam_unix.so nullok try_first_pass\\
-auth  sufficient $pam_duo_so_location\\
+sed -i "/^auth        sufficient    pam_unix.so nullok try_first_pass/c\\
+#auth        sufficient    pam_unix.so nullok try_first_pass\\
+auth        requisite     pam_unix.so nullok try_first_pass\\
+auth        sufficient    $pam_duo_so_location\\
 " /etc/pam.d/system-auth
 fi
 
 echo -e "Installation complete, see https://duo.com/docs/duounix
 |        for documentation."
-# temporarily open firewall for fedora
-if [ $os_family = fedora ]; then
-  echo "be sure to open firewall ports, example:"
-  # temporarily open firewall (don't forget to restrict)
-  echo "firewall-cmd --permanent --add-port=3000/tcp"
-  echo "firewall-cmd --reload"
-fi
