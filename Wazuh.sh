@@ -158,6 +158,7 @@ fi
 # remove previous version of kibana wazuh plugin if installed
 if [[ -e /usr/share/kibana/plugins/wazuh ]]; then
 	sudo -u kibana /usr/share/kibana/bin/kibana-plugin remove wazuh
+	rm -rf /usr/share/kibana/optimize/bundles
 fi
 
 # increase Node.js heap memory and install Wazuh app plugin for kibana as kibana if kibana is installed
