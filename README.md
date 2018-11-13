@@ -60,6 +60,7 @@ version: 2.5
 
 version: SaltGUI 1.4.1
 
+* installs or updates SaltGUI
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v 2018.3 -c salt-api -c salt-minion && rm -f SaltMaster.sh
