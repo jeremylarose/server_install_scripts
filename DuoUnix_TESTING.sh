@@ -96,7 +96,7 @@ tar -xzf duo_unix-${duo_version}.tar.gz
 
 # Build and install Duo with PAM
 cd duo_unix-${duo_version}
-./configure --with-pam --prefix=/usr && make && sudo make install
+./configure --with-pam --prefix=/usr && make && make install
 
 # if semodule available, update policies to include authlogin_duo
 semodule -l && make -C pam_duo semodule && make -C pam_duo semodule-install
