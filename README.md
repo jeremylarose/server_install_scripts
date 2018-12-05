@@ -1,10 +1,10 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 1.5.0p8
+version: 1.5.0p9
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p8' -s monitoring && rm -f Check_MK_Raw.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p9' -s monitoring && rm -f Check_MK_Raw.sh
 
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
@@ -64,7 +64,7 @@ version: SaltGUI 1.5.0
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v 2018.3 -c salt-api -c salt-minion && rm -f SaltMaster.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.4.1 && rm -f SaltGUI.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.5.0 && rm -f SaltGUI.sh
 
 ## SaltMaster, saltstack (Debian, Ubuntu, CentOS, RHEL)
 
