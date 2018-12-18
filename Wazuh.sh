@@ -58,7 +58,7 @@ if [ $os_family = debian ]; then
 	curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | apt-key add -
 
 	# add wazuh repository
-	echo "deb https://packages.wazuh.com/${wazuhversion_majormajor}.x/apt/ stable main" | tee -a /etc/apt/sources.list.d/wazuh.list
+	echo "deb https://packages.wazuh.com/${wazuhversion_majormajor}.x/apt/ stable main" > /etc/apt/sources.list.d/wazuh.list
 
 	# update packages and install wazuh manager
 	apt update
