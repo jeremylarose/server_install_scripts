@@ -6,8 +6,8 @@
 # ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
 # Default versions
-GUAC_VERSION="0.9.14"
-MYSQL_JDBC_DRIVER_VERSION="5.1.47"
+GUAC_VERSION="1.0.0"
+MYSQL_JDBC_DRIVER_VERSION="8.0.13"
 POSTGRESQL_JDBC_DRIVER_VERSION="42.2.5"
 
 # get os from system
