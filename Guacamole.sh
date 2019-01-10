@@ -216,7 +216,10 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
     rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}*
 done
 
-service ${TOMCAT_SERVICE} restart
+# stop service and remove old client, then restart with new
+service ${TOMCAT_SERVICE} stop
+rm -rf ${TOMCAT_LOCATION}/webapps/guacamole
+servcie ${TOMCAT_SERVICE} start
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
 |        to access guacamole.
