@@ -7,7 +7,7 @@
 
 # set default variables
 wazuhversion="3.7.2"
-elkversion="6.5.3"
+elkversion="6.5.4"
 logstash_server="local"
 
 # get os from system
