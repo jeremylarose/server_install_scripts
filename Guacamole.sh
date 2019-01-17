@@ -219,7 +219,7 @@ done
 # stop service and remove old client, then restart with new
 service ${TOMCAT_SERVICE} stop
 rm -rf ${TOMCAT_LOCATION}/webapps/guacamole
-servcie ${TOMCAT_SERVICE} start
+service ${TOMCAT_SERVICE} start
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
 |        to access guacamole.
