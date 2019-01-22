@@ -78,9 +78,9 @@ version: 2018.3
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: Wazuh 3.7.2, ElasticStack 6.5.4
+version: Wazuh 3.8.0, ElasticStack 6.5.4
 
 * installs or upgrades Wazuh
 * install example (Wazuh and Elastic Stack (ELK) with two commands filling in your command line arguments):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v 6.5.4 -h 4g && rm -f ElasticStack.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.7.2 -e 6.5.4 -l local && rm -f Wazuh.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.8.0 -e 6.5.4 -l local && rm -f Wazuh.sh
