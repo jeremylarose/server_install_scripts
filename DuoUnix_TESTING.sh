@@ -7,7 +7,7 @@
 # ./filename.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a "ssh, system-wide, or none"-v VERSION
 
 # Version numbers
-duo_version="1.11.0"
+duo_version="1.11.1"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
