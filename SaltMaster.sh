@@ -5,7 +5,7 @@
 # or automated with ./filename.sh -v saltversionnumber -c saltcomponent1 -c saltcomponent2..etc...
 
 # set default version
-salt_version="2018.3"
+salt_version="2019.2"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -40,15 +40,15 @@ shift $((OPTIND -1))
 
 # install latest salt items from http://repo.saltstack.com
 if [ $os_family = debian ]; then
-	wget -O - https://repo.saltstack.com/apt/${os}/${osversion}/amd64/${salt_version}/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
-	echo "deb http://repo.saltstack.com/apt/${os}/${osversion}/amd64/${salt_version} ${os_codename} main" > /etc/apt/sources.list.d/saltstack.list
+	wget -O - https://repo.saltstack.com/py3/${os}/${osversion}/amd64/${salt_version}/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+	echo "deb http://repo.saltstack.com/py3/${os}/${osversion}/amd64/${salt_version} ${os_codename} main" > /etc/apt/sources.list.d/saltstack.list
 	apt update
 	apt -y install salt-master
 	for salt_component in "${salt_components[@]}"; do
 		apt -y install ${salt_component}
 	done
 elif [ $os_family = fedora ]; then  
-	yum -y install https://repo.saltstack.com/yum/redhat/salt-repo-${salt_version}-1.el${osversion}.noarch.rpm
+	yum -y install https://repo.saltstack.com/py3/redhat/salt-py3-repo-${salt_version}-1.el${osversion}.noarch.rpm
 	yum -y clean expire-cache
 	yum -y install salt-master
 	for salt_component in "${salt_components[@]}"; do
