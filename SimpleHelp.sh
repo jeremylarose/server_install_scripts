@@ -143,5 +143,5 @@ else
   cd ..
 fi
 
-echo -e "Setup Complete https://simple-help.com/install---linux"
-echo -e "The following service type was configured: $SERVICE_TYPE"
+echo "Setup Complete https://simple-help.com/install---linux"
+echo "The following service type was configured: $SERVICE_TYPE"
