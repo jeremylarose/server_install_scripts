@@ -97,18 +97,18 @@ fi
 
 # Copy across the old configuration folder
 if [ -d "/opt/SimpleHelp_backup_$now" ]; then
-	echo "Copying across configuration files"
-	cp -R /opt/SimpleHelp_backup_$now/configuration/* /opt/SimpleHelp/configuration
+  echo "Copying across configuration files"
+  cp -R /opt/SimpleHelp_backup_$now/configuration/* /opt/SimpleHelp/configuration
 fi
 	
 # Copy across a legacy license file
 if [ -f "/opt/SimpleHelp_backup_$now/shlicense.txt" ]; then
-	cp /opt/SimpleHelp_backup_$now/shlicense.txt /opt/SimpleHelp/configuration
+  cp /opt/SimpleHelp_backup_$now/shlicense.txt /opt/SimpleHelp/configuration
 fi
 	        
 # Copy across any keystore file
 if [ -f "/opt/SimpleHelp_backup_$now/keystore" ]; then
-	cp /opt/SimpleHelp_backup_$now/keystore /opt/SimpleHelp
+  cp /opt/SimpleHelp_backup_$now/keystore /opt/SimpleHelp
 fi
 
 # configure the service if specified
