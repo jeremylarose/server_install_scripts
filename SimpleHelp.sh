@@ -10,12 +10,11 @@
 SIMPLEHELP_VERSION="5.0.19"
 
 # set default service as suggested by SimpleHelp
-if [ -f /sbin/initctl ];
-then
+if [ -f /sbin/initctl ]; then
    SERVICE_TYPE=upstart
-elif [ -f /sbin/systemctl ];
+elif [ -f /sbin/systemctl ]; then 
    SERVICE_TYPE=systemd
-elif [ -f /bin/systemctl ];
+elif [ -f /bin/systemctl ]; then 
    SERVICE_TYPE=systemd
 else
    SERVICE_TYPE=ignore
