@@ -144,3 +144,13 @@ fi
 
 echo "SimpleHelp $SIMPLEHELP_VERSION setup Complete https://simple-help.com/install---linux"
 echo "The following service type was configured: $SERVICE_TYPE"
+
+if [ $os_family = fedora ]; then
+  # set selinux rule
+  setsebool -P httpd_can_network_connect 1
+  echo "    be sure to open firewall ports and allow through selinux, ex:"
+  # open firewall ports
+  echo "    firewall-cmd --permanent --add-port=80/tcp"
+  echo "    firewall-cmd --permanent --add-port=443/tcp"
+  echo "    firewall-cmd --reload"
+fi
