@@ -152,5 +152,7 @@ if [ $os_family = fedora ]; then
   # open firewall ports
   echo "    firewall-cmd --permanent --add-port=80/tcp"
   echo "    firewall-cmd --permanent --add-port=80/udp"
+  echo "    firewall-cmd --permanent --add-port=443/tcp"
+  echo "    firewall-cmd --permanent --add-port=443/udp"
   echo "    firewall-cmd --reload"
 fi
