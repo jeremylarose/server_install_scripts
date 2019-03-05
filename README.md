@@ -76,6 +76,15 @@ version: 2019.2, Py3
 
 - current component options (-c): salt-minion, salt-ssh, salt-syndic, salt-cloud, salt-api
 
+## SimpleHelp (Debian, Ubuntu, CentOS, RHEL, Fedora)
+
+version: 5.0.19
+
+* NOTE: this is not open source software, see licensing here ( https://simple-help.com/pricing )
+* installs or updates SimpleHelp Server
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SimpleHelp.sh && chmod +x SimpleHelp.sh && ./SimpleHelp.sh -v '5.0.19' -s systemd && rm -f SimpleHelp.sh
+
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: Wazuh 3.8.2, ElasticStack 6.6.0
