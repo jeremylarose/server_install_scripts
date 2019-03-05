@@ -151,6 +151,6 @@ if [ $os_family = fedora ]; then
   echo "    be sure to open firewall ports and allow through selinux, ex:"
   # open firewall ports
   echo "    firewall-cmd --permanent --add-port=80/tcp"
-  echo "    firewall-cmd --permanent --add-port=443/tcp"
+  echo "    firewall-cmd --permanent --add-port=80/udp"
   echo "    firewall-cmd --reload"
 fi
