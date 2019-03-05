@@ -143,4 +143,4 @@ else
   cd ..
 fi
 
-echo -e "Setup Complete https://simple-help.com"
+echo -e "Setup Complete https://simple-help.com/install---linux"
