@@ -122,8 +122,8 @@ elif [ $SERVICE_TYPE = upstart ]; then
 elif [ $SERVICE_TYPE = systemd ]; then
   wget https://simple-help.com/static/simplehelp-systemd.service -O /etc/systemd/system/simplehelp.service
   systemctl daemon-reload
-  systemctl enable simplehelp
-  systemctl start simplehelp
+  systemctl enable simplehelp.service
+  systemctl start simplehelp.service
 else
   echo "service setup ignored"
 fi
