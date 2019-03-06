@@ -118,8 +118,12 @@ if [ $SERVICE_TYPE = initd ]; then
   chkconfig /etc/init.d/simplehelp on
 elif [ $SERVICE_TYPE = upstart ]; then
   wget https://simple-help.com/static/simplehelp-upstart.conf -O /etc/init/simplehelp.conf
+  /sbin/initctl start simplehelp
 elif [ $SERVICE_TYPE = systemd ]; then
   wget https://simple-help.com/static/simplehelp-systemd.service -O /etc/systemd/system/simplehelp.service
+  systemctl daemon-reload
+  systemctl enable simplehelp
+  systemctl start simplehelp
 else
   echo "service setup ignored"
 fi
