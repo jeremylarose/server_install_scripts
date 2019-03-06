@@ -6,7 +6,7 @@
 # ./filename.sh -v elkversion -h "size of heap"
 
 # set default variables
-elkversion="6.6.0"
+elkversion="6.6.1"
 heap_size="1g"
 
 # get os from system
