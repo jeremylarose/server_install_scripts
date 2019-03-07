@@ -62,7 +62,7 @@ fi
 wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer
 
 if [ $? -ne 0 ]; then
-     echo "Failed to download $installer"   
+     echo "Failed to download $installer"
      echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer"
      exit
 fi
@@ -76,7 +76,7 @@ if [ $os_family = debian ]; then
   fi
 elif [ $os_family = fedora ]; then
   # Install prereqs
-  yum -y install epel-release 
+  yum -y install epel-release
   yum -y install time traceroute dialog fping graphviz graphviz-gd libevent libdbi libmcrypt libtool-ltdl \
   rpcbind net-snmp net-snmp-utils pango patch perl-Net-SNMP perl-IO-Zlib uuid xinetd freeradius-utils \
   libpcap bind-utils poppler-utils libgsf rpm-build httpd perl-Locale-Maketext-Simple php php-cli php-xml \
