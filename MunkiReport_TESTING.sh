@@ -335,6 +335,9 @@ CURL_CMD="/usr/bin/curl, --fail, --silent, --show-error"
 EOF
 
 # Copy across the old configuration files overwiting new
+if [ -f ${PARENTDIR}/munkireport_backup_$now/.env ]; then
+  mv ${MUNKIREPORT_LOCATION}/.env ${MUNKIREPORT_LOCATION}/.env_example
+fi
 if [ -d "${PARENTDIR}/munkireport_backup_$now" ]; then
   echo "Copying across previous configuration files"
   cd ${PARENTDIR}/munkireport_backup_$now
