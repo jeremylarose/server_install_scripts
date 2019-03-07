@@ -146,7 +146,7 @@ cat <<EOF >${MUNKIREPORT_LOCATION}/.env
 CONNECTION_DRIVER="sqlite"
 CONNECTION_DATABASE="app/db/db.sqlite"
 EOF
-elif [ $DATABASE = sqlite ]; then
+elif [ $DATABASE = mysql ]; then
 cat <<EOF >${MUNKIREPORT_LOCATION}/.env
 # --------------------------------------------------------------
 # munkireport-php phpdotenv configuration file.
