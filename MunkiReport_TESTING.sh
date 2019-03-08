@@ -89,7 +89,7 @@ if [ $os_family = debian ]; then
   apt -y install wget software-properties-common
   add-apt-repository -y ppa:ondrej/php
   apt update
-  apt -y install php7.3-mysql php7.3-fpm php7.3-xml
+  apt -y install php7.3-fpm php7.3-xml
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget
@@ -137,12 +137,13 @@ touch ${MUNKIREPORT_LOCATION}/storage/framework/down
 
 # set .env file file
 if [ $DATABASE = sqlite ]; then
-  apt -y install sqlite
+  apt -y install sqlite php7.3-sqlite
   cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 	CONNECTION_DRIVER="sqlite"
 	CONNECTION_DATABASE="app/db/db.sqlite"
 	EOF
 elif [ $DATABASE = mysql ]; then
+  apt -y install php7.3-mysql
   cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 	CONNECTION_DRIVER="mysql"
 	CONNECTION_DATABASE="app/db/db.sqlite"
