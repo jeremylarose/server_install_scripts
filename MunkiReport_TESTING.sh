@@ -86,7 +86,10 @@ fi
 
 # install prereqs
 if [ $os_family = debian ]; then
-  apt-get -y install wget php7.3-mysql php7.3-fpm php7.3-xml
+  apt -y install wget software-properties-common
+  add-apt-repository -y ppa:ondrej/php
+  apt update
+  apt -y install php7.3-mysql php7.3-fpm php7.3-xml
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget
