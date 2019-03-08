@@ -141,18 +141,10 @@ if [ $DATABASE = sqlite ]; then
 	CONNECTION_DATABASE="app/db/db.sqlite"
 	EOF
 elif [ $DATABASE = mysql ]; then
-  cat <<-EOF2 >${MUNKIREPORT_LOCATION}/.env
-	CONNECTION_DRIVER="mysql"
-	CONNECTION_HOST="${MYSQL_HOST}"
-  CONNECTION_PORT="${MYSQL_HOSTPORT}"
-  CONNECTION_DATABASE="munkireport"
-  CONNECTION_USERNAME="${MYSQL_DBUSER}"
-  CONNECTION_PASSWORD="${MYSQL_DBPWD}"
-  CONNECTION_CHARSET="utf8mb4"
-  CONNECTION_COLLATION="utf8mb4_unicode_ci"
-  CONNECTION_STRICT=TRUE
-  CONNECTION_ENGINE="InnoDB"
-	EOF2
+  cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
+	CONNECTION_DRIVER="sqlite"
+	CONNECTION_DATABASE="app/db/db.sqlite"
+	EOF
 fi
 
 # Copy across the old configuration files overwiting new
