@@ -45,11 +45,11 @@ while [ "$1" != "" ]; do
             ;;
         -u | --mysqluser )
             shift
-            MYSQL_USER="$1"
+            MYSQL_DBUSER="$1"
             ;;
         -p | --mysqlpwd )
             shift
-            MYSQL_PWD="$1"
+            MYSQL_DBBPWD="$1"
             ;;
         -h | --mysqlhost )
             shift
@@ -63,12 +63,12 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ $DATABASE = mysql ] && [ -z "$MYSQL_USER" ]; then
+if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBBUSER" ]; then
     echo
     read -p "Enter the Munkireport database username with access: " MYSQL_DBUSER
     echo
 fi
-if [ $DATABASE = mysql ] && [ -z "$MYSQL_PWD" ]; then
+if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBBPWD" ]; then
     echo
     while true
     do
@@ -148,13 +148,13 @@ elif [ $DATABASE = mysql ]; then
   cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 	CONNECTION_DRIVER="mysql"
 	CONNECTION_DATABASE="munkireport"
-  CONNECTION_HOST="${MYSQL_HOST}"
+	CONNECTION_HOST="${MYSQL_HOST}"
 	CONNECTION_PORT="${MYSQL_HOSTPORT}"
-  CONNECTION_USERNAME="${MYSQL_DBUSER}"
+	CONNECTION_USERNAME="${MYSQL_DBUSER}"
 	CONNECTION_PASSWORD="${MYSQL_DBPWD}"
-  CONNECTION_CHARSET="utf8mb4"
+	CONNECTION_CHARSET="utf8mb4"
 	ONNECTION_COLLATION="utf8mb4_unicode_ci"
-  CONNECTION_STRICT=TRUE
+	CONNECTION_STRICT=TRUE
 	CONNECTION_ENGINE="InnoDB"
 	AUTH_METHODS="NOAUTH"
 	EOF
