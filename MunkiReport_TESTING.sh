@@ -76,7 +76,7 @@ if [ $DATABASE = mysql ] && [ -z "$MYSQL_PWD" ]; then
         echo
         read -s -p "Confirm the Munkireport User Database Password: " password2
         echo
-        [ "$ocsdbpwd" = "$password2" ] && break
+        [ "$MYSQL_DBPWD" = "$password2" ] && break
         echo "Passwords don't match. Please try again."
         echo
     done
@@ -141,7 +141,8 @@ if [ $DATABASE = sqlite ]; then
   CONNECTION_DRIVER="sqlite"
   CONNECTION_DATABASE="app/db/db.sqlite"
   EOF
-elif [ $DATABASE = mysql ]; then
+fi
+if [ $DATABASE = mysql ]; then
   cat <<-EOF >"${MUNKIREPORT_LOCATION}/.env"
   CONNECTION_DRIVER="mysql"
   CONNECTION_HOST="${MYSQL_HOST}"
