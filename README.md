@@ -47,6 +47,15 @@ version: 10.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
 
+## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
+
+version: munkireport-php 4.0.2, PHP 7.3
+
+* install example (install Munkireport and MariaDB with two commands filling in your command line arguments):
+
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d munkireport -u munki_dbuser -p 'dbpassword' && rm -f MariaDB.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -u munki_dbuser -p 'dpbassword' -v 4.0.2 -h 127.0.0.1 -p 3306 && rm -f Munkireport.sh
+
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
 version: 2.5
