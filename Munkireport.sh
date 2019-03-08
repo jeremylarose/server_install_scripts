@@ -180,7 +180,7 @@ if [ -d "${PARENTDIR}/munkireport_backup_$now" ]; then
 fi
 
 # run migrations
-echo "Migrating databae......."
+echo "Migrating database......."
 cd ${MUNKIREPORT_LOCATION}
 php database/migrate.php
 

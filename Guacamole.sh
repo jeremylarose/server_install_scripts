@@ -2,7 +2,7 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or also with options:  
+# or also with options:
 # ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
 # Default versions
@@ -78,7 +78,7 @@ if [ $os_family = debian ]; then
   # install dependencies
   apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat8 freerdp-x11 libjpeg-dev gcc-6
   export CC="gcc-6"
-elif [ $os_family = fedora ]; then  
+elif [ $os_family = fedora ]; then
   # install dependencies
   yum -y install make gcc pam-devel wget cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel
   # install optional dependencies
@@ -183,7 +183,7 @@ if [ "$GUAC_AUTH" = "postgresql" ]; then
     rm -f /etc/guacamole/lib/postgresql*
     cp -f postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
     rm -f postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
-fi 
+fi
 
 # Download and install guacamole extensions according to command line arguments
 for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
@@ -219,7 +219,7 @@ done
 # stop service and remove old client, then restart with new
 service ${TOMCAT_SERVICE} stop
 rm -rf ${TOMCAT_LOCATION}/webapps/guacamole
-servcie ${TOMCAT_SERVICE} start
+service ${TOMCAT_SERVICE} start
 
 echo -e "Installation complete, point your browser to http://server:8080/guacamole
 |        to access guacamole.
