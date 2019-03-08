@@ -186,3 +186,15 @@ php database/migrate.php
 
 # turn off maintenance mode
 rm ${MUNKIREPORT_LOCATION}/storage/framework/down
+
+echo -e "Installation complete, if new install, please configure ${MUNKIREPORT_LOCATION}/.env properly"
+echo -e "for testing purposes, run this command: php -S 0.0.0.0:8888 --docroot ${MUNKIREPORT_LOCATION}/public"
+echo -e "and access site through http://youripaddress:8888"
+echo ""
+
+if [ $os_family = fedora ]; then
+  echo "    be sure to open firewall port before testing:"
+  # open firewall ports
+  echo "    firewall-cmd --permanent --add-port=8888/tcp"
+  echo "    firewall-cmd --reload"
+fi
