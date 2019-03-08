@@ -141,7 +141,7 @@ if [ $DATABASE = sqlite ]; then
 	CONNECTION_DATABASE="app/db/db.sqlite"
 	EOF
 elif [ $DATABASE = mysql ]; then
-  cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
+  cat <<-EOF2 >${MUNKIREPORT_LOCATION}/.env
 	CONNECTION_DRIVER="mysql"
 	CONNECTION_HOST="${MYSQL_HOST}"
   CONNECTION_PORT="${MYSQL_HOSTPORT}"
@@ -152,7 +152,7 @@ elif [ $DATABASE = mysql ]; then
   CONNECTION_COLLATION="utf8mb4_unicode_ci"
   CONNECTION_STRICT=TRUE
   CONNECTION_ENGINE="InnoDB"
-	EOF
+	EOF2
 fi
 
 # Copy across the old configuration files overwiting new
