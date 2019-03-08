@@ -49,7 +49,7 @@ while [ "$1" != "" ]; do
             ;;
         -p | --mysqlpwd )
             shift
-            MYSQL_DBBPWD="$1"
+            MYSQL_DBPWD="$1"
             ;;
         -h | --mysqlhost )
             shift
@@ -63,12 +63,12 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBBUSER" ]; then
+if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBUSER" ]; then
     echo
     read -p "Enter the Munkireport database username with access: " MYSQL_DBUSER
     echo
 fi
-if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBBPWD" ]; then
+if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBPWD" ]; then
     echo
     while true
     do
