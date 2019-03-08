@@ -90,13 +90,24 @@ if [ $os_family = debian ]; then
   add-apt-repository -y ppa:ondrej/php
   apt update
   apt -y install php7.3-fpm php7.3-xml
+  if [ $DATABASE = sqlite ]; then
+    apt -y install sqlite php7.3-sqlite
+  elif [ $DATABASE = mysql ]; then
+    apt -y install php7.3-mysql
+  fi
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget
   # add Remi repo for php 7.3
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   # install php 7.3 from repo
-  yum --enablerepo=remi-php73 install php php-pdo php-xml
+  yum --enablerepo=remi-php73 -y install php php-pdo php-xml
+  if [ $DATABASE = sqlite ]; then
+    yum -y install sqlite
+    yum --enablerepo=remi-php73 -y install php-sqlite
+  elif [ $DATABASE = mysql ]; then
+    yum --enablerepo=remi-php73 -y install php-mysql
+  fi
 else
   echo "unknown operating system family"
   exit 1
@@ -137,14 +148,12 @@ touch ${MUNKIREPORT_LOCATION}/storage/framework/down
 
 # set .env file file
 if [ $DATABASE = sqlite ]; then
-  apt -y install sqlite php7.3-sqlite
   cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 	CONNECTION_DRIVER="sqlite"
 	CONNECTION_DATABASE="app/db/db.sqlite"
 	AUTH_METHODS="NOAUTH"
 	EOF
 elif [ $DATABASE = mysql ]; then
-  apt -y install php7.3-mysql
   cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 	CONNECTION_DRIVER="mysql"
 	CONNECTION_DATABASE="munkireport"
@@ -171,6 +180,7 @@ if [ -d "${PARENTDIR}/munkireport_backup_$now" ]; then
 fi
 
 # run migrations
+echo "Migrating databae......."
 cd ${MUNKIREPORT_LOCATION}
 php database/migrate.php
 
