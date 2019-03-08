@@ -137,12 +137,12 @@ touch ${MUNKIREPORT_LOCATION}/storage/framework/down
 # set .env file file
 if [ $DATABASE = sqlite ]; then
 # add MariaDB repo for centos
-cat <<EOF >${MUNKIREPORT_LOCATION}/.env
+cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 CONNECTION_DRIVER="sqlite"
 CONNECTION_DATABASE="app/db/db.sqlite"
 EOF
 elif [ $DATABASE = mysql ]; then
-cat <<EOF >${MUNKIREPORT_LOCATION}/.env
+cat <<-EOF >${MUNKIREPORT_LOCATION}/.env
 CONNECTION_DRIVER="mysql"
 CONNECTION_HOST="${MYSQL_HOST}"
 CONNECTION_PORT="${MYSQL_HOSTPORT}"
