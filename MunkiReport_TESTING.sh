@@ -9,7 +9,7 @@
 # default variables unless specified from command line
 MUNKIREPORT_VERSION="4.0.2"
 MUNKIREPORT_LOCATION="/usr/local/munkireport"
-DATABASE="sqlite"
+DATABASE=sqlite
 MYSQL_HOST="127.0.0.1"
 MYSQL_HOSTPORT="3306"
 
@@ -138,28 +138,11 @@ touch ${MUNKIREPORT_LOCATION}/storage/framework/down
 if [ $DATABASE = sqlite ]; then
 # add MariaDB repo for centos
 cat <<EOF >${MUNKIREPORT_LOCATION}/.env
-# --------------------------------------------------------------
-# munkireport-php phpdotenv configuration file.
-#
-# Module specific variables should contain the module prefix.
-# --------------------------------------------------------------
-
-# DATABASE
-# --------
 CONNECTION_DRIVER="sqlite"
 CONNECTION_DATABASE="app/db/db.sqlite"
 EOF
 elif [ $DATABASE = mysql ]; then
 cat <<EOF >${MUNKIREPORT_LOCATION}/.env
-# --------------------------------------------------------------
-# munkireport-php phpdotenv configuration file.
-#
-# Module specific variables should contain the module prefix.
-# --------------------------------------------------------------
-
-# DATABASE
-# --------
-
 CONNECTION_DRIVER="mysql"
 CONNECTION_HOST="${MYSQL_HOST}"
 CONNECTION_PORT="${MYSQL_HOSTPORT}"
