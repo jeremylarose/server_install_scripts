@@ -1,10 +1,10 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 1.5.0p14
+version: 1.5.0p15
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p14' -s monitoring && rm -f Check_MK_Raw.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p15' -s monitoring && rm -f Check_MK_Raw.sh
 
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
@@ -19,7 +19,7 @@ version: 6.6.1
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.7.5
+version: 1.7.6
 
 * builds with PAM authentication capability (not available with developer binaries) and Installs with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
