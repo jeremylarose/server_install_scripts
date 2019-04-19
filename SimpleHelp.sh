@@ -121,6 +121,8 @@ elif [ $SERVICE_TYPE = upstart ]; then
   /sbin/initctl start simplehelp
 elif [ $SERVICE_TYPE = systemd ]; then
   wget https://simple-help.com/static/simplehelp-systemd.service -O /etc/systemd/system/simplehelp.service
+  # fix wantedby
+  sed -i 's/graphical.target/multi-user.target/g' /etc/systemd/system/simplehelp.service
   systemctl daemon-reload
   systemctl enable simplehelp.service
   systemctl start simplehelp.service
