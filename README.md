@@ -67,7 +67,7 @@ version: 2.5
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: SaltGUI 1.11.0
+version: SaltGUI 1.12.0
 
 * installs or updates SaltGUI
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
