@@ -23,6 +23,9 @@ else
   os_family=`cat /etc/*release | grep ^ID_LIKE= | cut -d= -f2 | sed 's/\"//g' | cut -d' ' -f2`
 fi
 
+# get os version id from system
+osversion_id=`cat /etc/*release | grep ^VERSION_ID= | cut -d= -f2 | sed 's/\"//g' | cut -d. -f1`
+
 # define apache/httpd config files location
 if [ $os_family = debian ]; then
   httpconfiglocation=/etc/apache2/conf-available
@@ -82,15 +85,20 @@ fi
 
 # Install prereqs
 if [ $os_family = debian ]; then
-  apt-get -y install php-curl apache2-dev gcc perl-modules-5.26 make apache2 php perl libapache2-mod-perl2 libapache2-mod-php \
-  libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php-mysql \
-  php-gd php7.2-dev php-mbstring php-soap php-xml php-pclzip libarchive-zip-perl php7.2-zip cpanminus
+  apt -y install wget software-properties-common
+  add-apt-repository -y ppa:ondrej/php
+  apt update
+  apt-get -y install php7.3-curl apache2-dev gcc perl-modules-5.26 make apache2 perl libapache2-mod-perl2 libapache2-mod-php \
+  libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php7.3-mysql \
+  php7.3 php7.3-gd php7.3-dev php7.3-mbstring php7.3-soap php7.3-xml php7.3-pclzip libarchive-zip-perl php7.3-zip cpanminus
 elif [ $os_family = fedora ]; then
-  yum -y install epel-release
+  # install prerequisites
+  yum -y install epel-release wget
+  # add Remi repo for php 7.3
+  rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   # Install more prereqs
-  yum install -y php-curl httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
-  perl-DBD-MySQL perl-Net-IP perl-SOAP-Lite perl-Archive-Zip php-common php-gd php-mbstring php-soap php-mysql php-ldap \
-  php-xml cpanminus
+  yum install --enablerepo=remi-php73 -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
+  perl-DBD-MySQL perl-Net-IP perl-SOAP-Lite perl-Archive-Zip cpanminus php-curl php-common php-gd php-mbstring php-soap php-mysql php-ldap php-xml
   # enable and start httpd
   systemctl enable httpd
   systemctl start httpd
