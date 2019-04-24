@@ -58,7 +58,7 @@ version: munkireport-php 4.1.0, PHP 7.3
 
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
-version: 2.6
+version: 2.6, PHP 7.3
 
 * install example (install OCS Inventory NG and MariaDB with two commands filling in your command line arguments):
 
