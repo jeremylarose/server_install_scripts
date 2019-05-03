@@ -6,8 +6,8 @@
 # ./filename.sh -v wazuhversion -e elkversion -l logstashserver
 
 # set default variables
-wazuhversion="3.8.2"
-elkversion="6.6.1"
+wazuhversion="3.9.0"
+elkversion="6.7.1"
 logstash_server="local"
 
 # get os from system
