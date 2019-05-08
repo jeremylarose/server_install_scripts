@@ -87,7 +87,7 @@ version: 2019.2, Py3
 
 ## SimpleHelp (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 5.0.20
+version: 5.1.1
 
 * NOTE: this is not open source software, see licensing here ( https://simple-help.com/pricing )
 * installs or updates SimpleHelp Server
