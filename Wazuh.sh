@@ -95,10 +95,6 @@ elif [ $os_family = fedora ]; then
 	sed -i "s/^enabled=1/enabled=0/" /etc/yum.repos.d/wazuh.repo
 fi
 
-# load wazuh template for elasticsearch after waiting 60 seconds
-sleep 60
-curl https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensions/elasticsearch/wazuh-elastic${elkversion_majormajor}-template-alerts.json | curl -XPUT 'http://localhost:9200/_template/wazuh' -H 'Content-Type: application/json' -d @-
-
 # install filebeat
 	if [ $os_family = debian ]; then
 
@@ -106,7 +102,11 @@ curl https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensi
 		echo "deb https://artifacts.elastic.co/packages/${elkversion_majormajor}.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-${elkversion_majormajor}.x.list
 		apt-get update
                 apt -y install filebeat=${elkversion}
-
+                
+		# disable elasticstack updates
+		sed -i "s/^deb/#deb/" /etc/apt/sources.list.d/elastic-7.x.list
+		apt update
+		
 	elif [ $os_family = fedora ]; then
 
 		# add elk repository and GPG key
@@ -124,6 +124,9 @@ curl https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensi
 
 		# install filebeat
 		yum -y install filebeat-${elkversion}
+		
+		# disable elasticstack updates
+		sed -i "s/^enabled=1/enabled=0/" /etc/yum.repos.d/elastic.repo
 
 	fi
     
@@ -139,8 +142,10 @@ curl https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensi
     systemctl enable filebeat.service
     systemctl start filebeat.service
 
-# Download alerts template for elasticsearch
+# Download alerts template for elasticsearch after 60 seconds
+sleep 60
 curl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/elasticsearch/${elkversion_majormajor}.x/wazuh-template.json
+
 chmod go+r /etc/filebeat/wazuh-template.json
 
 # ensure proper permissions for kibana app
