@@ -2,13 +2,13 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --wazuhversion "wazuhversion#" --elkversion "elkversion#" --logstash_server "local"
-# ./filename.sh -v wazuhversion -e elkversion -l logstashserver
+# or automated with ./filename.sh --wazuhversion "wazuhversion#" --elkversion "elkversion#" --elasticsearch_server "local"
+# ./filename.sh -v wazuhversion -e elkversion -l elasticsearchserver
 
 # set default variables
 wazuhversion="3.9.1"
 elkversion="7.1.0"
-logstash_server="local"
+elasticsearch_server="local"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -31,9 +31,9 @@ while [ "$1" != "" ]; do
             shift
             elkversion="$1"
             ;;
-        -l | --logstash_server )
+        -l | --elasticsearch_server )
             shift
-            logstash_server="$1"
+            elasticsearch_server="$1"
             ;;
 esac
     shift
@@ -68,6 +68,9 @@ if [ $os_family = debian ]; then
 	curl -sL https://deb.nodesource.com/setup_8.x | bash -
 	apt -y install nodejs wazuh-api
 	
+	# disable wazuh updates
+	sed -i "s/^deb/#deb/" /etc/apt/sources.list.d/wazuh.list
+	
 elif [ $os_family = fedora ]; then
 
 	# add Wazuh repo for centos
@@ -87,33 +90,22 @@ elif [ $os_family = fedora ]; then
 	# Install NodeJS and Wazuh API (centos/rhel version 7 or higher)
 	curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 	yum -y install nodejs wazuh-api
-
+        
+	# disable wazuh repository
+	sed -i "s/^enabled=1/enabled=0/" /etc/yum.repos.d/wazuh.repo
 fi
 
 # load wazuh template for elasticsearch after waiting 60 seconds
 sleep 60
 curl https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensions/elasticsearch/wazuh-elastic${elkversion_majormajor}-template-alerts.json | curl -XPUT 'http://localhost:9200/_template/wazuh' -H 'Content-Type: application/json' -d @-
 
-if [ $logstash_server = local ]; then
-
-	# add logstash user to ossec group
-	usermod -a -G ossec logstash
-
-	# download wazuh configuration for logstash (local, single host)
-	curl -so /etc/logstash/conf.d/01-wazuh.conf https://raw.githubusercontent.com/wazuh/wazuh/${wazuhersion_major}/extensions/logstash/01-wazuh-local.conf
-
-else
-
-	# download wazuh configuration for logstash (remote logstash)
-	curl -so /etc/logstash/conf.d/01-wazuh.conf https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion_major}/extensions/logstash/01-wazuh-remote.conf
-
-	# install filebeat
+# install filebeat
 	if [ $os_family = debian ]; then
 
 		curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 		echo "deb https://artifacts.elastic.co/packages/${elkversion_majormajor}.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-${elkversion_majormajor}.x.list
 		apt-get update
-        apt -y install filebeat=${elkversion}
+                apt -y install filebeat=${elkversion}
 
 	elif [ $os_family = fedora ]; then
 
@@ -130,24 +122,26 @@ else
 		type=rpm-md
 		EOF
 
-		# install elasticsearch, logstash, and kibana
+		# install filebeat
 		yum -y install filebeat-${elkversion}
 
 	fi
     
-    # download filebeat config and set server address/ip if specified
+ # download filebeat config and set server address/ip if specified
     if [[ ! -e /etc/filebeat/filebeat.yml ]]; then
 
-    	curl -so /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/wazuh/wazuh/${elkversion_major}/extensions/filebeat/filebeat.yml
-		sed -i "s/YOUR_ELASTIC_SERVER_IP/$logstash_server/" /etc/filebeat/filebeat.yml
+    	curl -so /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/filebeat/${elkversion_majormajor}.x/filebeat.yml
+	sed -i "s/YOUR_ELASTIC_SERVER_IP/$elasticsearch_server/" /etc/filebeat/filebeat.yml
 
     fi
 
     systemctl daemon-reload
-	systemctl enable filebeat.service
+    systemctl enable filebeat.service
     systemctl start filebeat.service
-	
-fi
+
+# Download alerts template for elasticsearch
+curl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/elasticsearch/${elkversion_majormajor}.x/wazuh-template.json
+chmod go+r /etc/filebeat/wazuh-template.json
 
 # ensure proper permissions for kibana app
 if [[ -e /usr/share/kibana/bin/kibana-plugin ]]; then
