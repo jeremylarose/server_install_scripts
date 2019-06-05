@@ -19,7 +19,7 @@ version: 7.1.0
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.8.1, Go 1.12.5
+version: 1.8.2, Go 1.12.5
 
 * builds with PAM authentication capability (not available with developer binaries) and Installs with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
