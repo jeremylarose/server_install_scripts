@@ -67,7 +67,7 @@ version: 2.6, PHP 7.3
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: SaltGUI 1.13.0
+version: SaltGUI 1.15.2
 
 * installs or updates SaltGUI
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
