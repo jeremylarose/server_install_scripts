@@ -7,7 +7,7 @@
 # ./filename.sh -v version -s service
 
 # default variables unless specified from command line
-SIMPLEHELP_VERSION="5.1.3"
+SIMPLEHELP_VERSION="5.1.4"
 
 # set default service as suggested by SimpleHelp
 if [ -f /sbin/initctl ]; then
