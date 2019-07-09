@@ -8,7 +8,7 @@ version: 1.5.0p18
 
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 7.1.1
+version: 7.2.0
 
 * Installs Oracle Java JRE, Elasticsearch, Logstash, and Kibana and tunes Elasticsearch as recommended with heap size
 * use no more than half of your system memory for heap size and max of 32gb
@@ -96,9 +96,9 @@ version: 5.1.4
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: Wazuh 3.9.2, ElasticStack 7.1.1
+version: Wazuh 3.9.3, ElasticStack 7.2.0
 
 * installs or upgrades Wazuh
 * install example (Wazuh and Elastic Stack (ELK) with two commands filling in your command line arguments):
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v 7.1.1 -h 4g && rm -f ElasticStack.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.9.2 -e 7.1.1 -l local && rm -f Wazuh.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v 7.2.0 -h 4g && rm -f ElasticStack.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Wazuh.sh && chmod +x Wazuh.sh && ./Wazuh.sh -v 3.9.3 -e 7.2.0 -l local && rm -f Wazuh.sh
