@@ -6,8 +6,8 @@
 # ./filename.sh -v wazuhversion -e elkversion -l elasticsearchserver
 
 # set default variables
-wazuhversion="3.9.3"
-elkversion="7.2.0"
+wazuhversion="3.9.4"
+elkversion="7.3.0"
 elasticsearch_server="local"
 
 # get os from system
