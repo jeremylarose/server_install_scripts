@@ -2,13 +2,13 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --wazuhversion "wazuhversion#" --elkversion "elkversion#" --elasticsearch_server "local"
+# or automated with ./filename.sh --wazuhversion "wazuhversion#" --elkversion "elkversion#" --elasticsearch_server "localhost"
 # ./filename.sh -v wazuhversion -e elkversion -l elasticsearchserver
 
 # set default variables
 wazuhversion="3.9.4"
 elkversion="7.3.0"
-elasticsearch_server="local"
+elasticsearch_server="localhost"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
