@@ -44,29 +44,15 @@ if [ $os_family = debian ]; then
 	# install dependencies
 	apt -y install curl apt-transport-https lsb-release
 
-	# install JRE8
-	if [ $os = debian ]; then
-		echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list
-		echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
-		apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886	
-        elif [ $os = ubuntu ]; then
-    		add-apt-repository -y ppa:webupd8team/java
-		echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-  	fi
     # add elastic repository
     curl -s https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
     echo "deb https://artifacts.elastic.co/packages/${elkversion_majormajor}.x/apt stable main" | tee /etc/apt/sources.list.d/elastic-${elkversion_majormajor}.x.list
    
-    # install oracle java8, elasticsearch, logstash, and kibana
+    # install elasticsearch and kibana
     apt update
-    apt -y install oracle-java8-installer elasticsearch=${elkversion} logstash=1:${elkversion}-1 kibana=${elkversion}
+    apt -y install elasticsearch=${elkversion} kibana=${elkversion}
 
 elif [ $os_family = fedora ]; then
-
-	# install JRE8
-	curl -Lo jre-8-linux-x64.rpm --header "Cookie: oraclelicense=accept-securebackup-cookie" "https://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jre-8u181-linux-x64.rpm"
-        yum -y install jre-8-linux-x64.rpm
-        rm -f jre-8-linux-x64.rpm
     
 	# add elk repository and GPG key
 	rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
@@ -82,16 +68,14 @@ elif [ $os_family = fedora ]; then
 	type=rpm-md
 	EOF
 
-	# install elasticsearch, logstash, and kibana
-	yum -y install elasticsearch-${elkversion} logstash-${elkversion} kibana-${elkversion}
+	# install elasticsearch and kibana
+	yum -y install elasticsearch-${elkversion} kibana-${elkversion}
 fi
 
 # enable elk services for systemd
 systemctl daemon-reload
 systemctl enable elasticsearch.service
 systemctl start elasticsearch.service
-systemctl enable logstash.service
-systemctl start logstash.service
 systemctl enable kibana.service
 systemctl start kibana.service
 
@@ -99,8 +83,6 @@ systemctl start kibana.service
 KIBANA_REPLACETEXT='server.host:'
 KIBANA_NEW='server.host: "0.0.0.0"'
 sed -i "/$KIBANA_REPLACETEXT/c $KIBANA_NEW" /etc/kibana/kibana.yml
-
-service kibana restart
 
 ## Elasticsearch tuning ##
 
@@ -127,3 +109,4 @@ sed -i "s/^-Xmx.*$/-Xmx${heap_size}/" /etc/elasticsearch/jvm.options
 
 systemctl daemon-reload
 service elasticsearch restart
+service kibana restart
