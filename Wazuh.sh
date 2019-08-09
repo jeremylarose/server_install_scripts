@@ -142,11 +142,14 @@ fi
     systemctl enable filebeat.service
     systemctl start filebeat.service
 
-# Download alerts template for elasticsearch after 60 seconds
+# Download alerts template for elasticsearch after 60 seconds and load filebeat template
 sleep 60
 curl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/elasticsearch/${elkversion_majormajor}.x/wazuh-template.json
-
 chmod go+r /etc/filebeat/wazuh-template.json
+filebeat setup --index-management -E setup.template.json.enabled=false
+
+# download wazuh module for filebeat
+ curl -s https://packages.wazuh.com/${wazuhversion_majormajor}.x/filebeat/wazuh-filebeat-0.1.tar.gz | sudo tar -xvz -C /usr/share/filebeat/module
 
 # ensure proper permissions for kibana app
 if [[ -e /usr/share/kibana/bin/kibana-plugin ]]; then
