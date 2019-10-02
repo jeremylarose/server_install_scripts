@@ -2,7 +2,7 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --role masterorslave --host hostname.com --secret_key secretkeyforserver --http_port httportdefault3012 --cronicle_version version
+# or automated with ./filename.sh --role masterorslave --host hostname_or_ip --secret_key secretkeyforserver --http_port httportdefault3012 --cronicle_version version
 # OR
 # ./filename.sh -h hostname.com -s secret_key -p http_port -v version
 
@@ -10,7 +10,6 @@
 cronicle_version='0.8.31'
 http_port='3012'
 host='localhost'
-role='master'
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -37,6 +36,10 @@ fi
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
+        -r | --role )
+            shift
+            host="$1"
+            ;;
         -h | --host )
             shift
             host="$1"
@@ -72,6 +75,12 @@ if [ -z "$secret_key" ]; then
     done
 fi
 
+if [ -z "$role" ]; then
+    echo
+    read -p "Enter the role of this Cronicle installation (master or slave?): " role
+    echo
+fi
+
 # install nodejs
 if [ $os_family = debian ]; then
 
@@ -97,3 +106,41 @@ fi
   npm install
   node bin/build.js dist
 
+  if [ "$role" = master ]; then  
+  /opt/cronicle/bin/control.sh setup
+  fi
+
+
+### input options here ####
+
+
+
+# create systemd service and start cronicle
+if [[ -e /etc/systemd/system/ ]]; then
+cat <<-EOF >/etc/systemd/system/cronicle.service
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=forking
+PIDFile=/opt/cronicle/logs/cronicled.pid
+ExecStart=/opt/cronicle/bin/control.sh start
+ExecStop=/opt/cronicle/bin/control.sh stop
+EOF
+fi
+
+systemctl daemon-reload
+systemctl enable cronicle.service
+systemctl enable cronicle.service
+
+service cronicle start
+
+echo -e "Installation complete, point your browser to http://server:3012
+|        to login your new Cronicle installation."
+# temporarily open firewall for fedora
+if [ $os_family = fedora ]; then
+  echo "be sure to open firewall ports, example:"
+  # temporarily open firewall (don't forget to restrict)
+  echo "firewall-cmd --permanent --add-port=${http_port}/tcp"
+  echo "firewall-cmd --reload"
+fi
