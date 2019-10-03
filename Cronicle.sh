@@ -81,7 +81,7 @@ if [ -z "$role" ]; then
     echo
 fi
 
-# install nodejs
+# install nodejs and components
 if [ $os_family = debian ]; then
 
 	# install dependencies
@@ -95,7 +95,7 @@ elif [ $os_family = fedora ]; then
 
 	# Install NodeJS(centos/rhel version 7 or higher)
 	curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-	yum -y install nodejs
+	yum -y install nodejs tar
 
 fi
 
