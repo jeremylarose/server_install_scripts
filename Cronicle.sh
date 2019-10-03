@@ -4,7 +4,7 @@
 # then run with ./filename.sh
 # or automated with ./filename.sh --role masterorslave --host hostname_or_ip --secret_key secretkeyforserver --http_port httportdefault3012 --cronicle_version version
 # OR
-# ./filename.sh -h hostname.com -s secret_key -p http_port -v version
+# ./filename.sh -r masterorslave -h hostname.com -s secret_key -p http_port -v version
 
 # set default variables
 cronicle_version='0.8.31'
@@ -38,7 +38,7 @@ while [ "$1" != "" ]; do
     case $1 in
         -r | --role )
             shift
-            host="$1"
+            role="$1"
             ;;
         -h | --host )
             shift
