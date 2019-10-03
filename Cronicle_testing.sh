@@ -135,8 +135,6 @@ systemctl enable cronicle.service
 
 service cronicle start
 
-echo -e "Installation complete, point your browser to http://server:3012
-|        to login your new Cronicle installation."
 # temporarily open firewall for fedora
 if [ $os_family = fedora ]; then
   echo "be sure to open firewall ports, example:"
