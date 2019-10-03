@@ -106,14 +106,26 @@ fi
   npm install
   node bin/build.js dist
 
+# input specified options
+HOST_REPLACETEXT='"base_app_url":'
+HOST_NEW='\        "base_app_url": "http://zreplaceholder:3012",'
+sed -i "/$HOST_REPLACETEXT/c $HOST_NEW" /opt/cronicle/conf/config.json
+sed -i "s/zreplaceholder/$host/" /opt/cronicle/conf/config.json
+
+KEY_REPLACETEXT='"secret_key":'
+KEY_NEW='\        "secret_key": "zzreplaceholder",'
+sed -i "/$KEY_REPLACETEXT/c $KEY_NEW" /opt/cronicle/conf/config.json
+sed -i "s/zzreplaceholder/$secret_key/" /opt/cronicle/conf/config.json
+
+PORT_REPLACETEXT='"http_port":'
+PORT_NEW='\                "http_port": zzzreplaceholder,'
+sed -i "/$PORT_REPLACETEXT/c $PORT_NEW" /opt/cronicle/conf/config.json
+sed -i "s/zzzreplaceholder/$http_port/" /opt/cronicle/conf/config.json
+
+# setup master if role specified
   if [ "$role" = master ]; then  
   /opt/cronicle/bin/control.sh setup
   fi
-
-
-### input options here ####
-
-
 
 # create systemd service and start cronicle
 if [[ -e /etc/systemd/system/ ]]; then
