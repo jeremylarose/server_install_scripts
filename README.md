@@ -6,6 +6,14 @@ version: 1.5.0p22
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.5.0p22' -s monitoring && rm -f Check_MK_Raw.sh
 
+## Cronicle (Debian, Ubuntu, CentOS, RHEL)
+
+version: 0.8.31
+
+* installs or updates Cronicle as master or slave, and sets variables if specified
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Cronicle.sh && chmod +x Cronicle.sh && ./Cronicle.sh -h myhost.somewhere.com -s mysecretserverkey && rm -f Cronicle.sh
+
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 7.3.2
