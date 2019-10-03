@@ -12,7 +12,7 @@ version: 0.8.31
 
 * installs or updates Cronicle as master or slave, and sets variables if specified
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Cronicle.sh && chmod +x Cronicle.sh && ./Cronicle.sh -h myhost.somewhere.com -s mysecretserverkey && rm -f Cronicle.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Cronicle.sh && chmod +x Cronicle.sh && ./Cronicle.sh -r master -h myhost.somewhere.com -s mysecretserverkey && rm -f Cronicle.sh
 
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
