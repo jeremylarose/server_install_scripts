@@ -142,6 +142,7 @@ EOF
 yum -y install MariaDB-server
 yum -y install mariadb-server
 yum -y install MariaDB-client
+yum -y install mariadb
 
 # enable and start service
 systemctl enable mariadb
