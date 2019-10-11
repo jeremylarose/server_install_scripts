@@ -98,7 +98,7 @@ if [ $os_family = debian ]; then
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget
   dnf module install -y php:remi-7.3
-  dnf install php-mysqlnd
+  dnf install -y php-mysqlnd
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget
