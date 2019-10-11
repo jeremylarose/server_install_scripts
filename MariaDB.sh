@@ -128,6 +128,11 @@ elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
     echo "MariaDB $mariadb_version installed successfully"
   fi
 
+elif [ $RESULT -ne 0 ] && [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
+
+yum -y install mariadb-server
+yum -y install mariadb
+
 elif [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
 # add MariaDB repo for centos
 cat <<EOF >/etc/yum.repos.d/mariadb.repo
@@ -140,10 +145,19 @@ EOF
 
 # Insall MariaDB
 yum -y install MariaDB-server
-yum -y install mariadb-server
 yum -y install MariaDB-client
-yum -y install mariadb
 
+if [ $? -eq 0 ]; then
+  echo "MariaDB $mariadb_version installed successfully"
+fi
+else
+echo
+echo "unsupported OS Family to install MariaDB"
+echo
+exit 1
+fi
+
+if [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
 # enable and start service
 systemctl enable mariadb
 systemctl start mariadb
@@ -159,14 +173,6 @@ y
 y
 y
 EOF
-if [ $? -eq 0 ]; then
-  echo "MariaDB $mariadb_version installed successfully"
-fi
-else
-echo
-echo "unsupported OS Family to install MariaDB"
-echo
-exit 1
 fi
 
 # create database
