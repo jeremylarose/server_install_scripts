@@ -96,12 +96,12 @@ if [ $os_family = debian ]; then
     apt -y install php7.3-mysql
   fi
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
-  yum -y install epel-release wget
+  yum -y install epel-release wget tar
   dnf module install -y php:remi-7.3
   dnf install -y php-mysqlnd
 elif [ $os_family = fedora ]; then
   # install prerequisites
-  yum -y install epel-release wget
+  yum -y install epel-release wget tar
   # add Remi repo for php 7.3 for 
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   # install php 7.3 from repo
