@@ -139,7 +139,9 @@ gpgcheck=1
 EOF
 
 # Insall MariaDB
-yum -y install MariaDB-server MariaDB-client
+yum -y install MariaDB-server
+yum -y install mariadb-server
+yum -y install MariaDB-client
 
 # enable and start service
 systemctl enable mariadb
