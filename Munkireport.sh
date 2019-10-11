@@ -97,6 +97,7 @@ if [ $os_family = debian ]; then
   fi
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget tar
+  rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   dnf module install -y php:remi-7.3
   dnf install -y php-mysqlnd
 elif [ $os_family = fedora ]; then
