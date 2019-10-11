@@ -57,12 +57,12 @@ version: 10.3
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: munkireport-php 4.3.4, PHP 7.3
+version: munkireport-php 5.1.1, PHP 7.3
 
 * install example (install Munkireport and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d munkireport -u munki_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 4.3.4 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 5.1.1 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
 
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
