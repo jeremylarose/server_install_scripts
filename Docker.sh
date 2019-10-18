@@ -2,11 +2,12 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh
+# or automated with ./filename.sh --version dockerversion
 # OR
-# ./filename.sh
+# ./filename.sh -v dockerversion
 
 # default variables unless specified from command line
+DOCKER_VERSION="5:19.03.3~3-0"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -31,13 +32,26 @@ else
   exit 1
 fi
 
+# Get script arguments for non-interactive mode
+while [ "$1" != "" ]; do
+    case $1 in
+        -v | --version )
+            shift
+            DOCKER_VERSION="$1"
+            ;;
+    esac
+    shift
+done
+
 # Install Docker
 if [ $os_family = debian ]; then
   apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
   curl -fsSL https://download.docker.com/linux/${os}/gpg | sudo apt-key add -
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/${os} ${os_codename} stable"
   apt update
-  apt -y install docker-ce docker-ce-cli containerd.io
+  apt -y install docker-ce=${DOCKER_VERSION}~${os}-${os_codename}
+  apt -y install docker-ce-cli=${DOCKER_VERSION}~${os}-${os_codename}
+  apt -y install containerd.io
 elif [ $os_family = fedora ]; then
   echo "os not supported yet"
   exit
@@ -47,3 +61,5 @@ else
 fi
 
 echo -e "Installation complete"
+
+docker -v
