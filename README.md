@@ -14,6 +14,14 @@ version: 0.8.31
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Cronicle.sh && chmod +x Cronicle.sh && ./Cronicle.sh -r master -h myhost.somewhere.com -s mysecretserverkey && rm -f Cronicle.sh
 
+## Docker (Debian, Ubuntu)
+
+version: Latest
+
+* installs or updates Docker
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh && rm -f Docker.sh
+
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 7.3.2
