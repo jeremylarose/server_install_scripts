@@ -7,7 +7,7 @@
 # ./filename.sh -r masterorslave -h hostname.com -s secret_key -p http_port -v version
 
 # set default variables
-cronicle_version='0.8.31'
+cronicle_version='0.8.32'
 http_port='3012'
 host='localhost'
 
