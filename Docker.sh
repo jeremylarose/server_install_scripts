@@ -7,7 +7,7 @@
 # ./filename.sh -v dockerversion
 
 # default variables unless specified from command line
-DOCKER_VERSION="5:19.03.3~3-0"
+DOCKER_VERSION="5:19.03.4~3-0"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
