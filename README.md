@@ -16,7 +16,7 @@ version: 0.8.32
 
 ## Docker (Debian, Ubuntu)
 
-version: 5:19.03.4~3-0
+version: 5:19.03.5~3-0
 
 * installs or updates Docker
 * usage example:
