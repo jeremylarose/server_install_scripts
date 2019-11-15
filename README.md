@@ -20,7 +20,7 @@ version: 5:19.03.5~3-0
 
 * installs or updates Docker
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh -v "5:19.03.4~3-0" && rm -f Docker.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh -v "5:19.03.5~3-0" && rm -f Docker.sh
 
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
