@@ -81,23 +81,40 @@ external_auth:
       - '@jobs'
     saltgui_keymaster%:
       - grains.items
-      - sys.doc
-      - state.apply
+      - schedule.list
+      - '@runner':
+        - jobs.active
+        - jobs.list_job
+        - jobs.list_jobs
       - '@wheel':
-        - 'key.*'
+        - config.values
+        - key.*
     saltgui_installer%:
       - grains.items
-      - sys.doc
+      - pillar.items
+      - pillar.obfuscate
+      - schedule.list
+      - '@runner':
+        - jobs.active
+        - jobs.list_job
+        - jobs.list_jobs
+      - '@wheel':
+        - config.values
+        - key.finger
+        - key.list_all
       - state.apply
       - pkg.*
-      - '@wheel':
-        - 'key.list'
     saltgui_minimal%:
       - grains.items
-      - sys.doc
-      - state.apply
+      - schedule.lsit
+      - '@runner':
+        - jobs.active
+        - jobs.list_job
+        - jobs.list_jobs
       - '@wheel':
-        - 'key.list'
+        - config.values
+        - key.finger
+        - key.list_all
 
 rest_cherrypy:
   port: 3333
