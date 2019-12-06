@@ -60,6 +60,8 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 # create gitea binary with pam using go
 go get -d -u code.gitea.io/gitea
 cd $GOPATH/src/code.gitea.io/gitea
+git reset -- hard
+git pull
 git checkout v${GITEA_VERSION}
 
 TAGS="pam bindata" make generate build
