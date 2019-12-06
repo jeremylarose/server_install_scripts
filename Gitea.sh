@@ -3,7 +3,7 @@
 # install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d gitea - u gitea -p dbpassword)
 
 # Version numbers
-GOVERSION="1.13.4"
+GOVERSION="1.13.5"
 GITEA_VERSION="1.10.1"
 
 # get os from system
