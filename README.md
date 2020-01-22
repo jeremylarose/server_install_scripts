@@ -112,7 +112,7 @@ version: 5.1.8
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: Wazuh 3.10.2, ElasticStack 7.3.2
+version: Wazuh 3.11.1, ElasticStack 7.5.1
 
 * installs or upgrades Wazuh
 * install example (Wazuh and Elastic Stack (ELK) with two commands filling in your command line arguments):
