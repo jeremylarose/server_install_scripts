@@ -6,8 +6,8 @@
 # ./filename.sh -v wazuhversion -e elkversion -l elasticsearchserver
 
 # set default variables
-wazuhversion="3.10.2"
-elkversion="7.3.2"
+wazuhversion="3.11.1"
+elkversion="7.5.1"
 elasticsearch_server="localhost"
 
 # get os from system
@@ -131,12 +131,9 @@ fi
 	fi
     
  # download filebeat config and set server address/ip if specified
-    if [[ ! -e /etc/filebeat/filebeat.yml ]]; then
 
-    	curl -so /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/filebeat/${elkversion_majormajor}.x/filebeat.yml
-	sed -i "s/YOUR_ELASTIC_SERVER_IP/$elasticsearch_server/" /etc/filebeat/filebeat.yml
-
-    fi
+    curl -so /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/filebeat/${elkversion_majormajor}.x/filebeat.yml
+    sed -i "s/YOUR_ELASTIC_SERVER_IP/$elasticsearch_server/" /etc/filebeat/filebeat.yml
 
     systemctl daemon-reload
     systemctl enable filebeat.service
@@ -144,9 +141,9 @@ fi
 
 # Download alerts template for elasticsearch after 60 seconds and load filebeat template
 sleep 60
-curl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/elasticsearch/${elkversion_majormajor}.x/wazuh-template.json
+
 chmod go+r /etc/filebeat/wazuh-template.json
-filebeat setup --index-management -E setup.template.json.enabled=false
+filebeat setup --index-management -E setup.template.json.enabled=falsecurl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/elasticsearch/${elkversion_majormajor}.x/wazuh-template.json
 
 # download wazuh module for filebeat
  curl -s https://packages.wazuh.com/${wazuhversion_majormajor}.x/filebeat/wazuh-filebeat-0.1.tar.gz | sudo tar -xvz -C /usr/share/filebeat/module
