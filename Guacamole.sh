@@ -6,7 +6,7 @@
 # ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
 # Default versions
-GUAC_VERSION="1.0.0"
+GUAC_VERSION="1.1.0"
 MYSQL_JDBC_DRIVER_VERSION="8.0.13"
 POSTGRESQL_JDBC_DRIVER_VERSION="42.2.5"
 
@@ -76,7 +76,7 @@ if [ $os_family = debian ]; then
       exit 1
   fi
   # install dependencies
-  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat8 freerdp-x11 libjpeg-dev gcc-6
+  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat8 freerdp-x11 libjpeg-dev gcc-6 freerdp2-dev libwebsockets-dev
   export CC="gcc-6"
 elif [ $os_family = fedora ]; then
   # install dependencies
@@ -89,7 +89,7 @@ elif [ $os_family = fedora ]; then
   rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro rpm -Uvh http://li.nux.ro/download/nux/dextop/el${osversion_id}/x86_64/nux-dextop-release-0-5.el${osversion_id}_id.nux.noarch.rpm
   yum -y install ffmpeg-devel
   # more dependencies
-  yum -y install freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel tomcat
+  yum -y install freerdp-devel libwebsockets-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel tomcat
   # allow connections through selinux
   setsebool -P httpd_can_network_connect 1
   setsebool -P httpd_can_network_relay 1
