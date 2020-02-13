@@ -93,11 +93,11 @@ version: SaltGUI 1.18.0
 
 ## SaltMaster, saltstack (Debian, Ubuntu, CentOS, RHEL)
 
-version: 2019.2, Py3
+version: 3000, Py3
 
 * installs or updates salt-master and any other specified components
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v '2019.2' -c salt-api -c salt-minion && rm -f SaltMaster.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v 'latest' -c salt-api -c salt-minion && rm -f SaltMaster.sh
 
 - current component options (-c): salt-minion, salt-ssh, salt-syndic, salt-cloud, salt-api
 
