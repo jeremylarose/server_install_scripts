@@ -103,7 +103,7 @@ version: 3000, Py3
 
 ## SimpleHelp (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 5.1.8
+version: 5.2.2
 
 * NOTE: this is not open source software, see licensing here ( https://simple-help.com/pricing )
 * installs or updates SimpleHelp Server
