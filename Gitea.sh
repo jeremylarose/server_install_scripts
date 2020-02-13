@@ -29,6 +29,9 @@ elif [ $os_family = fedora ]; then
   mkhomedir_helper git
   # install prereqs
   yum -y install make gcc pam-devel wget git
+  # install nodejs 10
+  curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+  yum -y install nodejs
 else
   echo "unknown operating system family"
   exit 1
