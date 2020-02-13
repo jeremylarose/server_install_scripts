@@ -5,7 +5,7 @@
 # or automated with ./filename.sh -v saltversionnumber -c saltcomponent1 -c saltcomponent2..etc...
 
 # set default version
-salt_version="2019.2"
+salt_version="latest"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
