@@ -23,6 +23,12 @@ if [ $os_family = debian ]; then
   usermod -a -G shadow git
   # install prereqs
   apt-get -y install make gcc libpam-dev build-essential git
+  # install nodejs 10
+  apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+  curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
+  apt update
+  apt -y install gcc g++ make
+  apt -y install nodejs
 elif [ $os_family = fedora ]; then  
   # create git user to run gitea
   adduser git -s /bin/bash -d /home/git
