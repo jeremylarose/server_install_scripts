@@ -97,6 +97,7 @@ sed -i '/mysqld.service/s/^#//g' /etc/systemd/system/gitea.service
 # enable and start gitea service
 systemctl enable gitea
 systemctl start gitea
+systemctl restart gitea
 
 echo -e "Installation complete, point your browser to http://server:3000
 |        to configure your new Gitea installation."
