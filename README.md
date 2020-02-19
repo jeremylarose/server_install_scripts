@@ -1,10 +1,10 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 1.6.0p8
+version: 1.6.0p9
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.6.0p8' -s monitoring && rm -f Check_MK_Raw.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.6.0p9' -s monitoring && rm -f Check_MK_Raw.sh
 
 ## Cronicle (Debian, Ubuntu, CentOS, RHEL)
 
@@ -103,7 +103,7 @@ version: 3000, Py3
 
 ## SimpleHelp (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 5.2.2
+version: 5.2.3
 
 * NOTE: this is not open source software, see licensing here ( https://simple-help.com/pricing )
 * installs or updates SimpleHelp Server
