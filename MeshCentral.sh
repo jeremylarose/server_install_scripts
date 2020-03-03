@@ -53,8 +53,10 @@ fi
   mkdir -p /opt/meshcentral
   cd /opt/meshcentral
   npm install meshcentral
+  mkdir -p /opt/meshcentral/meshcentral-files
+  mkdir -p /opt/meshcentral/meshcentral-data
   chown -R meshcentral:meshcentral /opt/meshcentral
-  chmod –R 755 /opt/meshcentral/meshcentral-files
+  chmod -R 755 /opt/meshcentral/meshcentral-files
 
 # enable mongodb
   sed -i "s/_MongoDB/MongoDB/" /opt/meshcentral/meshcentral-data/config.json
