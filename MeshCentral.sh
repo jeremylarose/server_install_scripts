@@ -59,7 +59,7 @@ fi
   chmod -R 755 /opt/meshcentral/meshcentral-files
 
 # enable mongodb
-  sed -i "s/_MongoDB/MongoDB/" /opt/meshcentral/meshcentral-data/config.json
+  sed -i "s/_MongoDb/MongoDb/" /opt/meshcentral/meshcentral-data/config.json
   sed -i "s/_MongoDbName/MongoDbName/" /opt/meshcentral/meshcentral-data/config.json
   
 # create systemd service and start meshcentral
