@@ -71,7 +71,7 @@ Description=MeshCentral Server
 Type=simple
 LimitNOFILE=1000000
 ExecStart=/usr/bin/node /opt/meshcentral/node_modules/meshcentral
-WorkingDirectory=/home/default
+WorkingDirectory=/opt/meshcentral
 Environment=NODE_ENV=production
 User=meshcentral
 Group=meshcentral
