@@ -93,4 +93,4 @@ systemctl daemon-reload
 systemctl enable meshcentral.service
 systemctl enable meshcentral.service
 
-service meshcentral start
+#service meshcentral start
