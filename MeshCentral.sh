@@ -32,7 +32,7 @@ done
 
 # install prereqs
 if [ $os_family = debian ]; then
-  apt-get -y install wget nodejs
+  apt-get -y install wget nodejs npm
   # install mongodb
   apt-get -y install mongodb
   systemctl start mongodb
