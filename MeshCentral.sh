@@ -7,7 +7,7 @@
 # ./filename.sh -v mc_version
 
 # default variables unless specified from command line
-MC_VERSION="0.4.8-p"
+MC_VERSION="0.4.9-s"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
