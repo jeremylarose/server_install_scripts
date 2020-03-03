@@ -58,6 +58,10 @@ fi
   chown -R meshcentral:meshcentral /opt/meshcentral
   chmod -R 755 /opt/meshcentral/meshcentral-files
 
+# copy config file if not exist already
+  if [[ ! -f /opt/meshcentral/meshcentral-data/config.json ]]; then
+  cp /opt/meshcentral/node_modules/meshcentral/sample-config.json /opt/meshcentral/meshcentral-data/config.json
+  fi
 # enable mongodb
   sed -i "s/_MongoDb/MongoDb/" /opt/meshcentral/meshcentral-data/config.json
   sed -i "s/_MongoDbName/MongoDbName/" /opt/meshcentral/meshcentral-data/config.json
