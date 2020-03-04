@@ -63,6 +63,14 @@ version: 10.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
 
+## MeshCentral, MongoDB (Debian, Ubuntu)
+
+version: 0.4.9-u
+
+* installs or updates MeshCentral, conifgures for MondoDB, and starts as systemd service
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "5:19.03.6~3-0" && rm -f MeshCentral.sh
+
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: munkireport-php 5.2.0, PHP 7.3
