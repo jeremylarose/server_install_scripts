@@ -124,7 +124,7 @@ systemctl enable meshcentral.service
 systemctl enable meshcentral.service
 service meshcentral start
 
-sleep 60
+sleep 30
 
 echo -e "Installation of MeshCentral verion $MC_VERSION complete!
 echo -e "go to https://localhost to access site""
