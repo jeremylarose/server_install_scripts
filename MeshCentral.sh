@@ -50,8 +50,7 @@ if [ $os_family = debian ]; then
   apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
   curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
   apt update
-  apt -y install gcc g++ make
-  apt -y install nodejs npm
+  apt -y install nodejs
   
   # install mongodb
   apt -y install gnupg
