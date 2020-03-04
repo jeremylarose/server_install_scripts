@@ -65,7 +65,7 @@ if [ $os_family = debian ]; then
   elif [[ "${NAME}" == *"Debian"* ]]
   then
       JPEGTURBO="libjpeg62-turbo-dev"
-      if [[ "${PRETTY_NAME}" == *"stretch"* ]]
+      if [[ "${PRETTY_NAME}" == *"stretch"* ]] || [[ "${PRETTY_NAME}" == *"buster"* ]]
       then
           LIBPNG="libpng-dev"
       else
