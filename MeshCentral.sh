@@ -82,7 +82,7 @@ fi
   mkdir -p /opt/meshcentral
   cd /opt/meshcentral
   chown -R meshcentral:meshcentral /opt/meshcentral
-  sudo -H -u meshcentral bash -c 'cd /opt/meshcentral && npm install meshcentral'
+  sudo -H -u meshcentral bash -c "cd /opt/meshcentral && npm install meshcentral@$MC_VERSION"
   mkdir -p /opt/meshcentral/meshcentral-files
   mkdir -p /opt/meshcentral/meshcentral-data
   chown -R meshcentral:meshcentral /opt/meshcentral
@@ -125,4 +125,5 @@ systemctl enable meshcentral.service
 
 service meshcentral start
 
-echo -e "Installation complete, wait a bit for service to start the first time and to got https://localhost to access site"
+echo -e "Installation of MeshCentral verion $MC_VERSION complete!
+echo -e "..wait a bit for service to start the first time and to got https://localhost to access site""
