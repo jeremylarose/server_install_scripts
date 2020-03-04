@@ -67,7 +67,7 @@ version: 10.3
 
 version: 0.4.9-u, MongoDB 4.2
 
-* installs or updates MeshCentral, conifgures for MondoDB, and starts meshcentral as systemd service
+* installs or updates a MeshCentral Server, conifgures for MondoDB, and starts meshcentral as systemd service
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh && rm -f MeshCentral.sh
 
