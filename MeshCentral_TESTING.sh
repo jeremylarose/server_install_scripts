@@ -7,7 +7,7 @@
 # ./filename.sh -v mc_version
 
 # default variables unless specified from command line
-MC_VERSION="0.4.9-s"
+MC_VERSION="0.4.9-u"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -49,23 +49,24 @@ fi
   setcap cap_net_bind_service=+ep /usr/bin/node
 
 # create service account, directories and install meshcentral
-  useradd -r -s /sbin/nologin meshcentral
+  useradd -r -m -s /sbin/nologin meshcentral
   mkdir -p /opt/meshcentral
   cd /opt/meshcentral
-  npm install meshcentral
+  chown -R meshcentral:meshcentral /opt/meshcentral
+  sudo -H -u meshcentral bash -c 'cd /opt/meshcentral && npm install meshcentral'
   mkdir -p /opt/meshcentral/meshcentral-files
   mkdir -p /opt/meshcentral/meshcentral-data
   chown -R meshcentral:meshcentral /opt/meshcentral
   chmod -R 755 /opt/meshcentral/meshcentral-files
 
-# copy config file if not exist already
+# copy config file if not exist already and enable mongodb
   if [[ ! -f /opt/meshcentral/meshcentral-data/config.json ]]; then
   cp /opt/meshcentral/node_modules/meshcentral/sample-config.json /opt/meshcentral/meshcentral-data/config.json
-  fi
-# enable mongodb
   sed -i "s/_MongoDb/MongoDb/" /opt/meshcentral/meshcentral-data/config.json
   sed -i "s/_MongoDbName/MongoDbName/" /opt/meshcentral/meshcentral-data/config.json
-  
+  sed -i "s/MongoDbChangeStream/_MongoDbChangeStream/" /opt/meshcentral/meshcentral-data/config.json
+  fi
+
 # create systemd service and start meshcentral
 if [[ -e /etc/systemd/system/ ]]; then
 cat <<-EOF >/etc/systemd/system/meshcentral.service
@@ -93,4 +94,4 @@ systemctl daemon-reload
 systemctl enable meshcentral.service
 systemctl enable meshcentral.service
 
-#service meshcentral start
+service meshcentral start
