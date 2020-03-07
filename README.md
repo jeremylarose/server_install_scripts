@@ -63,7 +63,7 @@ version: 10.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
 
-## MeshCentral, MongoDB (Debian, Ubuntu)
+## MeshCentral, MongoDB (Debian, Ubuntu, CentOS, RHEL)
 
 version: 0.4.9-y, MongoDB 4.2
 
