@@ -67,8 +67,24 @@ if [ $os_family = debian ]; then
   systemctl start mongod
   
 elif [ $os_family = fedora ]; then
-  echo "os not supported yet"
-  exit
+  # install nodejs 10 and npm
+  curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+  yum -y install nodejs
+
+  # add mongodb repo for centos and install
+	cat <<-EOF >/etc/yum.repos.d/mongodb-org-${MONGODB_VERSION}.repo
+	[mongodb-org-${MONGODB_VERSION}]
+	name=MongoDB Repository
+	baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/${MONGODB_VERSION}/x86_64/
+	gpgcheck=1
+	enabled=1
+	gpgkey=https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc
+	EOF
+
+  yum -y install mongodb-org
+  systemctl daemon-reload
+  systemctl enable mongod
+  systemctl start mongod
 else
   echo "unknown operating system family"
   exit 1
@@ -125,6 +141,16 @@ systemctl enable meshcentral.service
 service meshcentral start
 
 sleep 30
+
+if [ $os_family = fedora ]; then
+  # set selinux rule
+  setsebool -P httpd_can_network_connect 1
+  echo "    be sure to open firewall ports and allow through selinux, ex:"
+  # open firewall ports
+  echo "    firewall-cmd --permanent --add-port=80/tcp"
+  echo "    firewall-cmd --permanent --add-port=443/tcp"
+  echo "    firewall-cmd --reload"
+fi
 
 echo -e "Installation of MeshCentral verion $MC_VERSION complete!
 echo -e "go to https://localhost to access site""
