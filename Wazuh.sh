@@ -65,7 +65,9 @@ if [ $os_family = debian ]; then
 	apt -y install wazuh-manager
 
 	# install NodeJS for wazuh api and then wazuh api
-	curl -sL https://deb.nodesource.com/setup_8.x | bash -
+        apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+        curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
+        apt update
 	apt -y install nodejs wazuh-api
 	
 	# disable wazuh updates
@@ -88,7 +90,7 @@ elif [ $os_family = fedora ]; then
 	yum -y install wazuh-manager
 
 	# Install NodeJS and Wazuh API (centos/rhel version 7 or higher)
-	curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+        curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
 	yum -y install nodejs wazuh-api
         
 	# disable wazuh repository
