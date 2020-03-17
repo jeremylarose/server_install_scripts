@@ -159,6 +159,7 @@ fi
 
 # remove previous version of kibana wazuh plugin if installed
 if [[ -e /usr/share/kibana/plugins/wazuh ]]; then
+        cd /usr/share/kibana/plugins/wazuh
 	sudo -u kibana /usr/share/kibana/bin/kibana-plugin remove wazuh
 	rm -rf /usr/share/kibana/optimize/bundles
 fi
