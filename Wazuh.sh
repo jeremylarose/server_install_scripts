@@ -106,7 +106,7 @@ fi
                 apt -y install filebeat=${elkversion}
                 
 		# disable elasticstack updates
-		sed -i "s/^deb/#deb/" /etc/apt/sources.list.d/elastic-7.x.list
+		sed -i "s/^deb/#deb/" /etc/apt/sources.list.d/elastic-${elkversion_majormajor}.x.list
 		apt update
 		
 	elif [ $os_family = fedora ]; then
@@ -134,7 +134,7 @@ fi
     
  # download filebeat config and set server address/ip if specified
 
-    curl -so /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/wazuh/wazuh/${wazuhversion}/extensions/filebeat/${elkversion_majormajor}.x/filebeat.yml
+    curl -so /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/wazuh/wazuh/v${wazuhversion}/extensions/filebeat/${elkversion_majormajor}.x/filebeat.yml
     sed -i "s/YOUR_ELASTIC_SERVER_IP/$elasticsearch_server/" /etc/filebeat/filebeat.yml
 
     systemctl daemon-reload
