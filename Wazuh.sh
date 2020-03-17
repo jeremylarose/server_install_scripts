@@ -7,7 +7,7 @@
 
 # set default variables
 wazuhversion="3.11.4"
-elkversion="7.5.2"
+elkversion="7.6.1"
 elasticsearch_server="localhost"
 
 # get os from system
