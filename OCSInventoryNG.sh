@@ -9,7 +9,7 @@
 # install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d ocsweb -u ocs_dbuser -p dbpassword)
 
 # OCS Inventory defaults unless specified with command line argument
-ocsversion="2.6"
+ocsversion="2.7"
 ocsdbhost="localhost"
 ocsdbhostport="3306"
 
