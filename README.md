@@ -82,12 +82,12 @@ version: munkireport-php 5.2.0, PHP 7.3
 
 ## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
 
-version: 2.6, PHP 7.3
+version: 2.7, PHP 7.3
 
 * install example (install OCS Inventory NG and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d ocsweb -u ocs_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dbpassword' -v 2.6 -h localhost -n 3306 && rm -f OCSInventoryNG.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dbpassword' -v 2.7 -h localhost -n 3306 && rm -f OCSInventoryNG.sh
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
