@@ -7,7 +7,7 @@
 # ./filename.sh -r masterorslave -h hostname.com -s secret_key -p http_port -v version
 
 # set default variables
-cronicle_version='0.8.42'
+cronicle_version='0.8.45'
 http_port='3012'
 host='localhost'
 
@@ -85,17 +85,18 @@ fi
 if [ $os_family = debian ]; then
 
 	# install dependencies
-	apt -y install curl apt-transport-https lsb-release
+	apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
 
 	# install NodeJS
-	curl -sL https://deb.nodesource.com/setup_8.x | bash -
+        curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
+	apt update
 	apt -y install nodejs
 	
 elif [ $os_family = fedora ]; then
 
 	# Install NodeJS(centos/rhel version 7 or higher)
-	curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-	yum -y install nodejs tar
+        curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+        yum -y install nodejs tar
 
 fi
 
