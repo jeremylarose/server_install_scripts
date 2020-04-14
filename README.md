@@ -8,7 +8,7 @@ version: 1.6.0p11
 
 ## Cronicle (Debian, Ubuntu, CentOS, RHEL)
 
-version: 0.8.42
+version: 0.8.45
 
 * installs or updates Cronicle as master or slave, and sets variables if specified
 * usage example:
