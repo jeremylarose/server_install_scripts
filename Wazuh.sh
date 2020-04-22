@@ -49,7 +49,7 @@ elkversion_majormajor=`echo "$elkversion" | cut -d. -f-1`
 if [ $os_family = debian ]; then
 
 	# install dependencies
-	apt -y install curl apt-transport-https lsb-release
+	apt -y install curl apt-transport-https lsb-release gnupg2
 
 	#create symlink for python if /usr/bin/python bath doesn't exist
 	if [ ! -f /usr/bin/python ]; then ln -s /usr/bin/python3 /usr/bin/python; fi
@@ -65,7 +65,7 @@ if [ $os_family = debian ]; then
 	apt -y install wazuh-manager
 
 	# install NodeJS for wazuh api and then wazuh api
-        apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+        apt -y install ca-certificates
         curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
         apt update
 	apt -y install nodejs wazuh-api
@@ -149,7 +149,7 @@ filebeat setup --index-management -E setup.template.json.enabled=false
 curl -so /etc/filebeat/wazuh-template.json https://raw.githubusercontent.com/wazuh/wazuh/v${wazuhversion}/extensions/elasticsearch/${elkversion_majormajor}.x/wazuh-template.json
 
 # download wazuh module for filebeat
- curl -s https://packages.wazuh.com/${wazuhversion_majormajor}.x/filebeat/wazuh-filebeat-0.1.tar.gz | sudo tar -xvz -C /usr/share/filebeat/module
+ curl -s https://packages.wazuh.com/${wazuhversion_majormajor}.x/filebeat/wazuh-filebeat-0.1.tar.gz | tar -xvz -C /usr/share/filebeat/module
 
 # ensure proper permissions for kibana app
 if [[ -e /usr/share/kibana/bin/kibana-plugin ]]; then
