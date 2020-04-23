@@ -167,5 +167,5 @@ fi
 # increase Node.js heap memory and install Wazuh app plugin for kibana as kibana if kibana is installed
 if [[ -e /usr/share/kibana/bin/kibana-plugin ]]; then
         cd /usr/share/kibana/plugins
-	export NODE_OPTIONS="--max-old-space-size=2048" && sudo -u kibana /usr/share/kibana/bin/kibana-plugin install -b https://packages.wazuh.com/wazuhapp/wazuhapp-${wazuhversion}_${elkversion}.zip
+	export NODE_OPTIONS="--max-old-space-size=2048" && sudo -u kibana /usr/share/kibana/bin/kibana-plugin install https://packages.wazuh.com/wazuhapp/wazuhapp-${wazuhversion}_${elkversion}.zip
 fi
