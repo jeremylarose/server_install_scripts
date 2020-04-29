@@ -7,8 +7,8 @@
 
 # Default versions
 GUAC_VERSION="1.1.0"
-MYSQL_JDBC_DRIVER_VERSION="8.0.13"
-POSTGRESQL_JDBC_DRIVER_VERSION="42.2.5"
+MYSQL_JDBC_DRIVER_VERSION="8.0.20"
+POSTGRESQL_JDBC_DRIVER_VERSION="42.2.12"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
