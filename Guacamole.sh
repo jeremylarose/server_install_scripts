@@ -76,8 +76,8 @@ if [ $os_family = debian ]; then
       exit 1
   fi
   # install dependencies
-  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat8 freerdp-x11 libjpeg-dev gcc-6 freerdp2-dev libwebsockets-dev
-  export CC="gcc-6"
+  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat9 gcc-8 libjpeg-dev freerdp2-dev libwebsockets-dev
+  export CC="gcc-8"
 elif [ $os_family = fedora ]; then
   # install dependencies
   yum -y install make gcc pam-devel wget cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel
@@ -114,6 +114,9 @@ if [ -e /usr/share/tomcat/webapps ]; then
 elif [ -e /var/lib/tomcat8/webapps ]; then
     TOMCAT_LOCATION=/var/lib/tomcat8
     TOMCAT_SERVICE=tomcat8
+elif [ -e /var/lib/tomcat9/webapps ]; then
+    TOMCAT_LOCATION=/var/lib/tomcat9
+    TOMCAT_SERVICE=tomcat9
 elif [ -e /var/lib/tomcat7/webapps ]; then
     TOMCAT_LOCATION=/var/lib/tomcat7
     TOMCAT_SERVICE=tomcat
