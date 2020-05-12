@@ -65,11 +65,11 @@ version: 10.3
 
 ## MeshCentral, MongoDB (Debian, Ubuntu, CentOS, RHEL)
 
-version: 0.5.27, MongoDB 4.2
+version: 0.5.31, MongoDB 4.2
 
 * installs or updates a MeshCentral Server, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "0.5.27" && rm -f MeshCentral.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "0.5.31" && rm -f MeshCentral.sh
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
