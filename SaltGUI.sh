@@ -6,7 +6,7 @@
 # OR
 # ./filename.sh -u username -p password -v saltguiversionnumber
 
-saltgui_version="1.19.0"
+saltgui_version="1.19.1"
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
