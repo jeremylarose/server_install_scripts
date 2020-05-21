@@ -7,7 +7,7 @@
 # ./filename.sh -v version -l location -d "mysql or sqlite" -u mysqlusername -p mysqlpassword -h mysqlhostname -n mysqlhostportnumber
 
 # default variables unless specified from command line
-MUNKIREPORT_VERSION="5.3.5"
+MUNKIREPORT_VERSION="5.4.1"
 MUNKIREPORT_LOCATION="/usr/local/munkireport"
 DATABASE=sqlite
 MYSQL_HOST="127.0.0.1"
