@@ -4,7 +4,7 @@
 
 # Version numbers
 GOVERSION="1.14.2"
-GITEA_VERSION="1.11.4"
+GITEA_VERSION="1.11.5"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
