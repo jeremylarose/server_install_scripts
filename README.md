@@ -65,7 +65,7 @@ version: 10.3
 
 ## MeshCentral, MongoDB (Debian, Ubuntu, CentOS, RHEL)
 
-version: 0.5.45, MongoDB 4.2
+version: 0.5.49, MongoDB 4.2
 
 * installs or updates a MeshCentral Server, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
