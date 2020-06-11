@@ -1,10 +1,10 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 1.6.0p11
+version: 1.6.0p13
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.6.0p11' -s monitoring && rm -f Check_MK_Raw.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.6.0p13' -s monitoring && rm -f Check_MK_Raw.sh
 
 ## Cronicle (Debian, Ubuntu, CentOS, RHEL)
 
@@ -65,11 +65,11 @@ version: 10.3
 
 ## MeshCentral, MongoDB (Debian, Ubuntu, CentOS, RHEL)
 
-version: 0.5.55, MongoDB 4.2
+version: 0.5.57, MongoDB 4.2
 
 * installs or updates a MeshCentral Server, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "0.5.55" && rm -f MeshCentral.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "0.5.57" && rm -f MeshCentral.sh
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
