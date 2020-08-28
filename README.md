@@ -118,6 +118,15 @@ version: 5.2.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SimpleHelp.sh && chmod +x SimpleHelp.sh && ./SimpleHelp.sh -s systemd && rm -f SimpleHelp.sh
 
+## Xibo CMS using Docker (Debian, Ubuntu)
+
+version: xibo-cms: 2.3.6, docker-compose: 1.26.2
+
+* installs or upgrades Wazuh
+* install example (Docker and Xibo CMS with default docker-compose version):
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh && rm -f Docker.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/XiboCMS.sh && chmod +x XiboCMS.sh && ./XiboCMS.sh -v 2.3.6
+
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: Wazuh 3.13.1, ElasticStack 7.8.1
