@@ -74,6 +74,8 @@ if [ -d "/opt/xibo" ]; then
 
   echo "Backing up the Xibo installation to xibo_backup_$now"
   mv xibo "xibo_backup_$now"
+  mkdir /opt/xibo
+  cp xibo_backup_$now/config.env /opt/xibo
   # exit on backup fail
   if [ $? -ne 0 ]; then
     echo "failed to backup properly, exiting"
