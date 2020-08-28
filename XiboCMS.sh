@@ -52,8 +52,10 @@ fi
 
 # install or upgrade Xibo CMS
 mkdir /opt/xibo
+cd /opt/xibo
 wget https://github.com/xibosignage/xibo-cms/releases/download/${XIBO_VERSION}/xibo-docker.tar.gz
 tar --strip-components=1 -zxvf xibo-docker.tar.gz
+rm xibo-docker.tar.gz
 
 if [ $? -ne 0 ]; then
     echo "Failed to download Xibo CMS ${XIBO_VERSION}"
