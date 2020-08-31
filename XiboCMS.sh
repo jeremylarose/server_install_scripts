@@ -94,7 +94,7 @@ fi
 if [[ ! -f /opt/xibo/cms_custom-ports.yml ]]; then
 cp /opt/xibo/cms_custom-ports.yml.template /opt/xibo/cms_custom-ports.yml
 XIBO_WEBPORT_REPLACETEXT='65500:9505'
-XIBO_WEBPORT_NEW="$xiboxmrport:80"
+XIBO_WEBPORT_NEW="$xiboxmrport:9505"
 sed -i "s/$XIBO_WEBPORT_REPLACETEXT/$XIBO_WEBPORT_NEW/g" /opt/xibo/cms_custom-ports.yml
 XIBO_WEBPORT_REPLACETEXT='65501:80'
 XIBO_WEBPORT_NEW="$xibowebport:80"
