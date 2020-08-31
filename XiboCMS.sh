@@ -59,17 +59,15 @@ if [ -d "/opt/xibo" ]; then
   cd /opt/xibo
   docker-compose stop
   cd ..
-
   echo "Backing up the Xibo installation to xibo_backup_$now"
-  mv xibo "xibo_backup_$now"
-  mkdir /opt/xibo
-  cp xibo_backup_$now/config.env /opt/xibo
+  cp -rp xibo "xibo_backup_$now"
   # exit on backup fail
   if [ $? -ne 0 ]; then
     echo "failed to backup properly, exiting"
     exit
   fi
 fi
+
 # install or upgrade Xibo CMS
 mkdir /opt/xibo
 cd /opt/xibo
