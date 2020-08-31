@@ -9,8 +9,8 @@
 # default variables unless specified from command line
 XIBO_VERSION="2.3.6"
 DOCKERCOMPOSE_VERSION="1.26.2"
-xiboxmrport=65500
-xibowebport=65501
+xiboxmrport="65500"
+xibowebport="65501"
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
@@ -99,9 +99,9 @@ fi
 # Bring CMS up with Docker Compose and specified ports
 if [[ ! -f /opt/xibo/cms_custom-ports.yml ]]; then
 cp /opt/xibo/cms_custom-ports.yml.template /opt/xibo/cms_custom-ports.yml
-XIBO_WEBPORT_REPLACETEXT='65500:9505'
-XIBO_WEBPORT_NEW="$xiboxmrport:9505"
-sed -i "s/$XIBO_WEBPORT_REPLACETEXT/$XIBO_WEBPORT_NEW/g" /opt/xibo/cms_custom-ports.yml
+XIBO_XMRPORT_REPLACETEXT='65500:9505'
+XIBO_XMRPORT_NEW="$xiboxmrport:9505"
+sed -i "s/$XIBO_XMRPORT_REPLACETEXT/$XIBO_XMRPORT_NEW/g" /opt/xibo/cms_custom-ports.yml
 XIBO_WEBPORT_REPLACETEXT='65501:80'
 XIBO_WEBPORT_NEW="$xibowebport:80"
 sed -i "s/$XIBO_WEBPORT_REPLACETEXT/$XIBO_WEBPORT_NEW/g" /opt/xibo/cms_custom-ports.yml
