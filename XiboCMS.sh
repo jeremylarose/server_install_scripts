@@ -82,11 +82,11 @@ fi
 # copy config file if not exist and set mysql password
 if [[ ! -f /opt/xibo/config.env ]]; then
 cp /opt/xibo/config.env.template /opt/xibo/config.env
-fi
 XIBO_MYSQLPW_REPLACETEXT='MYSQL_PASSWORD='
 XIBO_MYSQLPW_NEW='MYSQL_PASSWORD=zreplaceholder'
 sed -i "/$XIBO_MYSQLPW_REPLACETEXT/c $XIBO_MYSQLPW_NEW" /opt/xibo/config.env
 sed -i "s/zreplaceholder/$xibodbpwd/" /opt/xibo/config.env
+fi
 
 # Bring CMS up with Docker Compose and specified ports
 if [[ ! -f /opt/xibo/cms_custom-ports.yml ]]; then
