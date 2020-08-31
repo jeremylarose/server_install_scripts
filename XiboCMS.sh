@@ -27,6 +27,14 @@ while [ "$1" != "" ]; do
             shift
             DOCKERCOMPOSE_VERSION="$1"
             ;;
+        -xp| --xmrport )
+            shift
+            xiboxmrport="$1"
+            ;;
+        -wp| --webport )
+            shift
+            xibowebport="$1"
+            ;;
     esac
     shift
 done
