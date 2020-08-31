@@ -79,7 +79,7 @@ fi
 # install or upgrade Xibo CMS
 mkdir /opt/xibo
 cd /opt/xibo
-wget https://github.com/xibosignage/xibo-cms/releases/download/${XIBO_VERSION}/xibo-docker.tar.gz
+wget -O xibo-docker.tar.gz https://github.com/xibosignage/xibo-cms/releases/download/${XIBO_VERSION}/xibo-docker.tar.gz
 tar --strip-components=1 -zxvf xibo-docker.tar.gz
 rm xibo-docker.tar.gz
 
