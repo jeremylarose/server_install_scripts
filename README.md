@@ -118,14 +118,15 @@ version: 5.2.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SimpleHelp.sh && chmod +x SimpleHelp.sh && ./SimpleHelp.sh -s systemd && rm -f SimpleHelp.sh
 
-## Xibo CMS using Docker (Debian, Ubuntu)
+## Xibo CMS using Docker and external DB (Debian, Ubuntu)
 
 version: xibo-cms: 2.3.6, docker-compose: 1.26.2
 
 * installs or upgrades Xibo CMS
-* install example (Docker and Xibo CMS with default docker-compose version):
+* install example (MariaDB, Docker and Xibo CMS with default docker-compose version):
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh && rm -f Docker.sh
-  3. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/XiboCMS.sh && chmod +x XiboCMS.sh && ./XiboCMS.sh -v 2.3.6 -p 'dbpassword'
+  3. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/XiboCMS.sh && chmod +x XiboCMS.sh && ./XiboCMS.sh -v 2.3.6 -d cms -u cms -p 'dbpassword' -h localhost -n 3306 -wp 8080
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 

@@ -2,20 +2,41 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --version xibo_version --composeversion docker-compose_version --dbpwd password
+# or automated with ./filename.sh --version xibo_version --composeversion docker-compose_version --dbname databasename --dbuser username --dbpwd password --dbhost hostname --dbhostportnumber portnumber --webport cmswebport
 # OR
-# ./filename.sh -v version -cv compose-version -p password
+# ./filename.sh -v version -cv compose-version -d databasename -u username -p password -h hostname -n hostportnumber - wp webport
+
+# install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d cms -u cms -p dbpassword)
 
 # default variables unless specified from command line
 XIBO_VERSION="2.3.6"
 DOCKERCOMPOSE_VERSION="1.26.2"
+xibodbhost="localhost"
+xibodbhostport="3306"
+xibowebport="80"
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
+        -d | --dbname )
+            shift
+            xibodbname="$1"
+            ;;
+        -u | --dbuser )
+            shift
+            xibodbuser="$1"
+            ;;
         -p | --dbpwd )
             shift
             xibodbpwd="$1"
+            ;;
+        -h | --dbhost )
+            shift
+            xibodbhost="$1"
+            ;;
+        -n | --dbhostportnumber )
+            shift
+            xibodbhostport="$1"
             ;;
         -v | --version )
             shift
@@ -25,10 +46,24 @@ while [ "$1" != "" ]; do
             shift
             DOCKERCOMPOSE_VERSION="$1"
             ;;
+        -wp | --webport )
+            shift
+            xibowebport="$1"
+            ;;
     esac
     shift
 done
 
+if [ -z "$xibodbname" ]; then
+    echo
+    read -p "Enter the Xibo Database name: " xibodbname
+    echo
+fi
+if [ -z "$xibodbuser" ]; then
+    echo
+    read -p "Enter a username with permissions to $xibodbname: " xibodbuser
+    echo
+fi
 if [ -z "$xibodbpwd" ]; then
     echo
     while true
@@ -83,12 +118,20 @@ fi
 # copy config file if not exist and set mysql password
 if [[ ! -f /opt/xibo/config.env ]]; then
 cat <<EOF >/opt/xibo/config.env
+MYSQL_HOST=$xibodbhost
+MYSQL_PORT=$xibodbhostport
+MYSQL_DATABASE=$xibodbname
+MYSQL_USER=$xibodbuser
 MYSQL_PASSWORD=$xibodbpwd
 EOF
 fi
 
-# Bring CMS up with Docker Compose
+# Bring CMS up with Docker Compose and specified port
+XIBO_WEBPORT_REPLACETEXT='80:80'
+XIBO_WEBPORT_NEW="$xibowebport:80"
+sed -i "/$XIBO_WEBPORT_REPLACETEXT/c $XIBO_WEBPORT_NEW" /opt/xibo/cms_remote-mysql.yml
 cd /opt/xibo
-docker-compose up -d
+docker-compose -f cms_remote-mysql.yml up -d
 
 echo "Xibo CMS $XIBO_VERSION setup/upgrade complete https://xibo.org.uk/docs/setup/cms-installation-guides"
+echo "default username is xibo_admin, default password is password"
