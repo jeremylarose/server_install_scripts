@@ -129,7 +129,7 @@ fi
 # Bring CMS up with Docker Compose and specified port
 XIBO_WEBPORT_REPLACETEXT='80:80'
 XIBO_WEBPORT_NEW="$xibowebport:80"
-sed -i "/$XIBO_WEBPORT_REPLACETEXT/c $XIBO_WEBPORT_NEW" /opt/xibo/cms_remote-mysql.yml
+sed -i "s/$XIBO_WEBPORT_REPLACETEXT/$XIBO_WEBPORT_NEW/g" /opt/xibo/cms_remote-mysql.yml
 cd /opt/xibo
 docker-compose -f cms_remote-mysql.yml up -d
 
