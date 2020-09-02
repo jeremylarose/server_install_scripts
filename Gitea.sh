@@ -73,7 +73,7 @@ git reset -- hard
 git pull
 git checkout v${GITEA_VERSION}
 
-TAGS="pam bindata" make generate build
+TAGS="bindata" make generate build
 
 cp -f $GOPATH/src/code.gitea.io/gitea/gitea /usr/local/bin
 
