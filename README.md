@@ -35,9 +35,9 @@ version: 7.8.1
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.12.3, Go 1.15.1
+version: 1.12.3
 
-* builds Gitea and installs with service (mysql) enabled
+* installs Gitea from binary with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Gitea.sh && chmod +x Gitea.sh && ./Gitea.sh && rm -f Gitea.sh
