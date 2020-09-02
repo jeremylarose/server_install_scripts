@@ -3,8 +3,8 @@
 # install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d gitea - u gitea -p dbpassword)
 
 # Version numbers
-GOVERSION="1.14.2"
-GITEA_VERSION="1.11.5"
+GOVERSION="1.15.1"
+GITEA_VERSION="1.12.3"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
