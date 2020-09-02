@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# first make executable with chmod +x filename.sh
+# then run with ./filename.sh
+# or automated with ./filename.sh --version gitea_version
+# OR
+# ./filename.sh -v gitea_version
+
 # install mysql or mariadb seperately (ex: ./MariaDB.sh -r rootpassword -d gitea - u gitea -p dbpassword)
 
 # Version number
@@ -14,6 +20,17 @@ if [ $os = debian ] || [ $os = fedora ]; then
 else
   os_family=`cat /etc/*release | grep ^ID_LIKE= | cut -d= -f2 | sed 's/\"//g' | cut -d' ' -f2`
 fi
+
+# Get script arguments for non-interactive mode
+while [ "$1" != "" ]; do
+    case $1 in
+        -v | --version )
+            shift
+            GITEA_VERSION="$1"
+            ;;
+    esac
+    shift
+done
 
 if [ $os_family = debian ]; then
   # create git user to run gitea
