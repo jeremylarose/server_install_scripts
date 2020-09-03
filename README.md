@@ -118,7 +118,7 @@ version: 5.2.3
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SimpleHelp.sh && chmod +x SimpleHelp.sh && ./SimpleHelp.sh -s systemd && rm -f SimpleHelp.sh
 
-## Xibo CMS using Docker and external DB (Debian, Ubuntu)
+## Xibo CMS using Docker (Debian, Ubuntu)
 
 version: xibo-cms: 2.3.6, docker-compose: 1.26.2
 
