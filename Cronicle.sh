@@ -5,6 +5,7 @@
 # or automated with ./filename.sh --role masterorslave --host hostname_or_ip --secret_key secretkeyforserver --http_port httportdefault3012 --cronicle_version version
 # OR
 # ./filename.sh -r masterorslave -h hostname.com -s secret_key -p http_port -v version
+#
 
 # set default variables
 cronicle_version='0.8.46'
@@ -51,7 +52,7 @@ while [ "$1" != "" ]; do
         -p | --http_port )
             shift
             http_port="$1"
-            ;;              
+            ;;
         -v | --cronicle_version )
             shift
             cronicle_version="$1"
@@ -62,7 +63,7 @@ done
 
 # Get information from terminal if not provided as arguments:
 if [ -z "$secret_key" ]; then
-    echo 
+    echo
     while true
     do
         read -s -p "Enter a secret key to be used for cronicle (32 characters plus recommended): " secret_key
@@ -91,7 +92,7 @@ if [ $os_family = debian ]; then
         curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
 	apt update
 	apt -y install nodejs
-	
+
 elif [ $os_family = fedora ]; then
 
 	# Install NodeJS(centos/rhel version 7 or higher)
@@ -124,7 +125,7 @@ sed -i "/$PORT_REPLACETEXT/c $PORT_NEW" /opt/cronicle/conf/config.json
 sed -i "s/zzzreplaceholder/$http_port/" /opt/cronicle/conf/config.json
 
 # setup master if role specified
-  if [ "$role" = master ]; then  
+  if [ "$role" = master ]; then
   /opt/cronicle/bin/control.sh setup
   fi
 
