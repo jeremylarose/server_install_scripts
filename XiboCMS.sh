@@ -7,7 +7,7 @@
 # ./filename.sh -v version -cv compose-version -p password -xp xmrport -wp webport
 
 # default variables unless specified from command line
-XIBO_VERSION="2.3.6"
+XIBO_VERSION="2.3.7"
 DOCKERCOMPOSE_VERSION="1.26.2"
 xiboxmrport="65500"
 xibowebport="65501"
