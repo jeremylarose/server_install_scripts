@@ -120,12 +120,12 @@ version: 5.2.3
 
 ## Xibo CMS using Docker (Debian, Ubuntu)
 
-version: xibo-cms: 2.3.6, docker-compose: 1.26.2
+version: xibo-cms: 2.3.7, docker-compose: 1.26.2
 
 * installs or upgrades Xibo CMS
 * install example (Docker and Xibo CMS with default docker-compose version):
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh && rm -f Docker.sh
-  3. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/XiboCMS.sh && chmod +x XiboCMS.sh && ./XiboCMS.sh -v 2.3.6 -p 'dbpassword' -wp 8080 -xp 65500
+  3. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/XiboCMS.sh && chmod +x XiboCMS.sh && ./XiboCMS.sh -v 2.3.7 -p 'dbpassword' -wp 8080 -xp 65500
 
 ## Wazuh (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
