@@ -85,7 +85,7 @@ fi
 
 # Install prereqs
 if [ $os_family = debian ]; then
-  apt -y install wget software-properties-common
+  apt -y install wget gpg software-properties-common
   add-apt-repository -y ppa:ondrej/php
   apt update
   apt-get -y install php7.3-curl apache2-dev gcc perl-modules-5.26 make apache2 perl libapache2-mod-perl2 libapache2-mod-php \
