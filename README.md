@@ -101,7 +101,7 @@ version: SaltGUI 1.21.0
 
 ## SaltMaster, saltstack (Debian, Ubuntu, CentOS, RHEL)
 
-version: 3000, Py3
+version: 3002, Py3
 
 * installs or updates salt-master and any other specified components
 * usage example:
