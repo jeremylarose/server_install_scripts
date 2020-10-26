@@ -80,14 +80,14 @@ version: munkireport-php 5.6.3, PHP 7.3
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d munkireport -u munki_dbuser -p 'dbpassword' && rm -f MariaDB.sh
   2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 5.6.3 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
 
-## OCS Inventory NG (Debian, Ubuntu, CentOS, RHEL)
+## OCS Inventory NG (Ubuntu, CentOS, RHEL)
 
-version: 2.7, PHP 7.4
+version: 2.8, PHP 7.4
 
 * install example (install OCS Inventory NG and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d ocsweb -u ocs_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dbpassword' -v 2.7 -h localhost -n 3306 && rm -f OCSInventoryNG.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dbpassword' -v 2.8 -h localhost -n 3306 && rm -f OCSInventoryNG.sh
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
