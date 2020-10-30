@@ -8,7 +8,7 @@
 #
 
 # set default variables
-cronicle_version='0.8.46'
+cronicle_version='0.8.50'
 http_port='3012'
 host='localhost'
 
