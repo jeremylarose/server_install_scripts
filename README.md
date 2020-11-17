@@ -4,7 +4,7 @@ version: 1.6.0p19
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.6.0p18' -s monitoring && rm -f Check_MK_Raw.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '1.6.0p19' -s monitoring && rm -f Check_MK_Raw.sh
 
 ## Cronicle (Debian, Ubuntu, CentOS, RHEL)
 
