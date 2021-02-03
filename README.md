@@ -22,6 +22,14 @@ version: 5:19.03.12~3-0
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Docker.sh && chmod +x Docker.sh && ./Docker.sh -v "5:19.03.12~3-0" && rm -f Docker.sh
 
+## DuoUnix (Debian, Ubuntu, CentOS, RHEL)
+
+version: 1.11.4
+
+* installs or updates Duo for Unix
+* usage example:
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/DuoUnix.sh && chmod +x DuoUnix.sh && ./DuoUnix.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a ssh -v VERSION && rm -f DuoUnix.sh
+
 ## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 7.8.1
