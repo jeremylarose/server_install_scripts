@@ -71,7 +71,7 @@ fi
 if [ $os_family = debian ]; then
   apt-get -y install wget make gcc libpam-dev libssl-dev build-essential
 elif [ $os_family = fedora ]; then  
-  yum -y install make gcc pam-devel openssl-devel wget policycoreutils-python bzip2
+  yum -y install make gcc pam-devel openssl-devel wget policycoreutils-python bzip2 selinux-policy-devel
 else
   echo "unknown operating system family"
   exit 1
