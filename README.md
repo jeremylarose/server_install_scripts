@@ -81,12 +81,12 @@ version: 0.7.74, MongoDB 4.2
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: munkireport-php 5.6.3, PHP 7.3
+version: munkireport-php 5.6.4, PHP 7.3
 
 * install example (install Munkireport and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d munkireport -u munki_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 5.6.3 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 5.6.4 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
 
 ## OCS Inventory NG (Ubuntu, CentOS, RHEL)
 
@@ -99,13 +99,13 @@ version: 2.8, PHP 7.4
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: SaltGUI 1.22.0
+version: SaltGUI 1.23.0
 
 * installs or updates SaltGUI
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v latest -c salt-api -c salt-minion && rm -f SaltMaster.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.22.0 && rm -f SaltGUI.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.23.0 && rm -f SaltGUI.sh
 
 ## SaltMaster, saltstack (Debian, Ubuntu, CentOS, RHEL)
 
