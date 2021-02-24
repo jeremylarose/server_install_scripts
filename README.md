@@ -43,7 +43,7 @@ version: 7.8.1
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.12.6
+version: 1.13.2
 
 * installs Gitea from binary with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
@@ -73,11 +73,11 @@ version: 10.3
 
 ## MeshCentral, MongoDB (Debian, Ubuntu, CentOS, RHEL)
 
-version: 0.7.54, MongoDB 4.2
+version: 0.7.74, MongoDB 4.2
 
 * installs or updates a MeshCentral Server, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "0.7.54" && rm -f MeshCentral.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "0.7.74" && rm -f MeshCentral.sh
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
