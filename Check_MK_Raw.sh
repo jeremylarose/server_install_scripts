@@ -7,7 +7,7 @@
 # ./filename.sh -v version -s sitename
 
 # default variables unless specified from command line
-CHECK_MK_VERSION="2.0.0p3"
+CHECK_MK_VERSION="2.0.0p7"
 SITENAME="monitoring"
 
 # get os from system
@@ -59,11 +59,11 @@ else
 fi
 
 # Download Check_MK Raw Install
-wget https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer
+wget https://download.checkmk.com/checkmk/${CHECK_MK_VERSION}/$installer
 
 if [ $? -ne 0 ]; then
      echo "Failed to download $installer"
-     echo "https://mathias-kettner.de/support/${CHECK_MK_VERSION}/$installer"
+     echo "https://download.checkmk.com/checkmk/${CHECK_MK_VERSION}/$installer"
      exit
 fi
 
