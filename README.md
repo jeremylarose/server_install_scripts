@@ -65,7 +65,7 @@ version: 1.1.0
 
 ## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 10.3
+version: 10.7
 
 * Installs MariaDB and/or just creates a database if mariadb/mysql already installed
 * usage example:
@@ -90,12 +90,12 @@ version: munkireport-php 5.6.4, PHP 7.3
 
 ## OCS Inventory NG (Ubuntu, CentOS, RHEL)
 
-version: 2.8, PHP 7.4
+version: 2.9.1, PHP 8.0
 
 * install example (install OCS Inventory NG and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d ocsweb -u ocs_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dbpassword' -v 2.8 -h localhost -n 3306 && rm -f OCSInventoryNG.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/OCSInventoryNG.sh && chmod +x OCSInventoryNG.sh && ./OCSInventoryNG.sh -u ocs_dbuser -p 'dbpassword' -v 2.9.1 -h localhost -n 3306 && rm -f OCSInventoryNG.sh
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
