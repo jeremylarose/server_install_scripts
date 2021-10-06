@@ -134,7 +134,7 @@ cpanm Switch
 cpanm Plack::Handler
 
 # Download OCS Inventory Server
-wget -O OCSNG_UNIX_SERVER_${ocsversion}.tar.gz https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocsversion}/OCSNG_UNIX_SERVER-${ocsversion}.tar.gz
+wget -O OCSNG_UNIX_SERVER-${ocsversion}.tar.gz https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocsversion}/OCSNG_UNIX_SERVER-${ocsversion}.tar.gz
 if [ $? -ne 0 ]; then
     echo "Failed to download OCSNG_UNIX_SERVER-${ocsversion}.tar.gz"
     echo "https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/${ocsversion}/OCSNG_UNIX_SERVER-${ocsversion}.tar.gz"
