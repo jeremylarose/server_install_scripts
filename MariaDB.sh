@@ -7,7 +7,7 @@
 # ./filename.sh -r password -d databasename -u username -p password -v version
 
 # set default variables
-mariadb_version='10.7'
+mariadb_version='10.6'
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
