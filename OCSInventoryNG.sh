@@ -95,7 +95,7 @@ if [ $os_family = debian ]; then
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget tar
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
-  dnf module install -y php:remi-7.4
+  dnf module install -y php:remi-8.0
   dnf install -y php-mysqlnd
   yum install -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
   perl-DBD-MySQL perl-Net-IP perl-Archive-Zip cpanminus php-curl php-common php-gd php-mbstring php-soap php-mysql php-ldap php-xml
@@ -103,10 +103,10 @@ elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget
-  # add Remi repo for php 7.4
+  # add Remi repo for php 8.0
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   # Install more prereqs
-  yum install --enablerepo=remi-php74 -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
+  yum install --enablerepo=remi-php80 -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
   perl-DBD-MySQL perl-Net-IP perl-SOAP-Lite perl-Archive-Zip cpanminus php-curl php-common php-gd php-mbstring php-soap php-mysql php-ldap php-xml
   # enable and start httpd
   systemctl enable httpd
