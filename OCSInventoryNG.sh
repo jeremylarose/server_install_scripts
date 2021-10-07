@@ -90,7 +90,7 @@ if [ $os_family = debian ]; then
   apt update
   apt-get -y install php7.4-curl apache2-dev gcc perl-modules make apache2 perl libapache2-mod-perl2 libapache2-mod-php7.4 \
   libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php7.4-mysql \
-  php7.4 php7.4-gd php7.4-dev php7.4-mbstring php7.4-soap php7.4-xml php7.4-zip libarchive-zip-perl cpanminus
+  php7.4 php7.4-gd php7.4-dev php7.4-mbstring php7.4-soap php7.4-xml php7.4-zip libarchive-zip-perl php-pclzip cpanminus
 
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget tar
