@@ -7,7 +7,7 @@
 # ./filename.sh -v mc_version
 
 # default variables unless specified from command line
-MC_VERSION="0.8.9"
+MC_VERSION="0.9.44"
 MONGODB_VERSION="4.2"
 
 # get os from system
