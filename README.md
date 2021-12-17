@@ -1,10 +1,10 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 2.0.0p15
+version: 2.0.0p17
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '2.0.0p15' -s monitoring && rm -f Check_MK_Raw.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Check_MK_Raw.sh && chmod +x Check_MK_Raw.sh && ./Check_MK_Raw.sh -v '2.0.0p17' -s monitoring && rm -f Check_MK_Raw.sh
 
 ## Cronicle (Debian, Ubuntu, CentOS, RHEL)
 
@@ -43,7 +43,7 @@ version: 7.8.1
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.15.2
+version: 1.15.7
 
 * installs Gitea from binary with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
