@@ -99,7 +99,7 @@ version: 2.9.1, PHP 7.4
 
 ## SaltGUI (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: SaltGUI 1.25.0
+version: SaltGUI 1.27.0
 
 * installs or updates SaltGUI
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
