@@ -105,7 +105,7 @@ version: SaltGUI 1.25.0
 * install example (SaltGUI and Salt-Master with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltMaster.sh && chmod +x SaltMaster.sh && ./SaltMaster.sh -v latest -c salt-api -c salt-minion && rm -f SaltMaster.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.25.0 && rm -f SaltGUI.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/SaltGUI.sh && chmod +x SaltGUI.sh && ./SaltGUI.sh -u saltguiadminuser -p 'saltguiadminuserpassword' -v 1.27.0 && rm -f SaltGUI.sh
 
 ## SaltMaster, saltstack (Debian, Ubuntu, CentOS, RHEL)
 
