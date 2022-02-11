@@ -89,23 +89,23 @@ if [ $os_family = debian ]; then
   apt -y install wget software-properties-common
   add-apt-repository -y ppa:ondrej/php
   apt update
-  apt -y install php7.3-fpm php7.3-xml
+  apt -y install php7.4-fpm php7.4-xml
   if [ $DATABASE = sqlite ]; then
-    apt -y install sqlite php7.3-sqlite
+    apt -y install sqlite php7.4-sqlite
   elif [ $DATABASE = mysql ]; then
-    apt -y install php7.3-mysql
+    apt -y install php7.4-mysql
   fi
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget tar
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
-  dnf module install -y php:remi-7.3
+  dnf module install -y php:remi-7.4
   dnf install -y php-mysqlnd
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget tar
-  # add Remi repo for php 7.3 for 
+  # add Remi repo for php 7.4 for 
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
-  # install php 7.3 from repo
+  # install php 7.4 from repo
   yum --enablerepo=remi-php73 -y install php php-pdo php-xml
   if [ $DATABASE = sqlite ]; then
     yum -y install sqlite
