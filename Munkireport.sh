@@ -187,7 +187,7 @@ fi
 # run migrations
 echo "Migrating database......."
 cd ${MUNKIREPORT_LOCATION}
-php database/migrate.php
+./please migrate
 
 # turn off maintenance mode
 rm ${MUNKIREPORT_LOCATION}/storage/framework/down
