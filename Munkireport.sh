@@ -144,9 +144,8 @@ fi
 # Fetch the new version
 echo "Downloading the latest version"
     wget https://github.com/munkireport/munkireport-php/releases/download/v${MUNKIREPORT_VERSION}/munkireport-php-v${MUNKIREPORT_VERSION}.tar.gz
-    mkdir -p ${MUNKIREPORT_LOCATION}
-    tar -xzf munkireport-php-v${MUNKIREPORT_VERSION}.tar.gz -C ${MUNKIREPORT_LOCATION}
-    rm -f munkireport-php-v${MUNKIREPORT_VERSION}.tar.gz
+    tar -xzf munkireport-php-v${MUNKIREPORT_VERSION}.tar.gz
+    mv munkireport-php ${MUNKIREPORT_LOCATION}
 
 # put in maintenance mode
 touch ${MUNKIREPORT_LOCATION}/storage/framework/down
