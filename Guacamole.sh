@@ -191,14 +191,20 @@ fi
 # Download and install guacamole extensions according to command line arguments
 for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
     # download extension
-    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    # set extension download file
+    if [ "$GUAC_EXTENSION" = auth-sso-* ]; then
+    EXTENSION_DLFILE="guacamole-auth-sso-${GUAC_VERSION}.tar.gz"
+    else
+    EXTENSION_DLFILE="guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+    fi    
+    wget http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/${EXTENSION_DLFILE}
     if [ $? -ne 0 ]; then
-        echo "Failed to download guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
-        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
+        echo "Failed to download ${EXTENSION_DLFILE}"
+        echo "http://archive.apache.org/dist/guacamole/${GUAC_VERSION}/binary/${EXTENSION_DLFILE}"
         exit
     fi
     # Extract and copy jar to extensions folder
-    tar -xzf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz
+    tar -xzf ${EXTENSION_DLFILE}
     # remove any old versions of extension
     rm -f /etc/guacamole/extensions/guacamole-${GUAC_EXTENSION}*
     # auth-jdbc requires authentication argument as well, so exit if auth-jdbc specified but no authentiation
@@ -212,11 +218,19 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
       cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/guacamole-${GUAC_EXTENSION}-${GUAC_AUTH}-${GUAC_VERSION}.jar /etc/guacamole/extensions
       # also copy schema folder to /etc/guacamole for easier access on server
       cp -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/schema /etc/guacamole/schema-${GUAC_AUTH}-${GUAC_VERSION}
+    # sso extensions are packed together
+    elif [ "$GUAC_EXTENSION" = "auth-sso-cas" ]; then
+      cp -f ${EXTENSION_DLFILE}/cas/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    elif [ "$GUAC_EXTENSION" = "auth-sso-openid" ]; then
+      cp -f ${EXTENSION_DLFILE}/openid/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+    elif [ "$GUAC_EXTENSION" = "auth-sso-saml" ]; then
+      cp -f ${EXTENSION_DLFILE}/saml/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     else
-      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f ${EXTENSION_DLFILE}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     fi
     # cleanup
     rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}*
+    rm -rf guacamole-auth-sso-${GUAC_VERSION}*
 done
 
 # stop service and remove old client, then restart with new
