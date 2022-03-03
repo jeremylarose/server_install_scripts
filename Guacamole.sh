@@ -219,11 +219,11 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
       # also copy schema folder to /etc/guacamole for easier access on server
       cp -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/schema /etc/guacamole/schema-${GUAC_AUTH}-${GUAC_VERSION}
     # sso extensions are packed together
-    elif [ "$GUAC_EXTENSION" = "auth-sso-cas" ]; then
+    elif [[ "$GUAC_EXTENSION" = "auth-sso-cas" ]]; then
       cp -f ${EXTENSION_DLFILE}/cas/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
-    elif [ "$GUAC_EXTENSION" = "auth-sso-openid" ]; then
+    elif [[ "$GUAC_EXTENSION" = "auth-sso-openid" ]]; then
       cp -f ${EXTENSION_DLFILE}/openid/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
-    elif [ "$GUAC_EXTENSION" = "auth-sso-saml" ]; then
+    elif [[ "$GUAC_EXTENSION" = "auth-sso-saml" ]]; then
       cp -f ${EXTENSION_DLFILE}/saml/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     else
       cp -f ${EXTENSION_DLFILE}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
