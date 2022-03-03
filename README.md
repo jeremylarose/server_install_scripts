@@ -51,7 +51,7 @@ version: 1.16.2
 
 ## Guacamole, Apache (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.1.0
+version: 1.4.0
 
 * Installs or upgrades Apache Guacamole, installs any extensions specified in command line, adds JDBC Drivers for mysql and postgresql if needed, also copies database schema to /etc/guacamole for easy access for upgrade
 * usage example (install Guacamole and MariaDB with two commands filling in your command line arguments):
@@ -59,7 +59,7 @@ version: 1.1.0
 2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Guacamole.sh && chmod +x Guacamole.sh && ./Guacamole.sh -v 1.1.0 -e auth-cas -e auth-jdbc -a mysql && rm -f Guacamole.sh
 3. modify /etc/guacamole/guacamole.properties and update schema if needed
 
-  - current extension options (-e): auth-cas, auth-duo, auth-header, auth-jdbc, auth-ldap, auth-noauth, auth-openid
+  - current extension options (-e): *auth-cas, auth-duo, auth-header, auth-jdbc, auth-json, auth-ldap, *auth-noauth, auth-openid, auth-quickconnect, auth-sso, auth-totp
   - current db authentication options (-a): mysql, postgresql
 
 ## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
