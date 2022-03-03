@@ -192,7 +192,7 @@ fi
 for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
     # download extension
     # set extension download file
-    if [ "$GUAC_EXTENSION" = auth-sso-* ]; then
+    if [[ "$GUAC_EXTENSION" = auth-sso-* ]]; then
     EXTENSION_DLFILE="guacamole-auth-sso-${GUAC_VERSION}.tar.gz"
     else
     EXTENSION_DLFILE="guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.tar.gz"
