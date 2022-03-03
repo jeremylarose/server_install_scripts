@@ -220,13 +220,13 @@ for GUAC_EXTENSION in "${GUAC_EXTENSIONS[@]}"; do
       cp -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/${GUAC_AUTH}/schema /etc/guacamole/schema-${GUAC_AUTH}-${GUAC_VERSION}
     # sso extensions are packed together
     elif [[ "$GUAC_EXTENSION" = "auth-sso-cas" ]]; then
-      cp -f ${EXTENSION_DLFILE}/cas/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f guacamole-auth-sso-${GUAC_VERSION}/cas/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     elif [[ "$GUAC_EXTENSION" = "auth-sso-openid" ]]; then
-      cp -f ${EXTENSION_DLFILE}/openid/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f guacamole-auth-sso-${GUAC_VERSION}/openid/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     elif [[ "$GUAC_EXTENSION" = "auth-sso-saml" ]]; then
-      cp -f ${EXTENSION_DLFILE}/saml/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f guacamole-auth-sso-${GUAC_VERSION}/saml/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     else
-      cp -f ${EXTENSION_DLFILE}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
+      cp -f guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}/guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}.jar /etc/guacamole/extensions
     fi
     # cleanup
     rm -rf guacamole-${GUAC_EXTENSION}-${GUAC_VERSION}*
