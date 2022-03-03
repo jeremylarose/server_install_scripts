@@ -76,7 +76,7 @@ if [ $os_family = debian ]; then
       exit 1
   fi
   # install dependencies
-  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavutil-dev libswscale-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat9 gcc-8 libjpeg-dev freerdp2-dev libwebsockets-dev
+  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat9 gcc-8 libjpeg-dev freerdp2-dev libwebsockets-dev
   export CC="gcc-8"
 elif [ $os_family = fedora ]; then
   # install dependencies
