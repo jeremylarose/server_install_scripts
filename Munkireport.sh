@@ -86,7 +86,7 @@ fi
 
 # install prereqs
 if [ $os_family = debian ]; then
-  apt -y install wget software-properties-common
+  apt -y install wget software-properties-common unzip
   add-apt-repository -y ppa:ondrej/php
   apt update
   apt -y install php7.4-fpm php7.4-xml
@@ -96,7 +96,7 @@ if [ $os_family = debian ]; then
     apt -y install php7.4-mysql
   fi
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
-  yum -y install epel-release wget tar
+  yum -y install epel-release wget unzip
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   dnf module install -y php:remi-7.4
   dnf install -y php-mysqlnd
@@ -144,7 +144,10 @@ fi
 # Fetch the new version
 echo "Downloading the latest version"
     wget https://github.com/munkireport/munkireport-php/releases/download/v${MUNKIREPORT_VERSION}/munkireport-php-v${MUNKIREPORT_VERSION}.zip
-    tar -xzf munkireport-php-v${MUNKIREPORT_VERSION}.zip
+    unzip munkireport-php-v${MUNKIREPORT_VERSION}.zip
+    mkdir munkireport-php
+    unzip munkireport-php.zip -d munkireport-php
+    rm munkireport-php.zip
     mv munkireport-php ${MUNKIREPORT_LOCATION}
 
 # put in maintenance mode
