@@ -24,7 +24,7 @@ version: 5:19.03.12~3-0
 
 ## DuoUnix (Debian, Ubuntu, CentOS, RHEL)
 
-version: 1.11.4
+version: 1.12.0
 
 * installs or updates Duo for Unix
 * usage example:
