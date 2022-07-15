@@ -7,7 +7,7 @@
 # ./filename.sh -v version -s sitename
 
 # default variables unless specified from command line
-CHECK_MK_VERSION="2.1.0p4"
+CHECK_MK_VERSION="2.1.0p6"
 SITENAME="monitoring"
 
 # get os from system
