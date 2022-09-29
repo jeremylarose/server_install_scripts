@@ -45,7 +45,7 @@ if [ $os_family = debian ]; then
    
     # install elasticsearch and kibana
     apt update
-    apt -y install elasticsearch=${elasticversion}
+
 elif [ $os_family = fedora ]; then
     
 	# add elastic repository and GPG key
@@ -61,12 +61,4 @@ elif [ $os_family = fedora ]; then
 	autorefresh=1
 	type=rpm-md
 	EOF
-
-	# install elasticsearch
-	yum -y install elasticsearch-${elasticversion}
 fi
-
-# enable elastic services for systemd
-systemctl daemon-reload
-systemctl enable elasticsearch.service
-systemctl start elasticsearch.service
