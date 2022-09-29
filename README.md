@@ -30,15 +30,13 @@ version: 1.12.0
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/DuoUnix.sh && chmod +x DuoUnix.sh && ./DuoUnix.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a ssh -v VERSION && rm -f DuoUnix.sh
 
-## Elastic Stack / ELK (Debian, Ubuntu, CentOS, RHEL, Fedora)
+## Elasticsearch (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 7.8.1
+version: 8.4.2
 
-* Installs Oracle Java JRE, Elasticsearch, Logstash, and Kibana and tunes Elasticsearch as recommended with heap size
-* use no more than half of your system memory for heap size and max of 32gb
-* script doesn't cover it, but don't forget to set correct # of shards and replicas for Elasticsearch
+* Adds repo and installs Elasticsearch
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticStack.sh && chmod +x ElasticStack.sh && ./ElasticStack.sh -v "7.8.1" -h 4g && rm -f ElasticStack.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Elasticsearch.sh && chmod +x Elasticsearch.sh && ./Elasticsearch.sh -v "8.4.2" && rm -f Elasticsearch.sh
 
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
