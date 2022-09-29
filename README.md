@@ -30,13 +30,13 @@ version: 1.12.0
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/DuoUnix.sh && chmod +x DuoUnix.sh && ./DuoUnix.sh -i INTEGRATION_KEY -s SECRET_KEY -h API_HOSTNAME -a ssh -v VERSION && rm -f DuoUnix.sh
 
-## Elasticsearch (Debian, Ubuntu, CentOS, RHEL, Fedora)
+## ElasticRepo (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
 version: 8.4.2
 
-* Adds repo and installs Elasticsearch
+* Adds repo for Elasticsearch
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Elasticsearch.sh && chmod +x Elasticsearch.sh && ./Elasticsearch.sh -v "8.4.2" && rm -f Elasticsearch.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/ElasticRepo.sh && chmod +x ElasticRepo.sh && ./ElasticRepo.sh -v "8.4.2" && rm -f ElasticRepo.sh
 
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
