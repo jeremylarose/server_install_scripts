@@ -88,14 +88,14 @@ if [ $os_family = debian ]; then
   apt -y install wget gpg software-properties-common ca-certificates apt-transport-https 
   add-apt-repository -y ppa:ondrej/php
   apt update
-  apt-get -y install php7.4-curl apache2-dev gcc perl-modules make apache2 perl libapache2-mod-perl2 libapache2-mod-php7.4 \
-  libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php7.4-mysql \
-  php7.4 php7.4-gd php7.4-dev php7.4-mbstring php7.4-soap php7.4-xml php7.4-zip libarchive-zip-perl php-pclzip cpanminus
+  apt-get -y install php8.2-curl apache2-dev gcc perl-modules make apache2 perl libapache2-mod-perl2 libapache2-mod-php8.2 \
+  libio-compress-perl libxml-simple-perl libdbi-perl libdbd-mysql-perl libapache-dbi-perl libsoap-lite-perl libnet-ip-perl php8.2-mysql \
+  php8.2 php8.2-gd php8.2-dev php8.2-mbstring php8.2-soap php8.2-xml php8.2-zip libarchive-zip-perl php-pclzip cpanminus
 
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget tar
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
-  dnf module install -y php:remi-7.4
+  dnf module install -y php:remi-8.2
   dnf install -y php-mysqlnd
   yum install -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
   perl-DBD-MySQL perl-Net-IP perl-Archive-Zip cpanminus php-curl php-common php-gd php-mbstring php-soap php-mysql php-ldap php-xml
@@ -103,10 +103,10 @@ elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget
-  # add Remi repo for php 7.4
+  # add Remi repo for php 8.2
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
   # Install more prereqs
-  yum install --enablerepo=remi-php74 -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
+  yum install --enablerepo=remi-php82 -y httpd httpd-devel gcc mod_perl mod_php mod_ssl make perl-XML-Simple perl-Compress-Zlib perl-DBI \
   perl-DBD-MySQL perl-Net-IP perl-SOAP-Lite perl-Archive-Zip cpanminus php-curl php-common php-gd php-mbstring php-soap php-mysql php-ldap php-xml
   # enable and start httpd
   systemctl enable httpd
