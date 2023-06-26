@@ -143,8 +143,8 @@ fi
 
 # Fetch the new version
 echo "Downloading the latest version"
-    wget https://github.com/munkireport/munkireport-php/releases/download/v${MUNKIREPORT_VERSION}/munkireport-php-v${MUNKIREPORT_VERSION}.zip
-    unzip munkireport-php-v${MUNKIREPORT_VERSION}.zip
+    wget https://github.com/munkireport/munkireport-php/releases/download/v${MUNKIREPORT_VERSION}/munkireport-php.zip
+    unzip munkireport-php.zip
     mkdir munkireport-php
     unzip munkireport-php.zip -d munkireport-php
     rm munkireport-php.zip
