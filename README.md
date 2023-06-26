@@ -78,12 +78,12 @@ version: 1.1.6, MongoDB 4.2
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: munkireport-php 5.7.1, PHP 7.4
+version: munkireport-php 5.8.0, PHP 8.2
 
 * install example (install Munkireport and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d munkireport -u munki_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 5.7.1 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/Munkireport.sh && chmod +x Munkireport.sh && ./Munkireport.sh -d mysql -u munki_dbuser -p 'dbpassword' -v 5.8.0 -h 127.0.0.1 -n 3306 && rm -f Munkireport.sh
 
 ## OCS Inventory NG (Ubuntu, CentOS, RHEL)
 
