@@ -91,7 +91,7 @@ if [ $os_family = debian ]; then
   apt update
   apt -y install php8.2-fpm php8.2-xml
   if [ $DATABASE = sqlite ]; then
-    apt -y install sqlite php8.2sqlite
+    apt -y install sqlite php8.2-sqlite3
   elif [ $DATABASE = mysql ]; then
     apt -y install php8.2-mysql
   fi
