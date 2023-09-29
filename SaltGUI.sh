@@ -2,23 +2,15 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --saltgui_user username --saltgui_pwd password --version saltguiversionnumber
+# or automated with ./filename.sh --version saltguiversionnumber
 # OR
 # ./filename.sh -u username -p password -v saltguiversionnumber
 
-saltgui_version="1.28.0"
+saltgui_version="1.29.0"
 
 # Get script arguments for non-interactive mode
 while [ "$1" != "" ]; do
     case $1 in
-        -u | --saltgui_user )
-            shift
-            saltgui_user="$1"
-            ;;
-        -p | --saltgui_pwd )
-            shift
-            saltgui_pwd="$1"
-            ;;
         -v | --version )
             shift
             saltgui_version="$1"
@@ -26,32 +18,6 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
-
-# Get SaltGUI initial username and password
-if [ -n "$saltgui_user" ] && [ -n "$saltgui_pwd" ]; then
-        saltguiusername=$saltgui_user
-        saltguipassword=$saltgui_pwd
-else
-    echo 
-    while true
-    do
-        read -p "Enter the first SaltGUI username: " saltguiusername
-        break
-        echo
-    done
-    echo
-    while true
-    do
-        read -s -p "Enter SaltGUI password: " saltguipassword
-        echo
-        read -s -p "Confirm SaltGUI Password: " password2
-        echo
-        [ "$saltguipassword" = "$password2" ] && break
-        echo "Passwords don't match. Please try again."
-        echo
-    done
-    echo
-fi
 
 # install saltgui from https://github.com/erwindon/SaltGUI
 # download SaltGUI
@@ -80,16 +46,7 @@ external_auth:
       - '@wheel'
       - '@jobs'
     saltgui_keymaster%:
-      - grains.items
-      - schedule.list
-      - '@runner':
-        - jobs.active
-        - jobs.list_job
-        - jobs.list_jobs
-      - '@wheel':
-        - config.values
-        - key.*
-    saltgui_installer%:
+      - beacons.list
       - grains.items
       - pillar.items
       - pillar.obfuscate
@@ -98,23 +55,50 @@ external_auth:
         - jobs.active
         - jobs.list_job
         - jobs.list_jobs
+        - manage.versions
       - '@wheel':
         - config.values
-        - key.finger
-        - key.list_all
-      - state.apply
+        - key.*
+        - minioins.connected
+    saltgui_installer%:
       - pkg.*
-    saltgui_minimal%:
+      - beacons.list
       - grains.items
-      - schedule.lsit
+      - pillar.items
+      - pillar.obfuscate
+      - schedule.list
       - '@runner':
         - jobs.active
         - jobs.list_job
         - jobs.list_jobs
+        - manage.versions
       - '@wheel':
         - config.values
         - key.finger
         - key.list_all
+        - minioins.connected
+    saltgui_minimal%:
+      - beacons.list
+      - grains.items
+      - pillar.items
+      - pillar.obfuscate
+      - schedule.list
+      - '@runner':
+        - jobs.active
+        - jobs.list_job
+        - jobs.list_jobs
+        - manage.versions
+      - '@wheel':
+        - config.values
+        - key.finger
+        - key.list_all
+        - minioins.connected
+
+netapi_enable_clients:
+    - local
+    - local_async
+    - runner
+    - wheel
 
 rest_cherrypy:
   port: 3333
@@ -131,14 +115,8 @@ getent group saltgui_keymaster || groupadd saltgui_keymaster
 getent group saltgui_installer || groupadd saltgui_installer
 getent group saltgui_minimal || groupadd saltgui_minimal
 
-# create local pam user if doesn't exist
-id -u $saltguiusername &>/dev/null || useradd $saltguiusername && 
-
-# set password for local pam user
-echo $saltguiusername:$saltguipassword | /usr/sbin/chpasswd
-
 # add user to salt master acl with permissions for salt gui
-usermod -a -G saltgui_admin $saltguiusername
+#usermod -a -G saltgui_admin $saltguiusername
 
 service salt-master restart
 service salt-api restart
