@@ -7,8 +7,9 @@
 # ./filename.sh -v mc_version
 
 # default variables unless specified from command line
-MC_VERSION="1.1.13"
-MONGODB_VERSION="4.2"
+MC_VERSION="1.1.15"
+MONGODB_VERSION="7.0"
+NODE_MAJOR="20"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -46,42 +47,26 @@ done
 
 # install prereqs
 if [ $os_family = debian ]; then
-  # install nodejs 10 and npm
-  apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
-  curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
+  # install nodejs 16 and npm
+  apt -y install ca-certificates curl gnupg
+  mkdir -p /etc/apt/keyrings
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
   apt update
   apt -y install nodejs
   
   # install mongodb
-  apt -y install gnupg
-  wget -qO - https://www.mongodb.org/static/pgp/server-$MONGODB_VERSION.asc | sudo apt-key add -
+  apt -y install gnupg curl
+  curl -fsSL https://pgp.mongodb.com/server-$MONGODB_VERSION.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg \
+   --dearmor
   if [ $os = debian ]; then
-  echo "deb http://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION main" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list
+  echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg ] http://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION main" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list 
   elif [ $os = ubuntu ]; then
-  echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list
+  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg ] https://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list
   fi
   apt update
   apt -y install mongodb-org
-  systemctl daemon-reload
-  systemctl enable mongod
-  systemctl start mongod
-  
-elif [ $os_family = fedora ]; then
-  # install nodejs 10 and npm
-  curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-  yum -y install nodejs
-
-  # add mongodb repo for centos and install
-	cat <<-EOF >/etc/yum.repos.d/mongodb-org-${MONGODB_VERSION}.repo
-	[mongodb-org-${MONGODB_VERSION}]
-	name=MongoDB Repository
-	baseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/${MONGODB_VERSION}/x86_64/
-	gpgcheck=1
-	enabled=1
-	gpgkey=https://www.mongodb.org/static/pgp/server-${MONGODB_VERSION}.asc
-	EOF
-
-  yum -y install mongodb-org
   systemctl daemon-reload
   systemctl enable mongod
   systemctl start mongod
@@ -141,16 +126,6 @@ systemctl enable meshcentral.service
 service meshcentral start
 
 sleep 30
-
-if [ $os_family = fedora ]; then
-  # set selinux rule
-  setsebool -P httpd_can_network_connect 1
-  echo "    be sure to open firewall ports and allow through selinux, ex:"
-  # open firewall ports
-  echo "    firewall-cmd --permanent --add-port=80/tcp"
-  echo "    firewall-cmd --permanent --add-port=443/tcp"
-  echo "    firewall-cmd --reload"
-fi
 
 echo -e "Installation of MeshCentral verion $MC_VERSION complete!
 echo -e "go to https://localhost to access site""
