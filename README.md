@@ -68,13 +68,13 @@ version: 10.11
 * usage example:
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
 
-## MeshCentral, MongoDB (Debian, Ubuntu, CentOS, RHEL)
+## MeshCentral, MongoDB (Debian, Ubuntu)
 
-version: 1.1.6, MongoDB 4.2
+version: 1.1.15, MongoDB 7.0, Node.js 20
 
-* installs or updates a MeshCentral Server, conifgures for MongoDB, and starts meshcentral as systemd service
+* installs or updates a MeshCentral Server, installs node.js, installs mongodb if not installed already, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "1.1.6" && rm -f MeshCentral.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "1.1.15" && rm -f MeshCentral.sh
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
