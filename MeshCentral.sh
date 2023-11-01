@@ -78,9 +78,6 @@ elif [ $RESULT -ne 0 ]; then
   systemctl daemon-reload
   systemctl enable mongod
   systemctl start mongod
-else
-  echo "unknown operating system family"
-  exit 1
 fi
 
 # allow to nodejs to listen to ports below 1024
