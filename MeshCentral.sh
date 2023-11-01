@@ -54,6 +54,7 @@ if [ $os_family = debian ]; then
   echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
   apt update
   apt -y install nodejs
+fi
 
 # allow to nodejs to listen to ports below 1024
   setcap cap_net_bind_service=+ep /usr/bin/node
