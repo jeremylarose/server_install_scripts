@@ -54,26 +54,6 @@ if [ $os_family = debian ]; then
   echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
   apt update
   apt -y install nodejs
-  
-  # install mongodb
-  apt -y install gnupg curl
-  curl -fsSL https://pgp.mongodb.com/server-$MONGODB_VERSION.asc | \
-   sudo gpg -o /usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg \
-   --dearmor
-  if [ $os = debian ]; then
-  echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg ] http://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION main" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list 
-  elif [ $os = ubuntu ]; then
-  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg ] https://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list
-  fi
-  apt update
-  apt -y install mongodb-org
-  systemctl daemon-reload
-  systemctl enable mongod
-  systemctl start mongod
-else
-  echo "unknown operating system family"
-  exit 1
-fi
 
 # allow to nodejs to listen to ports below 1024
   setcap cap_net_bind_service=+ep /usr/bin/node
