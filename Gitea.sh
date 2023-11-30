@@ -58,7 +58,8 @@ fi
 
 # stop service if running and download new verison of gitea
 systemctl is-active --quiet gitea && systemctl stop gitea
-wget -O /usr/local/bin/gitea https://dl.gitea.io/gitea/${GITEA_VERSION}/v${GITEA_VERSION}/gitea-${GITEA_VERSION}-linux-amd64
+#wget -O /usr/local/bin/gitea https://dl.gitea.io/gitea/${GITEA_VERSION}/v${GITEA_VERSION}/gitea-${GITEA_VERSION}-linux-amd64
+wget -O /usr/local/bin/gitea https://github.com/go-gitea/gitea/releases/download/v${GITEA_VERSION}/gitea-${GITEA_VERSION}-linux-amd64
 chmod +x /usr/local/bin/gitea
 
 # create required directory structure
