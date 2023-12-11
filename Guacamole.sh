@@ -6,9 +6,9 @@
 # ./filename.sh -e extension1 -e extension2 -v guacversion - a authentication(mysql, postgresql, or sqlserver)
 
 # Default versions
-GUAC_VERSION="1.4.0"
-MYSQL_JDBC_DRIVER_VERSION="8.0.28"
-POSTGRESQL_JDBC_DRIVER_VERSION="42.3.3"
+GUAC_VERSION="1.5.4"
+MYSQL_JDBC_DRIVER_VERSION="8.2.0"
+POSTGRESQL_JDBC_DRIVER_VERSION="42.7.1"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
@@ -46,50 +46,27 @@ shift $((OPTIND -1))
 # begin installs
 if [ $os_family = debian ]; then
   # Ubuntu and Debian have different package names for libjpeg
-  # Ubuntu and Debian versions have differnet package names for libpng-dev
-  # Ubuntu 18.04 does not include universe repo by default
   source /etc/os-release
   if [[ "${NAME}" == "Ubuntu" ]]
   then
       JPEGTURBO="libjpeg-turbo8-dev"
-      if [[ "${VERSION_ID}" == "18.04" ]]
-      then
-          sed -i 's/bionic main$/bionic main universe/' /etc/apt/sources.list
-      fi
-      if [[ "${VERSION_ID}" == "16.04" ]]
-      then
-          LIBPNG="libpng12-dev"
-      else
-          LIBPNG="libpng-dev"
-      fi
+      LIBPNG="libpng-dev"
   elif [[ "${NAME}" == *"Debian"* ]]
   then
       JPEGTURBO="libjpeg62-turbo-dev"
-      if [[ "${PRETTY_NAME}" == *"stretch"* ]] || [[ "${PRETTY_NAME}" == *"buster"* ]]
-      then
-          LIBPNG="libpng-dev"
-      else
-          LIBPNG="libpng12-dev"
-      fi
   else
       echo "Unsupported Distro - Ubuntu or Debian Only"
       exit 1
   fi
   # install dependencies
-  apt -y install build-essential libcairo2-dev ${JPEGTURBO} ${LIBPNG} libossp-uuid-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev tomcat9 gcc-8 libjpeg-dev freerdp2-dev libwebsockets-dev
-  export CC="gcc-8"
+  apt -y install build-essential gcc libcairo2-dev ${JPEGTURBO} libpng-dev libtool-bin uuid-dev libossp-uuid-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev
+  # install tomcat
+  apt -y install tomcat9
 elif [ $os_family = fedora ]; then
   # install dependencies
-  yum -y install make gcc pam-devel wget cairo-devel libjpeg-turbo-devel libpng-devel uuid-devel
+  yum -y install make gcc pam-devel wget cairo-devel libjpeg-turbo-devel libtool libuuid-devel uuid-devel
   # install optional dependencies
-  # ffmpeg-devel (prereq)
-  yum -y install epel-release
-  rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
-  rpm -Uvh http://li.nux.ro/download/nux/dextop/el${osversion_id}/x86_64/nux-dextop-release-0-5.el$osversion_id.nux.noarch.rpm
-  rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro rpm -Uvh http://li.nux.ro/download/nux/dextop/el${osversion_id}/x86_64/nux-dextop-release-0-5.el${osversion_id}_id.nux.noarch.rpm
-  yum -y install ffmpeg-devel
-  # more dependencies
-  yum -y install freerdp-devel libwebsockets-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel tomcat
+  yum -y install ffmpeg-devel freerdp-devel pango-devel libssh2-devel libtelnet-devel libvncserver-devel libwebsockets-devel pulseaudio-libs-devel openssl-devel libvorbis-devel libwebp-devel tomcat
   # allow connections through selinux
   setsebool -P httpd_can_network_connect 1
   setsebool -P httpd_can_network_relay 1
@@ -165,16 +142,16 @@ mkdir -p /etc/guacamole/{extensions,lib}
 
 # install jdbc connectors if specified with -a in command line
 if [ "$GUAC_AUTH" = "mysql" ]; then
-    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
+    wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
     if [ $? -ne 0 ]; then
         echo "Failed to download mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz"
-        echo "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz"
+        echo "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz"
         exit
     fi
-    tar -xzf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
-    rm -rf /etc/guacamole/lib/mysql-connector-java*
-    cp -f mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
-    rm -rf mysql-connector-java-${MYSQL_JDBC_DRIVER_VERSION}*
+    tar -xzf mysql-connector-j-${MYSQL_JDBC_DRIVER_VERSION}.tar.gz
+    rm -rf /etc/guacamole/lib/mysql-connector-j*
+    cp -f mysql-connector-j-${MYSQL_JDBC_DRIVER_VERSION}/mysql-connector-j-${MYSQL_JDBC_DRIVER_VERSION}.jar /etc/guacamole/lib/
+    rm -rf mysql-connector-j-${MYSQL_JDBC_DRIVER_VERSION}*
 fi
 if [ "$GUAC_AUTH" = "postgresql" ]; then
     wget -O postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar https://jdbc.postgresql.org/download/postgresql-${POSTGRESQL_JDBC_DRIVER_VERSION}.jar
