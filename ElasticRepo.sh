@@ -6,7 +6,7 @@
 # ./filename.sh -v elasticversion
 
 # set default variables
-elasticversion="8.4.2"
+elasticversion="8.12.1"
 
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
