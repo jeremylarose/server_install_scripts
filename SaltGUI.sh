@@ -59,7 +59,7 @@ external_auth:
       - '@wheel':
         - config.values
         - key.*
-        - minioins.connected
+        - minions.connected
     saltgui_installer%:
       - pkg.*
       - beacons.list
@@ -76,7 +76,7 @@ external_auth:
         - config.values
         - key.finger
         - key.list_all
-        - minioins.connected
+        - minions.connected
     saltgui_minimal%:
       - beacons.list
       - grains.items
@@ -92,7 +92,7 @@ external_auth:
         - config.values
         - key.finger
         - key.list_all
-        - minioins.connected
+        - minions.connected
 
 netapi_enable_clients:
     - local
