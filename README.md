@@ -1,6 +1,6 @@
 ## Check_MK Raw Edition (Debian, Ubuntu, CentOS, RHEL)
 
-version: 2.2.0p23
+version: 2.2.0p28
 
 * installs or updates Check_MK Raw, creates and starts a site if doesn't exist
 * usage example:
