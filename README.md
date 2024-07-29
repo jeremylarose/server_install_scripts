@@ -70,11 +70,11 @@ version: 10.11
 
 ## MeshCentral, MongoDB (Debian, Ubuntu)
 
-version: 1.1.22, MongoDB 7.0, Node.js 20
+version: 1.1.27, MongoDB 7.0, Node.js 20
 
 * installs or updates a MeshCentral Server, installs node.js, installs mongodb if not installed already, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
-  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "1.1.22" && rm -f MeshCentral.sh
+  1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MeshCentral.sh && chmod +x MeshCentral.sh && ./MeshCentral.sh -v "1.1.27" && rm -f MeshCentral.sh
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
