@@ -47,7 +47,7 @@ done
 
 # install prereqs
 if [ $os_family = debian ]; then
-  # install nodejs 16 and npm
+  # install nodejs 20 and npm
   apt -y install ca-certificates curl gnupg
   mkdir -p /etc/apt/keyrings
   curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor --batch --yes -o /etc/apt/keyrings/nodesource.gpg
@@ -64,10 +64,8 @@ if [ $RESULT -eq 0 ]; then
   echo mongodb already installed
   echo
 elif [ $RESULT -ne 0 ]; then
-  apt -y install gnupg curl
-  curl -fsSL https://pgp.mongodb.com/server-$MONGODB_VERSION.asc | \
-   sudo gpg -o /usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg \
-   --dearmor
+  apt -y install gnupg wget apt-transport-https ca-certificates software-properties-common 
+  wget -qO- https://pgp.mongodb.com/server-$MONGODB_VERSION.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg >/dev/null
   if [ $os = debian ]; then
   echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-$MONGODB_VERSION.gpg ] http://repo.mongodb.org/apt/$os $os_codename/mongodb-org/$MONGODB_VERSION main" | sudo tee /etc/apt/sources.list.d/mongodb-org-$MONGODB_VERSION.list 
   elif [ $os = ubuntu ]; then
