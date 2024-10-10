@@ -78,7 +78,7 @@ version: 1.1.27, MongoDB 7.0, Node.js 20
 
 ## Munkireport (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: munkireport-php 5.8.0, PHP 8.2
+version: munkireport-php 5.8.0, PHP 8.3
 
 * install example (install Munkireport and MariaDB with two commands filling in your command line arguments):
 
