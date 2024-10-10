@@ -89,29 +89,29 @@ if [ $os_family = debian ]; then
   apt -y install wget software-properties-common unzip
   add-apt-repository -y ppa:ondrej/php
   apt update
-  apt -y install php8.2-fpm php8.2-xml
+  apt -y install php8.3-fpm php8.3-xml
   if [ $DATABASE = sqlite ]; then
-    apt -y install sqlite php8.2-sqlite3
+    apt -y install sqlite php8.3-sqlite3
   elif [ $DATABASE = mysql ]; then
-    apt -y install php8.2-mysql
+    apt -y install php8.3-mysql
   fi
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget unzip
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
-  dnf module install -y php:remi-8.2
+  dnf module install -y php:remi-8.3
   dnf install -y php-mysqlnd
 elif [ $os_family = fedora ]; then
   # install prerequisites
   yum -y install epel-release wget tar
-  # add Remi repo for php 8.2 for 
+  # add Remi repo for php 8.3 for 
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
-  # install php 8.2 from repo
-  yum --enablerepo=remi-php82 -y install php php-pdo php-xml
+  # install php 8.3 from repo
+  yum --enablerepo=remi-php83 -y install php php-pdo php-xml
   if [ $DATABASE = sqlite ]; then
     yum -y install sqlite
-    yum --enablerepo=remi-php82 -y install php-sqlite
+    yum --enablerepo=remi-php83 -y install php-sqlite
   elif [ $DATABASE = mysql ]; then
-    yum --enablerepo=remi-php82 -y install php-mysql
+    yum --enablerepo=remi-php83 -y install php-mysql
   fi
 else
   echo "unknown operating system family"
