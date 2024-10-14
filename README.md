@@ -62,7 +62,7 @@ version: 1.5.4
 
 ## MariaDB (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 11.5
+version: 11.4
 
 * Installs MariaDB and/or just creates a database if mariadb/mysql already installed
 * usage example:
