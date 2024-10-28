@@ -113,7 +113,7 @@ elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   if [ $os = ubuntu ]; then
   apt -y install software-properties-common dirmngr
   apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-  add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main"
+  add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main" -y
   fi
   apt -y install mariadb-server mariadb-client
   if [ $? -eq 0 ]; then
