@@ -110,12 +110,11 @@ elif [ $RESULT -ne 0 ] && [ $os_family = debian ]; then
   debconf-set-selections <<< "maria-db-$MARIADB_VERSION mysql-server/root_password_again password $rootpwd"
   
   # install MariaDB
-  if [ $os = ubuntu ]; then
-  apt -y install software-properties-common dirmngr
-  apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-  add-apt-repository "deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/$mariadb_version/$os $os_codename main" -y
-  fi
+  apt -y install ca-certificates apt-transport-https
+  curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-$mariadb_version"
+  apt update
   apt -y install mariadb-server mariadb-client
+  
   if [ $? -eq 0 ]; then
     echo "MariaDB $mariadb_version installed successfully"
   fi
@@ -127,13 +126,7 @@ yum -y install mariadb
 
 elif [ $RESULT -ne 0 ] && [ $os_family = fedora ]; then
 # add MariaDB repo for centos
-cat <<EOF >/etc/yum.repos.d/mariadb.repo
-[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/$mariadb_version/$os$osversion_id-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-EOF
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-$mariadb_version"
 
 # Insall MariaDB
 yum -y install MariaDB-server
