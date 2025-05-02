@@ -131,6 +131,7 @@ echo "Downloading the latest version"
     unzip snipe-it-${SNIPEIT_VERSION}.zip
     rm snipe-it-${SNIPEIT_VERSION}.zip
     mkdir -p ${SNIPEIT_LOCATION}
+    rmdir ${SNIPEIT_LOCATION}
     mv snipe-it-${SNIPEIT_VERSION} ${SNIPEIT_LOCATION}
     mv ${SNIPEIT_LOCATION}/snipe-it-${SNIPEIT_VERSION} ${SNIPEIT_LOCATION}/snipe-it
 
