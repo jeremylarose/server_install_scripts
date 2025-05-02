@@ -143,7 +143,6 @@ cat <<-EOF >${SNIPEIT_LOCATION}/.env
 	DB_USERNAME="${MYSQL_DBUSER}"
 	DB_PASSWORD="${MYSQL_DBPWD}"
 	EOF
-fi
 
 # Copy across the old configuration files overwiting new
 if [ -f ${PARENTDIR}/snipeit_backup_$now/.env ]; then
