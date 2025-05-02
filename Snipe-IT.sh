@@ -2,9 +2,9 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --version snipeit_version --location '/var/www/snipe-it' --mysqluser username --mysqlpwd password --mysqlhost hostname --mysqlport portnumber
+# or automated with ./filename.sh --version snipeit_version --location '/var/www/snipe-it' --mysqldbname databasename --mysqluser username --mysqlpwd password --mysqlhost hostname --mysqlport portnumber
 # OR
-# ./filename.sh -v version -l location -u mysqlusername -p mysqlpassword -h mysqlhostname -n mysqlhostportnumber
+# ./filename.sh -v version -l location -d mysqldbname -u mysqlusername -p mysqlpassword -h mysqlhostname -n mysqlhostportnumber
 
 # default variables unless specified from command line
 SNIPEIT_VERSION="8.1.1"
@@ -38,7 +38,11 @@ while [ "$1" != "" ]; do
             shift
             SNIPEIT_LOCATION="$1"
             ;;
-        -u | --mysqluser )
+        -d | --mysqldbname )
+            shift
+            MYSQL_DBNAME="$1"
+            ;;
+	-u | --mysqluser )
             shift
             MYSQL_DBUSER="$1"
             ;;
@@ -58,6 +62,11 @@ while [ "$1" != "" ]; do
     shift
 done
 
+if [ -z "$MYSQL_DBNAME" ]; then
+    echo
+    read -p "Enter the Snipe-IT database name: " MYSQL_DBNAME
+    echo
+fi
 if [ -z "$MYSQL_DBUSER" ]; then
     echo
     read -p "Enter the Snipe-IT database username with access: " MYSQL_DBUSER
@@ -137,7 +146,7 @@ echo "Downloading the latest version"
 # set .env file file
 cat <<-EOF >${SNIPEIT_LOCATION}/.env
 	DB_CONNECTION="mysql"
-	DB_DATABASE="snipe-it"
+	DB_DATABASE="${MYSQL_DBNAME}"
 	DB_HOST="${MYSQL_HOST}"
 	DB_PORT="${MYSQL_HOSTPORT}"
 	DB_USERNAME="${MYSQL_DBUSER}"
