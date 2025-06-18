@@ -84,9 +84,7 @@ if [ $os_family = debian ]; then
   apt -y install wget software-properties-common unzip
   add-apt-repository -y ppa:ondrej/php
   apt update
-  apt -y install php8.4-fpm php8.4-xml
-  apt -y install php8.4-mysql
-
+  apt -y install php8.4 php8.4-cli php8.4-common php8.4-imap php8.4-fpm php8.4-snmp php8.4-xml php8.4-zip php8.4-mbstring php8.4-curl php8.4-mysql php8.4-gd php8.4-intl
 elif [ $os_family = fedora ] && [ $osversion_id = 8 ]; then
   yum -y install epel-release wget unzip
   rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-${osversion_id}.rpm
@@ -152,3 +150,6 @@ if [ -d "${PARENTDIR}/wordpress_backup_$now" ]; then
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/mu-plugins/ ${WORDPRESS_LOCATION}/wp-content/mu-plugins -delete
   rsync -aP ${PARENTDIR}/wordpress_backup_$nowwp-content/uploads/ ${WORDPRESS_LOCATION}/wp-content/uploads -delete
 fi
+
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
