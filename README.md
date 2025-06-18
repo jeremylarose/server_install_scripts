@@ -139,7 +139,7 @@ version: WordPress 6.8.1, PHP 8.4
 * install example (install WordPress and MariaDB with two commands filling in your command line arguments):
 
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r 'rootpassword' -d wordpress -u wordpress_dbuser -p 'dbpassword' && rm -f MariaDB.sh
-  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/WordPress.sh && chmod +x WordPress.sh && ./WordPress.sh -l '/usr/local/wordpress' -u wordpress_dbuser -p 'dbpassword' -v 6.8.1 -h 127.0.0.1 -n 3306 && rm -f WordPress.sh
+  2. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/WordPress.sh && chmod +x WordPress.sh && ./WordPress.sh -l '/usr/local/wordpress' && rm -f WordPress.sh
 
 ## Xibo CMS using Docker (Debian, Ubuntu)
 
