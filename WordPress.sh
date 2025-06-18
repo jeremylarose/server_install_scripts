@@ -2,15 +2,13 @@
 
 # first make executable with chmod +x filename.sh
 # then run with ./filename.sh
-# or automated with ./filename.sh --version wordpress_version --location '/var/www/html/wordpress' --mysqluser username --mysqlpwd password --mysqlhost hostname --mysqlport portnumber
+# or automated with ./filename.sh --version wordpress_version --location '/var/www/html/wordpress'
 # OR
-# ./filename.sh -v version -l location -u mysqlusername -p mysqlpassword -h mysqlhostname -n mysqlhostportnumber
+# ./filename.sh -v version -l location
 
 # default variables unless specified from command line
 WORDPRESS_VERSION="6.8.1"
 WORDPRESS_LOCATION="/var/www/html"
-MYSQL_HOST="127.0.0.1"
-MYSQL_HOSTPORT="3306"
 
 PARENTDIR="$(dirname "$WORDPRESS_LOCATION")"
 
@@ -38,46 +36,9 @@ while [ "$1" != "" ]; do
             shift
             WORDPRESS_LOCATION="$1"
             ;;
-        -u | --mysqluser )
-            shift
-            MYSQL_DBUSER="$1"
-            ;;
-        -p | --mysqlpwd )
-            shift
-            MYSQL_DBPWD="$1"
-            ;;
-        -h | --mysqlhost )
-            shift
-            MYSQL_HOST="$1"
-            ;;
-        -n | --mysqlport )
-            shift
-            MYSQL_HOSTPORT="$1"
-            ;;
     esac
     shift
 done
-
-if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBUSER" ]; then
-    echo
-    read -p "Enter the Munkireport database username with access: " MYSQL_DBUSER
-    echo
-fi
-if [ $DATABASE = mysql ] && [ -z "$MYSQL_DBPWD" ]; then
-    echo
-    while true
-    do
-        read -s -p "Enter the Munkireport User Database Password: " MYSQL_DBPWD
-        echo
-        read -s -p "Confirm the Munkireport User Database Password: " password2
-        echo
-        [ "$MYSQL_DBPWD" = "$password2" ] && break
-        echo "Passwords don't match. Please try again."
-        echo
-    done
-    echo
-fi
-
 
 # install prereqs
 if [ $os_family = debian ]; then
