@@ -98,7 +98,7 @@ if [ -z "$dbpwd" ]; then
 fi
 
 # install only if mysql not already installed AND os family matches
-mysql --version
+/usr/bin/mariadb --version
 RESULT=$?
 if [ $RESULT -eq 0 ]; then
   echo
@@ -161,7 +161,7 @@ EOF
 fi
 
 # create database
-mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
+/usr/bin/mariadb -uroot -p$rootpwd <<MYSQL_SCRIPT
 CREATE DATABASE $dbname;
 MYSQL_SCRIPT
 if [ $? -eq 0 ]; then
@@ -169,7 +169,7 @@ if [ $? -eq 0 ]; then
 fi
 
 # create db user and grant privileges
-mysql -uroot -p$rootpwd <<MYSQL_SCRIPT
+/usr/bin/mariadb -uroot -p$rootpwd <<MYSQL_SCRIPT
 GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@localhost IDENTIFIED BY '$dbpwd';
 MYSQL_SCRIPT
 if [ $? -eq 0 ]; then
