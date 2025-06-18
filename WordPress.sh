@@ -10,8 +10,6 @@
 WORDPRESS_VERSION="6.8.1"
 WORDPRESS_LOCATION="/var/www/html"
 
-PARENTDIR="$(dirname "$WORDPRESS_LOCATION")"
-
 # get os from system
 os=`cat /etc/*release | grep ^ID= | cut -d= -f2 | sed 's/\"//g'`
 
@@ -74,6 +72,8 @@ if [ $? -ne 0 ]; then
      echo "failed to install all required dependencies"
      exit
 fi
+
+PARENTDIR="$(dirname "$WORDPRESS_LOCATION")"
 
 # Generate a timestampmdlm
 now=$(date +"%Y%m%d_%H%M%S")
