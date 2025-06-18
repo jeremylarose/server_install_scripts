@@ -116,9 +116,6 @@ if [ $? -ne 0 ]; then
      exit
 fi
 
-# Deactive all plugins
-/usr/local/bin/wp plugin deactivate --all
-
 # Generate a timestampmdlm
 now=$(date +"%Y%m%d_%H%M%S")
 
