@@ -41,7 +41,7 @@ version: 8.4.2
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.23.4
+version: 1.24.1
 * installs Gitea from binary with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
