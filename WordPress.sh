@@ -109,7 +109,7 @@ if [ -d "${PARENTDIR}/wordpress_backup_$now" ]; then
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/plugins/ .${WORDPRESS_LOCATION}/wp-content/plugins -delete
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/languages/ ${WORDPRESS_LOCATION}/wp-content/languages -delete
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/mu-plugins/ ${WORDPRESS_LOCATION}/wp-content/mu-plugins -delete
-  rsync -aP ${PARENTDIR}/wordpress_backup_$nowwp-content/uploads/ ${WORDPRESS_LOCATION}/wp-content/uploads -delete
+  rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/uploads/ ${WORDPRESS_LOCATION}/wp-content/uploads -delete
 fi
 
 chown -R www-data:www-data /var/www/html
