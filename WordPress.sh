@@ -106,7 +106,7 @@ if [ -d "${PARENTDIR}/wordpress_backup_$now" ]; then
   cd ${PARENTDIR}/wordpress_backup_$now
   cp -f {wp-config.php,.htaccess,} ${WORDPRESS_LOCATION}
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/themes/ ${WORDPRESS_LOCATION}/wp-content/themes -delete
-  rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/plugins/ .${WORDPRESS_LOCATION}/wp-content/plugins -delete
+  rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/plugins/ ${WORDPRESS_LOCATION}/wp-content/plugins -delete
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/languages/ ${WORDPRESS_LOCATION}/wp-content/languages -delete
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/mu-plugins/ ${WORDPRESS_LOCATION}/wp-content/mu-plugins -delete
   rsync -aP ${PARENTDIR}/wordpress_backup_$now/wp-content/uploads/ ${WORDPRESS_LOCATION}/wp-content/uploads -delete
