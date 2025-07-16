@@ -41,7 +41,7 @@ version: 8.4.2
 
 ## Gitea (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.24.1
+version: 1.24.3
 * installs Gitea from binary with service (mysql) enabled
 * usage example (install Gitea and MariaDB with two commands filling in your command line arguments):
   1. wget https://raw.githubusercontent.com/jeremylarose/server_install_scripts/master/MariaDB.sh && chmod +x MariaDB.sh && ./MariaDB.sh -r password -d databasename -u dbusername -p dbpassword && rm -f MariaDB.sh
@@ -70,7 +70,7 @@ version: 11.4
 
 ## MeshCentral, MongoDB (Debian, Ubuntu)
 
-version: 1.1.44, MongoDB 7.0, Node.js 20
+version: 1.1.47, MongoDB 7.0, Node.js 20
 
 * installs or updates a MeshCentral Server, installs node.js, installs mongodb if not installed already, conifgures for MongoDB, and starts meshcentral as systemd service
 * usage example:
