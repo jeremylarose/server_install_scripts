@@ -60,8 +60,15 @@ if [ $os_family = debian ]; then
   fi
   # install dependencies
   apt -y install build-essential gcc libcairo2-dev ${JPEGTURBO} libpng-dev libtool-bin uuid-dev libossp-uuid-dev libavcodec-dev libavformat-dev libavutil-dev libswscale-dev freerdp2-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libwebsockets-dev libpulse-dev libssl-dev libvorbis-dev libwebp-dev
+
   # install tomcat
-  apt -y install tomcat10
+  # since tomcat 9 is currently required, need to add jammy 22.04 updates to install tomcat 9 on 24.04 noble
+  if [[ "${os_codename}" == "noble" ]]
+      echo 'deb http://ke.archive.ubuntu.com/ubuntu/ jammy-updates universe' > /etc/apt/sources.list.d/tomcat9.list
+      apt update
+  fi
+  apt -y install tomcat9
+
 elif [ $os_family = fedora ]; then
   # install dependencies
   yum -y install make gcc pam-devel wget cairo-devel libjpeg-turbo-devel libtool libuuid-devel uuid-devel
