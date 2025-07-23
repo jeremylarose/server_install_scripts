@@ -49,7 +49,7 @@ version: 1.24.3
 
 ## Guacamole, Apache (Debian, Ubuntu, CentOS, RHEL, Fedora)
 
-version: 1.6.0
+version: 1.6.0, Tomcat9
 
 * Installs or upgrades Apache Guacamole, installs any extensions specified in command line, adds JDBC Drivers for mysql and postgresql if needed, also copies database schema to /etc/guacamole for easy access for upgrade
 * usage example (install Guacamole and MariaDB with two commands filling in your command line arguments):
