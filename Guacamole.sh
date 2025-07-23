@@ -63,7 +63,7 @@ if [ $os_family = debian ]; then
 
   # install tomcat
   # since tomcat 9 is currently required, need to add jammy 22.04 updates to install tomcat 9 on 24.04 noble
-  if [[ "${os_codename}" == "noble" ]]
+  if [[ "${os_codename}" == "noble" ]]; then
       echo 'deb http://ke.archive.ubuntu.com/ubuntu/ jammy-updates universe' > /etc/apt/sources.list.d/tomcat9.list
       apt update
   fi
