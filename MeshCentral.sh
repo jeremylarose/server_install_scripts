@@ -7,7 +7,7 @@
 # ./filename.sh -v mc_version
 
 # default variables unless specified from command line
-MC_VERSION="1.2.6"
+MC_VERSION="1.3.1"
 MONGODB_VERSION="7.0"
 NODE_MAJOR="20"
 
